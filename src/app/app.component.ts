@@ -18,7 +18,7 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('incrementUpgradeButton') button: ElementRef;
 
-  counterValue$: Observable<number>;
+  value$: Observable<number>;
   increment$: Observable<number>;
   incrementUpgrade$: Observable<(number) => number>;
 
@@ -30,7 +30,7 @@ export class AppComponent implements AfterViewInit {
       scan((increment, f) => f(increment), 1),
       startWith(1)
     );
-    this.counterValue$ = interval(1000).pipe(
+    this.value$ = interval(1000).pipe(
       withLatestFrom(this.increment$, (_, inc) => inc),
       scan((acc, inc) => acc + inc)
     );
