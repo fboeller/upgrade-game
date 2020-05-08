@@ -14,14 +14,16 @@ export class AppComponent implements AfterViewInit {
 
   value$: Observable<number>;
   increment$: Observable<number>;
-  incrementUpgrade$: Observable<{ cost: number; f: (number) => number }>;
+  incrementUpgradePurchase$: Observable<{ cost: number; f: (number) => number }>;
   incrementUpgradePossible$: Observable<boolean>;
 
+  incrementUpgrade = { cost: 10, f: (x: number) => x + 1 };
+
   ngAfterViewInit() {
-    this.incrementUpgrade$ = fromEvent(this.button.nativeElement, 'click').pipe(
-      mapTo({ cost: 10, f: (x: number) => x + 1 })
+    this.incrementUpgradePurchase$ = fromEvent(this.button.nativeElement, 'click').pipe(
+      mapTo(this.incrementUpgrade)
     );
-    this.increment$ = this.incrementUpgrade$.pipe(
+    this.increment$ = this.incrementUpgradePurchase$.pipe(
       scan((increment, upgrade) => upgrade.f(increment), 1),
       startWith(1)
     );
@@ -32,13 +34,15 @@ export class AppComponent implements AfterViewInit {
           value + increment
         )
       ),
-      this.incrementUpgrade$.pipe(
-        map((incrementUpgrade) => (value) => value - incrementUpgrade.cost)
+      this.incrementUpgradePurchase$.pipe(
+        map((incrementUpgradePurchase) => (value) => value - incrementUpgradePurchase.cost)
       )
     ).pipe(
       scan((acc, f) => f(acc), 0),
       startWith(0)
     );
-    this.incrementUpgradePossible$ = this.value$.pipe(map(value => value < 10));
+    this.incrementUpgradePossible$ = this.value$.pipe(
+      map((value) => value < this.incrementUpgrade.cost)
+    );
   }
 }
