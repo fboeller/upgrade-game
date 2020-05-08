@@ -1,12 +1,6 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
-import { Observable, interval, of, fromEvent } from 'rxjs';
-import { mapTo, scan, withLatestFrom, startWith } from 'rxjs/operators';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Observable, interval, fromEvent, combineLatest, merge } from 'rxjs';
+import { mapTo, scan, withLatestFrom, startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -20,19 +14,29 @@ export class AppComponent implements AfterViewInit {
 
   value$: Observable<number>;
   increment$: Observable<number>;
-  incrementUpgrade$: Observable<(number) => number>;
+  incrementUpgrade$: Observable<{ cost: number; f: (number) => number }>;
 
   ngAfterViewInit() {
     this.incrementUpgrade$ = fromEvent(this.button.nativeElement, 'click').pipe(
-      mapTo((x: number) => x * 2)
+      mapTo({ cost: 10, f: (x: number) => x + 1 })
     );
     this.increment$ = this.incrementUpgrade$.pipe(
-      scan((increment, f) => f(increment), 1),
+      scan((increment, upgrade) => upgrade.f(increment), 1),
       startWith(1)
     );
-    this.value$ = interval(1000).pipe(
-      withLatestFrom(this.increment$, (_, inc) => inc),
-      scan((acc, inc) => acc + inc)
+    const tick$ = interval(1000);
+    this.value$ = merge(
+      tick$.pipe(
+        withLatestFrom(this.increment$, (_, increment) => (value) =>
+          value + increment
+        )
+      ),
+      this.incrementUpgrade$.pipe(
+        map((incrementUpgrade) => (value) => value - incrementUpgrade.cost)
+      )
+    ).pipe(
+      scan((acc, f) => f(acc), 0),
+      startWith(0)
     );
   }
 }
