@@ -15,6 +15,7 @@ export class AppComponent implements AfterViewInit {
   value$: Observable<number>;
   increment$: Observable<number>;
   incrementUpgrade$: Observable<{ cost: number; f: (number) => number }>;
+  incrementUpgradePossible$: Observable<boolean>;
 
   ngAfterViewInit() {
     this.incrementUpgrade$ = fromEvent(this.button.nativeElement, 'click').pipe(
@@ -38,5 +39,6 @@ export class AppComponent implements AfterViewInit {
       scan((acc, f) => f(acc), 0),
       startWith(0)
     );
+    this.incrementUpgradePossible$ = this.value$.pipe(map(value => value < 10));
   }
 }
