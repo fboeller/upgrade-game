@@ -1,25 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, interval, of } from 'rxjs';
-import { mapTo, scan, withLatestFrom } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
+import { Observable, interval, of, fromEvent } from 'rxjs';
+import { mapTo, scan, withLatestFrom, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.styl']
+  styleUrls: ['./app.component.styl'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   title = 'upgrade-game';
+
+  @ViewChild('incrementUpgradeButton') button: ElementRef;
 
   counterValue$: Observable<number>;
   increment$: Observable<number>;
+  incrementUpgrade$: Observable<(number) => number>;
 
-  ngOnInit() {
-    this.increment$ = of(2);
-    this.counterValue$ = interval(1000)
-      .pipe(
-        withLatestFrom(this.increment$, (_, inc) => inc),
-        scan((acc, inc) => acc + inc)
-      )
+  ngAfterViewInit() {
+    this.incrementUpgrade$ = fromEvent(this.button.nativeElement, 'click').pipe(
+      mapTo((x: number) => x * 2)
+    );
+    this.increment$ = this.incrementUpgrade$.pipe(
+      scan((increment, f) => f(increment), 1),
+      startWith(1)
+    );
+    this.counterValue$ = interval(1000).pipe(
+      withLatestFrom(this.increment$, (_, inc) => inc),
+      scan((acc, inc) => acc + inc)
+    );
   }
-
 }
