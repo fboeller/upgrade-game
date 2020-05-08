@@ -1,6 +1,19 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Observable, interval, fromEvent, combineLatest, merge } from 'rxjs';
-import { mapTo, scan, withLatestFrom, startWith, map } from 'rxjs/operators';
+import {
+  Observable,
+  interval,
+  fromEvent,
+  merge,
+  NEVER,
+} from 'rxjs';
+import {
+  mapTo,
+  scan,
+  withLatestFrom,
+  startWith,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,24 +23,45 @@ import { mapTo, scan, withLatestFrom, startWith, map } from 'rxjs/operators';
 export class AppComponent implements AfterViewInit {
   title = 'upgrade-game';
 
-  @ViewChild('incrementUpgradeButton') button: ElementRef;
+  @ViewChild('incrementUpgradeButton') incrementUpgradeButton: ElementRef;
+  @ViewChild('pauseButton') pauseButton: ElementRef;
+  @ViewChild('resumeButton') resumeButton: ElementRef;
 
   value$: Observable<number>;
   increment$: Observable<number>;
-  incrementUpgradePurchase$: Observable<{ cost: number; f: (number) => number }>;
+  incrementUpgradePurchase$: Observable<{
+    cost: number;
+    f: (number) => number;
+  }>;
   incrementUpgradePossible$: Observable<boolean>;
+  timeActive$: Observable<boolean>;
 
   incrementUpgrade = { cost: 10, f: (x: number) => x + 1 };
 
   ngAfterViewInit() {
-    this.incrementUpgradePurchase$ = fromEvent(this.button.nativeElement, 'click').pipe(
-      mapTo(this.incrementUpgrade)
+    const pauseRequest$ = fromEvent(
+      this.pauseButton.nativeElement,
+      'click'
+    ).pipe(mapTo(false));
+    const resumeRequest$ = fromEvent(
+      this.resumeButton.nativeElement,
+      'click'
+    ).pipe(mapTo(true));
+    this.timeActive$ = merge(pauseRequest$, resumeRequest$).pipe(
+      startWith(true)
     );
+
+    this.incrementUpgradePurchase$ = fromEvent(
+      this.incrementUpgradeButton.nativeElement,
+      'click'
+    ).pipe(mapTo(this.incrementUpgrade));
     this.increment$ = this.incrementUpgradePurchase$.pipe(
       scan((increment, upgrade) => upgrade.f(increment), 1),
       startWith(1)
     );
-    const tick$ = interval(1000);
+    const tick$ = this.timeActive$.pipe(
+      switchMap((timeActive) => (timeActive ? interval(1000) : NEVER))
+    );
     this.value$ = merge(
       tick$.pipe(
         withLatestFrom(this.increment$, (_, increment) => (value) =>
@@ -35,7 +69,9 @@ export class AppComponent implements AfterViewInit {
         )
       ),
       this.incrementUpgradePurchase$.pipe(
-        map((incrementUpgradePurchase) => (value) => value - incrementUpgradePurchase.cost)
+        map((incrementUpgradePurchase) => (value) =>
+          value - incrementUpgradePurchase.cost
+        )
       )
     ).pipe(
       scan((acc, f) => f(acc), 0),

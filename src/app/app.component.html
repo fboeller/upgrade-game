@@ -11,3 +11,7 @@
     >
   </div>
 </div>
+<div class="time-control-panel">
+  <a #pauseButton class="btn" [class.disabled]="!(timeActive$ | async)">Pause</a>
+  <a #resumeButton class="btn" [class.disabled]="timeActive$ | async">Resume</a>
+</div>
