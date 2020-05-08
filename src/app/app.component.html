@@ -1,5 +1,13 @@
 <div class="value-card card-panel teal white-text">{{ value$ | async }}</div>
 <div class="card-panel">
-  <span>{{ increment$ | async }}  </span>
-  <a #incrementUpgradeButton class="btn" [class.disabled]="incrementUpgradePossible$ | async">Upgrade increment</a>
+  <div class="upgrade-row">
+    <span class="upgrade-name">Increment</span>
+    <span class="upgrade-value">{{ increment$ | async }} </span>
+    <a
+      #incrementUpgradeButton
+      class="upgrade-btn btn"
+      [class.disabled]="incrementUpgradePossible$ | async"
+      >Upgrade</a
+    >
+  </div>
 </div>
