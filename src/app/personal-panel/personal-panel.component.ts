@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { mapTo, scan, startWith, map } from 'rxjs/operators';
+import { SalaryUpgrade } from '../salary-upgrade';
 
 @Component({
   selector: 'app-personal-panel',
@@ -12,20 +13,14 @@ export class PersonalPanelComponent implements OnInit {
   constructor() { }
 
   @Input() funds$: Observable<number>;
-  @Output('salaryUpgradePurchase') salaryUpgradePurchaseOut: EventEmitter<{
-    cost: number;
-    f: (number) => number;
-  }> = new EventEmitter();
+  @Output('salaryUpgradePurchase') salaryUpgradePurchaseOut: EventEmitter<SalaryUpgrade> = new EventEmitter();
 
   increaseSalaryButtonClicked$: Subject<any> = new Subject();
 
   salary$: Observable<number>;
-  salaryUpgradePurchase$: Observable<{
-    cost: number;
-    f: (number) => number;
-  }>;
+  salaryUpgradePurchase$: Observable<SalaryUpgrade>;
   salaryUpgradePossible$: Observable<boolean>;
-  salaryUpgrade = { cost: 3, f: (x: number) => x + 1 };
+  salaryUpgrade: SalaryUpgrade = { cost: 3, f: (x: number) => x + 1 };
 
   ngOnInit(): void {
     this.salaryUpgradePurchase$ = this.increaseSalaryButtonClicked$.pipe(
