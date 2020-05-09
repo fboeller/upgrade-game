@@ -1,18 +1,10 @@
-import {
-  Component,
-  AfterViewInit,
-  ElementRef,
-  ViewChild,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Observable,
   interval,
-  fromEvent,
   merge,
   NEVER,
   BehaviorSubject,
-  of,
   Subject,
 } from 'rxjs';
 import {
@@ -24,7 +16,6 @@ import {
   switchMap,
   filter,
   first,
-  delay,
 } from 'rxjs/operators';
 
 @Component({
@@ -51,7 +42,7 @@ export class AppComponent implements OnInit {
   }>;
   incrementUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
-  incrementUpgrade = { cost: 10, f: (x: number) => x + 1 };
+  incrementUpgrade = { cost: 3, f: (x: number) => x + 1 };
 
   salary$: Observable<number>;
   salaryUpgradePurchase$: Observable<{
@@ -59,7 +50,7 @@ export class AppComponent implements OnInit {
     f: (number) => number;
   }>;
   salaryUpgradePossible$: Observable<boolean>;
-  salaryUpgrade = { cost: 10, f: (x: number) => x + 1 };
+  salaryUpgrade = { cost: 3, f: (x: number) => x + 1 };
 
   ngOnInit() {
     this.salaryUpgradePurchase$ = this.increaseSalaryButtonClicked$.pipe(
