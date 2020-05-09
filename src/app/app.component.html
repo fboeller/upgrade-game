@@ -19,5 +19,6 @@
   (earning)="earning$.next($event)"
 ></app-business-panel>
 <app-time-control-panel
+  [hidden]="!(timeControlPanelVisible$ | async)"
   (timeActive)="timeActive$.next($event)"
 ></app-time-control-panel>

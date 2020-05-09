@@ -35,6 +35,8 @@ export class AppComponent implements OnInit {
   funds$: Observable<number>;
   salary$: Observable<number>;
 
+  timeControlPanelVisible$: Observable<boolean>;
+
   ngOnInit() {
     this.salary$ = this.upgradePurchase$.pipe(
       filter(upgrade => upgrade.property == 'Salary'),
@@ -50,5 +52,11 @@ export class AppComponent implements OnInit {
       scan((acc, f) => f(acc), 0),
       startWith(0)
     );
+    this.timeControlPanelVisible$ = this.upgradePurchase$.pipe(
+      filter(upgrade => upgrade.property == 'Factory'),
+      mapTo(true),
+      first(),
+      startWith(false)
+    )
   }
 }
