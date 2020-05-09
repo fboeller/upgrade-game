@@ -3,9 +3,7 @@
   <i class="material-icons large">euro_symbol</i>
 </div>
 <div class="manual-labor-panel">
-  <a #workButton class="waves-effect btn-large" [class.disabled]="!(workButtonPressable$ | async)"
-    ><i class="material-icons left">work</i>Work</a
-  >
+  <app-work-button [salary$]="salary$" (earnedSalary)="earnedSalary$.next($event)"></app-work-button>
 </div>
 <div class="card-panel">
   <span class="card-title">Personal</span>
@@ -13,7 +11,7 @@
     <span class="upgrade-name">Salary</span>
     <span class="upgrade-value">{{ salary$ | async }} </span>
     <a
-      #increaseSalaryButton
+      (click)="increaseSalaryButtonClicked$.next()"
       class="upgrade-btn waves-effect btn"
       [class.disabled]="!(salaryUpgradePossible$ | async)"
       >Promote</a

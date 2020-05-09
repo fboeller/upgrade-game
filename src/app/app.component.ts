@@ -1,4 +1,10 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+  OnInit,
+} from '@angular/core';
 import {
   Observable,
   interval,
@@ -7,6 +13,7 @@ import {
   NEVER,
   BehaviorSubject,
   of,
+  Subject,
 } from 'rxjs';
 import {
   mapTo,
@@ -24,18 +31,18 @@ import {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.styl'],
+  animations: [],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'upgrade-game';
 
-  @ViewChild('workButton') workButton: ElementRef;
   @ViewChild('incrementUpgradeButton') incrementUpgradeButton: ElementRef;
-  @ViewChild('increaseSalaryButton') increaseSalaryButton: ElementRef;
+  increaseSalaryButtonClicked$: Subject<any> = new Subject();
+
   timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  earnedSalary$: Subject<number> = new Subject();
 
   value$: Observable<number>;
-
-  workButtonPressable$: Observable<boolean>;
 
   increment$: Observable<number>;
   incrementUpgradePurchase$: Observable<{
@@ -54,23 +61,17 @@ export class AppComponent implements AfterViewInit {
   salaryUpgradePossible$: Observable<boolean>;
   salaryUpgrade = { cost: 10, f: (x: number) => x + 1 };
 
-  ngAfterViewInit() {
-    this.salaryUpgradePurchase$ = fromEvent(
-      this.increaseSalaryButton.nativeElement,
-      'click'
-    ).pipe(mapTo(this.salaryUpgrade));
+  ngOnInit() {
+    this.salaryUpgradePurchase$ = this.increaseSalaryButtonClicked$.pipe(
+      mapTo(this.salaryUpgrade)
+    );
     this.salary$ = this.salaryUpgradePurchase$.pipe(
       scan((salary, upgrade) => upgrade.f(salary), 1),
       startWith(1)
     );
-    const workStarted$ = fromEvent(this.workButton.nativeElement, 'click').pipe(
-      withLatestFrom(this.salary$, (_, salary) => salary)
-    );
-    const workEnded$ = workStarted$.pipe(delay(1000));
-    this.workButtonPressable$ = merge(
-      workStarted$.pipe(mapTo(false)),
-      workEnded$.pipe(mapTo(true))
-    ).pipe(startWith(true));
+  }
+
+  ngAfterViewInit() {
 
     this.incrementUpgradePurchase$ = fromEvent(
       this.incrementUpgradeButton.nativeElement,
@@ -90,7 +91,7 @@ export class AppComponent implements AfterViewInit {
           value + increment
         )
       ),
-      workEnded$.pipe(map((salary) => (value) => value + salary)),
+      this.earnedSalary$.pipe(map((salary) => (value) => value + salary)),
       this.incrementUpgradePurchase$.pipe(
         map((incrementUpgradePurchase) => (value) =>
           value - incrementUpgradePurchase.cost
