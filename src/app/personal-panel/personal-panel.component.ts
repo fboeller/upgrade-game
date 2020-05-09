@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { mapTo, scan, startWith, map } from 'rxjs/operators';
+import { mapTo, scan, startWith, map, filter, first } from 'rxjs/operators';
 import { Upgrade } from '../upgrade';
 
 @Component({
@@ -20,6 +20,7 @@ export class PersonalPanelComponent implements OnInit {
   salary$: Observable<number>;
   upgradePurchase$: Observable<Upgrade>;
   salaryUpgradePossible$: Observable<boolean>;
+  panelVisible$: Observable<boolean>;
   salaryUpgrade: Upgrade = { property: 'Salary', cost: 3, update: (x: number) => x + 1 };
 
   ngOnInit(): void {
@@ -32,6 +33,11 @@ export class PersonalPanelComponent implements OnInit {
     );
     this.salaryUpgradePossible$ = this.funds$.pipe(
       map((value) => value >= this.salaryUpgrade.cost)
+    );
+    this.panelVisible$ = this.salaryUpgradePossible$.pipe(
+      filter((possible) => possible),
+      first(),
+      startWith(false)
     );
 
     this.upgradePurchase$.subscribe(purchase => this.upgradePurchaseOut.emit(purchase));

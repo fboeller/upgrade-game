@@ -1,5 +1,5 @@
 
-<div class="card-panel">
+<div [hidden]="!(panelVisible$ | async)" class="card-panel">
   <span class="card-title">Personal</span>
   <div class="upgrade-row">
     <span class="upgrade-name">Salary</span>
