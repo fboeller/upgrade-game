@@ -33,10 +33,10 @@ import {
   styleUrls: ['./app.component.styl'],
   animations: [],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   title = 'upgrade-game';
 
-  @ViewChild('incrementUpgradeButton') incrementUpgradeButton: ElementRef;
+  incrementUpgradeButtonClicked$: Subject<any> = new Subject();
   increaseSalaryButtonClicked$: Subject<any> = new Subject();
 
   timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -69,19 +69,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       scan((salary, upgrade) => upgrade.f(salary), 1),
       startWith(1)
     );
-  }
 
-  ngAfterViewInit() {
-
-    this.incrementUpgradePurchase$ = fromEvent(
-      this.incrementUpgradeButton.nativeElement,
-      'click'
-    ).pipe(mapTo(this.incrementUpgrade));
+    this.incrementUpgradePurchase$ = this.incrementUpgradeButtonClicked$.pipe(
+      mapTo(this.incrementUpgrade)
+    );
     this.increment$ = this.incrementUpgradePurchase$.pipe(
       scan((increment, upgrade) => upgrade.f(increment), 0),
       startWith(0)
     );
-
     const tick$ = this.timeActive$.pipe(
       switchMap((timeActive) => (timeActive ? interval(1000) : NEVER))
     );

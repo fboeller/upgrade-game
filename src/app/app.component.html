@@ -24,7 +24,7 @@
     <span class="upgrade-name">Increment</span>
     <span class="upgrade-value">{{ increment$ | async }} </span>
     <a
-      #incrementUpgradeButton
+      (click)="incrementUpgradeButtonClicked$.next()"
       class="upgrade-btn waves-effect btn"
       [class.disabled]="!(incrementUpgradePossible$ | async)"
       >Upgrade</a
