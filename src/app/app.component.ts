@@ -17,6 +17,7 @@ import {
   switchMap,
   filter,
   first,
+  delay,
 } from 'rxjs/operators';
 
 @Component({
@@ -33,6 +34,8 @@ export class AppComponent implements AfterViewInit {
   timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   value$: Observable<number>;
+
+  workButtonPressable$: Observable<boolean>;
 
   increment$: Observable<number>;
   incrementUpgradePurchase$: Observable<{
@@ -60,10 +63,14 @@ export class AppComponent implements AfterViewInit {
       scan((salary, upgrade) => upgrade.f(salary), 1),
       startWith(1)
     );
-    const work$ = fromEvent(
-      this.workButton.nativeElement,
-      'click'
-    ).pipe(withLatestFrom(this.salary$, (_, salary) => salary));
+    const workStarted$ = fromEvent(this.workButton.nativeElement, 'click').pipe(
+      withLatestFrom(this.salary$, (_, salary) => salary)
+    );
+    const workEnded$ = workStarted$.pipe(delay(1000));
+    this.workButtonPressable$ = merge(
+      workStarted$.pipe(mapTo(false)),
+      workEnded$.pipe(mapTo(true))
+    ).pipe(startWith(true));
 
     this.incrementUpgradePurchase$ = fromEvent(
       this.incrementUpgradeButton.nativeElement,
@@ -83,7 +90,7 @@ export class AppComponent implements AfterViewInit {
           value + increment
         )
       ),
-      work$.pipe(map((salary) => (value) => value + salary)),
+      workEnded$.pipe(map((salary) => (value) => value + salary)),
       this.incrementUpgradePurchase$.pipe(
         map((incrementUpgradePurchase) => (value) =>
           value - incrementUpgradePurchase.cost
