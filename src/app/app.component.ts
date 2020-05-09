@@ -7,10 +7,8 @@ import {
   startWith,
   map,
   switchMap,
-  combineLatest,
   filter,
   first,
-  skipUntil,
 } from 'rxjs/operators';
 
 @Component({

@@ -3,7 +3,7 @@
   <i class="material-icons large">euro_symbol</i>
 </div>
 <div class="manual-labor-panel">
-  <a #manualLaborButton class="btn-large">Work</a>
+  <a #manualLaborButton class="waves-effect btn-large">Work</a>
 </div>
 <div [hidden]="!(factoryPanelVisible$ | async)" class="card-panel">
   <div class="upgrade-row">
@@ -11,15 +11,15 @@
     <span class="upgrade-value">{{ increment$ | async }} </span>
     <a
       #incrementUpgradeButton
-      class="upgrade-btn btn"
+      class="upgrade-btn waves-effect btn"
       [class.disabled]="!(incrementUpgradePossible$ | async)"
       >Upgrade</a
     >
   </div>
 </div>
 <div class="time-control-panel">
-  <a #pauseButton class="btn" [class.disabled]="!(timeActive$ | async)"
+  <a #pauseButton class="waves-effect btn" [class.disabled]="!(timeActive$ | async)"
     >Pause</a
   >
-  <a #resumeButton class="btn" [class.disabled]="timeActive$ | async">Resume</a>
+  <a #resumeButton class="waves-effect btn" [class.disabled]="timeActive$ | async">Resume</a>
 </div>
