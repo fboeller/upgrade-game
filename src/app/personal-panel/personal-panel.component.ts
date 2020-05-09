@@ -13,20 +13,20 @@ export class PersonalPanelComponent implements OnInit {
   constructor() { }
 
   @Input() funds$: Observable<number>;
-  @Output('salaryUpgradePurchase') salaryUpgradePurchaseOut: EventEmitter<Upgrade> = new EventEmitter();
+  @Output('upgradePurchase') upgradePurchaseOut: EventEmitter<Upgrade> = new EventEmitter();
 
   increaseSalaryButtonClicked$: Subject<any> = new Subject();
 
   salary$: Observable<number>;
-  salaryUpgradePurchase$: Observable<Upgrade>;
+  upgradePurchase$: Observable<Upgrade>;
   salaryUpgradePossible$: Observable<boolean>;
   salaryUpgrade: Upgrade = { property: 'Salary', cost: 3, update: (x: number) => x + 1 };
 
   ngOnInit(): void {
-    this.salaryUpgradePurchase$ = this.increaseSalaryButtonClicked$.pipe(
+    this.upgradePurchase$ = this.increaseSalaryButtonClicked$.pipe(
       mapTo(this.salaryUpgrade)
     );
-    this.salary$ = this.salaryUpgradePurchase$.pipe(
+    this.salary$ = this.upgradePurchase$.pipe(
       scan((salary, upgrade) => upgrade.update(salary), 1),
       startWith(1)
     );
@@ -34,7 +34,7 @@ export class PersonalPanelComponent implements OnInit {
       map((value) => value >= this.salaryUpgrade.cost)
     );
 
-    this.salaryUpgradePurchase$.subscribe(purchase => this.salaryUpgradePurchaseOut.emit(purchase));
+    this.upgradePurchase$.subscribe(purchase => this.upgradePurchaseOut.emit(purchase));
   }
 
 }

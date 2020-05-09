@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { TimeControlPanelComponent } from './time-control-panel/time-control-panel.component';
 import { WorkButtonComponent } from './work-button/work-button.component';
 import { PersonalPanelComponent } from './personal-panel/personal-panel.component';
+import { BusinessPanelComponent } from './business-panel/business-panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TimeControlPanelComponent,
     WorkButtonComponent,
-    PersonalPanelComponent
+    PersonalPanelComponent,
+    BusinessPanelComponent
   ],
   imports: [
     BrowserModule,

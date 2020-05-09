@@ -1,0 +1,13 @@
+<div [hidden]="!(factoryPanelVisible$ | async)" class="card-panel">
+  <span class="card-title">Businesses</span>
+  <div class="upgrade-row">
+    <span class="upgrade-name">Increment</span>
+    <span class="upgrade-value">{{ increment$ | async }} </span>
+    <a
+      (click)="incrementUpgradeButtonClicked$.next()"
+      class="upgrade-btn waves-effect btn"
+      [class.disabled]="!(incrementUpgradePossible$ | async)"
+      >Upgrade</a
+    >
+  </div>
+</div>

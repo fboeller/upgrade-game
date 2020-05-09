@@ -3,22 +3,21 @@
   <i class="material-icons large">euro_symbol</i>
 </div>
 <div class="manual-labor-panel">
-  <app-work-button [salary$]="salary$" (earnedSalary)="earnedSalary$.next($event)"></app-work-button>
+  <app-work-button
+    [salary$]="salary$"
+    (earnedSalary)="earning$.next($event)"
+  ></app-work-button>
 </div>
-<app-personal-panel [funds$]="funds$" (salaryUpgradePurchase)="salaryUpgradePurchase$.next($event)"></app-personal-panel>
-<div [hidden]="!(factoryPanelVisible$ | async)" class="card-panel">
-  <span class="card-title">Businesses</span>
-  <div class="upgrade-row">
-    <span class="upgrade-name">Increment</span>
-    <span class="upgrade-value">{{ increment$ | async }} </span>
-    <a
-      (click)="incrementUpgradeButtonClicked$.next()"
-      class="upgrade-btn waves-effect btn"
-      [class.disabled]="!(incrementUpgradePossible$ | async)"
-      >Upgrade</a
-    >
-  </div>
-</div>
+<app-personal-panel
+  [funds$]="funds$"
+  (upgradePurchase)="upgradePurchase$.next($event)"
+></app-personal-panel>
+<app-business-panel
+  [funds$]="funds$"
+  [timeActive$]="timeActive$"
+  (upgradePurchase)="upgradePurchase$.next($event)"
+  (earning)="earning$.next($event)"
+></app-business-panel>
 <app-time-control-panel
   (timeActive)="timeActive$.next($event)"
 ></app-time-control-panel>
