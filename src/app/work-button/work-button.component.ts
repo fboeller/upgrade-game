@@ -1,14 +1,11 @@
 import {
   Component,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
   Input,
   Output,
   EventEmitter,
   OnInit,
 } from '@angular/core';
-import { Observable, fromEvent, merge, Subject } from 'rxjs';
+import { Observable, merge, Subject } from 'rxjs';
 import { withLatestFrom, delay, mapTo, startWith } from 'rxjs/operators';
 import {
   trigger,

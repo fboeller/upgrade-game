@@ -17,6 +17,7 @@ import {
   filter,
   first,
 } from 'rxjs/operators';
+import { Upgrade } from './upgrade';
 
 @Component({
   selector: 'app-root',
@@ -34,31 +35,25 @@ export class AppComponent implements OnInit {
 
   funds$: Observable<number>;
 
-  salaryUpgradePurchase$: Subject<{
-    cost: number;
-    f: (number) => number;
-  }> = new Subject();
+  salaryUpgradePurchase$: Subject<Upgrade> = new Subject();
   salary$: Observable<number>;
 
   increment$: Observable<number>;
-  incrementUpgradePurchase$: Observable<{
-    cost: number;
-    f: (number) => number;
-  }>;
+  incrementUpgradePurchase$: Observable<Upgrade>;
   incrementUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
-  incrementUpgrade = { cost: 3, f: (x: number) => x + 1 };
+  incrementUpgrade: Upgrade = { property: 'Factory', cost: 3, update: (x: number) => x + 1 };
 
   ngOnInit() {
     this.incrementUpgradePurchase$ = this.incrementUpgradeButtonClicked$.pipe(
       mapTo(this.incrementUpgrade)
     );
     this.increment$ = this.incrementUpgradePurchase$.pipe(
-      scan((increment, upgrade) => upgrade.f(increment), 0),
+      scan((increment, upgrade) => upgrade.update(increment), 0),
       startWith(0)
     );
     this.salary$ = this.salaryUpgradePurchase$.pipe(
-      scan((salary, upgrade) => upgrade.f(salary), 1),
+      scan((salary, upgrade) => upgrade.update(salary), 1),
       startWith(1)
     );
     const tick$ = this.timeActive$.pipe(
