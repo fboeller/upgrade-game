@@ -37,6 +37,7 @@ import {
         })
       ),
       transition('noWorkInProgress => workInProgress', [animate('1s')]),
+      transition('workInProgress => noWorkInProgress', [animate('0s')]),
     ]),
   ],
 })
