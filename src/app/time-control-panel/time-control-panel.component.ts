@@ -1,33 +1,32 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { fromEvent, merge, Observable } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import { merge, Subject, Observable } from 'rxjs';
 import { mapTo, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-time-control-panel',
   templateUrl: './time-control-panel.component.html',
-  styleUrls: ['./time-control-panel.component.styl']
+  styleUrls: ['./time-control-panel.component.styl'],
 })
-export class TimeControlPanelComponent implements AfterViewInit {
+export class TimeControlPanelComponent implements OnInit {
+  @Output('timeActive') timeActiveOut: EventEmitter<boolean> = new EventEmitter();
 
-  @Output('timeActive') timeActive$: EventEmitter<boolean> = new EventEmitter();
+  pauseButtonClicked$: Subject<any> = new Subject();
+  resumeButtonClicked$: Subject<any> = new Subject();
+  timeActive$: Observable<boolean>;
 
-  @ViewChild('pauseButton') pauseButton: ElementRef;
-  @ViewChild('resumeButton') resumeButton: ElementRef;
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {
+    const pauseRequest$ = this.pauseButtonClicked$.pipe(mapTo(false));
+    const resumeRequest$ = this.resumeButtonClicked$.pipe(mapTo(true));
+    this.timeActive$ = merge(pauseRequest$, resumeRequest$)
+      .pipe(startWith(true));
 
-  ngAfterViewInit(): void {
-    const pauseRequest$ = fromEvent(
-      this.pauseButton.nativeElement,
-      'click'
-    ).pipe(mapTo(false));
-    const resumeRequest$ = fromEvent(
-      this.resumeButton.nativeElement,
-      'click'
-    ).pipe(mapTo(true));
-    merge(pauseRequest$, resumeRequest$).pipe(
-      startWith(true)
-    ).subscribe(timeActive => this.timeActive$.emit(timeActive));
+    this.timeActive$.subscribe((timeActive) => this.timeActiveOut.emit(timeActive));
   }
-
 }
