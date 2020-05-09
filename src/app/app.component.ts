@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Observable, interval, fromEvent, merge, NEVER } from 'rxjs';
+import { Observable, interval, fromEvent, merge, NEVER, BehaviorSubject } from 'rxjs';
 import {
   mapTo,
   scan,
@@ -21,8 +21,7 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('manualLaborButton') manualLaborButton: ElementRef;
   @ViewChild('incrementUpgradeButton') incrementUpgradeButton: ElementRef;
-  @ViewChild('pauseButton') pauseButton: ElementRef;
-  @ViewChild('resumeButton') resumeButton: ElementRef;
+  timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   value$: Observable<number>;
   increment$: Observable<number>;
@@ -31,24 +30,11 @@ export class AppComponent implements AfterViewInit {
     f: (number) => number;
   }>;
   incrementUpgradePossible$: Observable<boolean>;
-  timeActive$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
 
   incrementUpgrade = { cost: 10, f: (x: number) => x + 1 };
 
   ngAfterViewInit() {
-    const pauseRequest$ = fromEvent(
-      this.pauseButton.nativeElement,
-      'click'
-    ).pipe(mapTo(false));
-    const resumeRequest$ = fromEvent(
-      this.resumeButton.nativeElement,
-      'click'
-    ).pipe(mapTo(true));
-    this.timeActive$ = merge(pauseRequest$, resumeRequest$).pipe(
-      startWith(true)
-    );
-
     const manualLabor$ = fromEvent(
       this.manualLaborButton.nativeElement,
       'click'
