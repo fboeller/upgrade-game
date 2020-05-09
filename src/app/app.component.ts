@@ -28,12 +28,17 @@ export class AppComponent implements OnInit {
   title = 'upgrade-game';
 
   incrementUpgradeButtonClicked$: Subject<any> = new Subject();
-  increaseSalaryButtonClicked$: Subject<any> = new Subject();
 
   timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   earnedSalary$: Subject<number> = new Subject();
 
-  value$: Observable<number>;
+  funds$: Observable<number>;
+
+  salaryUpgradePurchase$: Subject<{
+    cost: number;
+    f: (number) => number;
+  }> = new Subject();
+  salary$: Observable<number>;
 
   increment$: Observable<number>;
   incrementUpgradePurchase$: Observable<{
@@ -44,23 +49,7 @@ export class AppComponent implements OnInit {
   factoryPanelVisible$: Observable<boolean>;
   incrementUpgrade = { cost: 3, f: (x: number) => x + 1 };
 
-  salary$: Observable<number>;
-  salaryUpgradePurchase$: Observable<{
-    cost: number;
-    f: (number) => number;
-  }>;
-  salaryUpgradePossible$: Observable<boolean>;
-  salaryUpgrade = { cost: 3, f: (x: number) => x + 1 };
-
   ngOnInit() {
-    this.salaryUpgradePurchase$ = this.increaseSalaryButtonClicked$.pipe(
-      mapTo(this.salaryUpgrade)
-    );
-    this.salary$ = this.salaryUpgradePurchase$.pipe(
-      scan((salary, upgrade) => upgrade.f(salary), 1),
-      startWith(1)
-    );
-
     this.incrementUpgradePurchase$ = this.incrementUpgradeButtonClicked$.pipe(
       mapTo(this.incrementUpgrade)
     );
@@ -68,10 +57,14 @@ export class AppComponent implements OnInit {
       scan((increment, upgrade) => upgrade.f(increment), 0),
       startWith(0)
     );
+    this.salary$ = this.salaryUpgradePurchase$.pipe(
+      scan((salary, upgrade) => upgrade.f(salary), 1),
+      startWith(1)
+    );
     const tick$ = this.timeActive$.pipe(
       switchMap((timeActive) => (timeActive ? interval(1000) : NEVER))
     );
-    this.value$ = merge(
+    this.funds$ = merge(
       tick$.pipe(
         withLatestFrom(this.increment$, (_, increment) => (value) =>
           value + increment
@@ -93,11 +86,8 @@ export class AppComponent implements OnInit {
       startWith(0)
     );
 
-    this.incrementUpgradePossible$ = this.value$.pipe(
+    this.incrementUpgradePossible$ = this.funds$.pipe(
       map((value) => value >= this.incrementUpgrade.cost)
-    );
-    this.salaryUpgradePossible$ = this.value$.pipe(
-      map((value) => value >= this.salaryUpgrade.cost)
     );
     this.factoryPanelVisible$ = this.incrementUpgradePossible$.pipe(
       filter((possible) => possible),
