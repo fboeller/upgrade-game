@@ -27,7 +27,7 @@ import {
 export class AppComponent implements AfterViewInit {
   title = 'upgrade-game';
 
-  @ViewChild('manualLaborButton') manualLaborButton: ElementRef;
+  @ViewChild('workButton') workButton: ElementRef;
   @ViewChild('incrementUpgradeButton') incrementUpgradeButton: ElementRef;
   @ViewChild('increaseSalaryButton') increaseSalaryButton: ElementRef;
   timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -60,8 +60,8 @@ export class AppComponent implements AfterViewInit {
       scan((salary, upgrade) => upgrade.f(salary), 1),
       startWith(1)
     );
-    const manualLabor$ = fromEvent(
-      this.manualLaborButton.nativeElement,
+    const work$ = fromEvent(
+      this.workButton.nativeElement,
       'click'
     ).pipe(withLatestFrom(this.salary$, (_, salary) => salary));
 
@@ -83,7 +83,7 @@ export class AppComponent implements AfterViewInit {
           value + increment
         )
       ),
-      manualLabor$.pipe(map((increment) => (value) => increment + value)),
+      work$.pipe(map((salary) => (value) => value + salary)),
       this.incrementUpgradePurchase$.pipe(
         map((incrementUpgradePurchase) => (value) =>
           value - incrementUpgradePurchase.cost
