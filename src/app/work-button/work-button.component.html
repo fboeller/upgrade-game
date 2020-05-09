@@ -1,3 +1,6 @@
 <a #workButton class="waves-effect btn-large" [class.disabled]="!(workButtonPressable$ | async)"
   ><i class="material-icons left">work</i>Work</a
 >
+<div class="progress">
+  <div class="determinate" [@startWork]="(workButtonPressable$ | async) ? 'noWorkInProgress' : 'workInProgress'"></div>
+</div>

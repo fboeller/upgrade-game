@@ -1,11 +1,25 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { withLatestFrom, delay, mapTo, startWith } from 'rxjs/operators';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-work-button',
   templateUrl: './work-button.component.html',
-  styleUrls: ['./work-button.component.styl']
+  styleUrls: ['./work-button.component.styl'],
+  animations: [
+    trigger('startWork', [
+      state('workInProgress', style({
+        width: '100%'
+      })),
+      state('noWorkInProgress', style({
+        width: '0%'
+      })),
+      transition('noWorkInProgress => workInProgress', [
+        animate('1s')
+      ])
+    ])
+  ]
 })
 export class WorkButtonComponent implements AfterViewInit {
 
