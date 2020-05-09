@@ -1,21 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Observable,
-  interval,
-  merge,
-  NEVER,
-  BehaviorSubject,
-  Subject,
-} from 'rxjs';
+import { Observable, merge, BehaviorSubject, Subject } from 'rxjs';
 import {
   mapTo,
   scan,
-  withLatestFrom,
   startWith,
   map,
-  switchMap,
   filter,
   first,
+  shareReplay,
 } from 'rxjs/operators';
 import { Upgrade } from './upgrade';
 
@@ -39,9 +31,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.salary$ = this.upgradePurchase$.pipe(
-      filter(upgrade => upgrade.property == 'Salary'),
+      filter((upgrade) => upgrade.property == 'Salary'),
       scan((salary, upgrade) => upgrade.update(salary), 1),
-      startWith(1)
+      startWith(1),
+      shareReplay(1)
     );
     this.funds$ = merge(
       this.earning$.pipe(map((salary) => (value) => value + salary)),
@@ -50,13 +43,14 @@ export class AppComponent implements OnInit {
       )
     ).pipe(
       scan((acc, f) => f(acc), 0),
-      startWith(0)
+      startWith(0),
+      shareReplay(1)
     );
     this.timeControlPanelVisible$ = this.upgradePurchase$.pipe(
-      filter(upgrade => upgrade.property == 'Factory'),
+      filter((upgrade) => upgrade.property == 'Factory'),
       mapTo(true),
       first(),
       startWith(false)
-    )
+    );
   }
 }

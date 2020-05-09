@@ -25,7 +25,7 @@ export class BusinessPanelComponent implements OnInit {
   incrementUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
   earning$: Observable<number>;
-  incrementUpgrade: Upgrade = { property: 'Factory', cost: 3, update: (x: number) => x + 1 };
+  incrementUpgrade: Upgrade = { property: 'Factory', cost: 10, update: (x: number) => x + 1 };
 
   ngOnInit(): void {
     this.incrementUpgradePurchase$ = this.incrementUpgradeButtonClicked$.pipe(
