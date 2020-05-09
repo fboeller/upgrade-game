@@ -10,6 +10,7 @@
         [class.disabled]="!(salaryUpgradePossible$ | async)"
         >Promote</a
       >
+      <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">-{{(nextPurchase$ | async).cost}}<i class="material-icons right">euro_symbol</i></div>
     </div>
   </div>
 </div>
