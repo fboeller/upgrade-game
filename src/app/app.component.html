@@ -1,4 +1,7 @@
-<div class="value-card card-panel teal white-text">{{ value$ | async }}</div>
+<div class="value-card card-panel teal white-text">
+  {{ value$ | async }}
+  <i class="material-icons large">euro_symbol</i>
+</div>
 <div class="manual-labor-panel">
   <a #manualLaborButton class="btn-large">Work</a>
 </div>
@@ -15,6 +18,8 @@
   </div>
 </div>
 <div class="time-control-panel">
-  <a #pauseButton class="btn" [class.disabled]="!(timeActive$ | async)">Pause</a>
+  <a #pauseButton class="btn" [class.disabled]="!(timeActive$ | async)"
+    >Pause</a
+  >
   <a #resumeButton class="btn" [class.disabled]="timeActive$ | async">Resume</a>
 </div>
