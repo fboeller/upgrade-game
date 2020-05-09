@@ -1,11 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import {
-  Observable,
-  interval,
-  fromEvent,
-  merge,
-  NEVER,
-} from 'rxjs';
+import { Observable, interval, fromEvent, merge, NEVER } from 'rxjs';
 import {
   mapTo,
   scan,
@@ -23,6 +17,7 @@ import {
 export class AppComponent implements AfterViewInit {
   title = 'upgrade-game';
 
+  @ViewChild('manualLaborButton') manualLaborButton: ElementRef;
   @ViewChild('incrementUpgradeButton') incrementUpgradeButton: ElementRef;
   @ViewChild('pauseButton') pauseButton: ElementRef;
   @ViewChild('resumeButton') resumeButton: ElementRef;
@@ -51,6 +46,11 @@ export class AppComponent implements AfterViewInit {
       startWith(true)
     );
 
+    const manualLabor$ = fromEvent(
+      this.manualLaborButton.nativeElement,
+      'click'
+    ).pipe(mapTo(1));
+
     this.incrementUpgradePurchase$ = fromEvent(
       this.incrementUpgradeButton.nativeElement,
       'click'
@@ -68,6 +68,7 @@ export class AppComponent implements AfterViewInit {
           value + increment
         )
       ),
+      manualLabor$.pipe(map(increment => value => increment + value)),
       this.incrementUpgradePurchase$.pipe(
         map((incrementUpgradePurchase) => (value) =>
           value - incrementUpgradePurchase.cost
