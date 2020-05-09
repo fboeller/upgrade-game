@@ -1,5 +1,13 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Observable, interval, fromEvent, merge, NEVER, BehaviorSubject } from 'rxjs';
+import {
+  Observable,
+  interval,
+  fromEvent,
+  merge,
+  NEVER,
+  BehaviorSubject,
+  of,
+} from 'rxjs';
 import {
   mapTo,
   scan,
@@ -21,9 +29,11 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('manualLaborButton') manualLaborButton: ElementRef;
   @ViewChild('incrementUpgradeButton') incrementUpgradeButton: ElementRef;
+  @ViewChild('increaseSalaryButton') increaseSalaryButton: ElementRef;
   timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   value$: Observable<number>;
+
   increment$: Observable<number>;
   incrementUpgradePurchase$: Observable<{
     cost: number;
@@ -31,14 +41,29 @@ export class AppComponent implements AfterViewInit {
   }>;
   incrementUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
-
   incrementUpgrade = { cost: 10, f: (x: number) => x + 1 };
 
+  salary$: Observable<number>;
+  salaryUpgradePurchase$: Observable<{
+    cost: number;
+    f: (number) => number;
+  }>;
+  salaryUpgradePossible$: Observable<boolean>;
+  salaryUpgrade = { cost: 10, f: (x: number) => x + 1 };
+
   ngAfterViewInit() {
+    this.salaryUpgradePurchase$ = fromEvent(
+      this.increaseSalaryButton.nativeElement,
+      'click'
+    ).pipe(mapTo(this.salaryUpgrade));
+    this.salary$ = this.salaryUpgradePurchase$.pipe(
+      scan((salary, upgrade) => upgrade.f(salary), 1),
+      startWith(1)
+    );
     const manualLabor$ = fromEvent(
       this.manualLaborButton.nativeElement,
       'click'
-    ).pipe(mapTo(1));
+    ).pipe(withLatestFrom(this.salary$, (_, salary) => salary));
 
     this.incrementUpgradePurchase$ = fromEvent(
       this.incrementUpgradeButton.nativeElement,
@@ -63,6 +88,11 @@ export class AppComponent implements AfterViewInit {
         map((incrementUpgradePurchase) => (value) =>
           value - incrementUpgradePurchase.cost
         )
+      ),
+      this.salaryUpgradePurchase$.pipe(
+        map((increaseSalaryPurchase) => (value) =>
+          value - increaseSalaryPurchase.cost
+        )
       )
     ).pipe(
       scan((acc, f) => f(acc), 0),
@@ -71,6 +101,9 @@ export class AppComponent implements AfterViewInit {
 
     this.incrementUpgradePossible$ = this.value$.pipe(
       map((value) => value >= this.incrementUpgrade.cost)
+    );
+    this.salaryUpgradePossible$ = this.value$.pipe(
+      map((value) => value >= this.salaryUpgrade.cost)
     );
     this.factoryPanelVisible$ = this.incrementUpgradePossible$.pipe(
       filter((possible) => possible),
