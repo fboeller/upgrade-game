@@ -2,11 +2,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject, interval, NEVER } from 'rxjs';
 import { Upgrade } from '../upgrade';
 import { mapTo, scan, startWith, switchMap, filter, first, withLatestFrom, map } from 'rxjs/operators';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-business-panel',
   templateUrl: './business-panel.component.html',
-  styleUrls: ['./business-panel.component.styl']
+  styleUrls: ['./business-panel.component.styl'],
+  animations: [
+    trigger('appear', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class BusinessPanelComponent implements OnInit {
 

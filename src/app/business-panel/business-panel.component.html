@@ -1,13 +1,15 @@
-<div @appear *ngIf="factoryPanelVisible$ | async" class="card-panel">
-  <span class="card-title">Businesses</span>
-  <div class="upgrade-row">
-    <span class="upgrade-name">Increment</span>
-    <span class="upgrade-value">{{ increment$ | async }} </span>
-    <a
-      (click)="incrementUpgradeButtonClicked$.next()"
-      class="upgrade-btn waves-effect btn"
-      [class.disabled]="!(incrementUpgradePossible$ | async)"
-      >Upgrade</a
-    >
+<div @appear *ngIf="factoryPanelVisible$ | async">
+  <h5 class="card-title">Businesses</h5>
+  <div class="row upgrade-row">
+    <div class="col s4">Increment</div>
+    <div class="col s2">{{ increment$ | async }}</div>
+    <div class="col s6">
+      <a
+        (click)="incrementUpgradeButtonClicked$.next()"
+        class="upgrade-btn waves-effect btn"
+        [class.disabled]="!(incrementUpgradePossible$ | async)"
+        >Upgrade</a
+      >
+    </div>
   </div>
 </div>

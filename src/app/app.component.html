@@ -1,24 +1,29 @@
-<div class="value-card card-panel teal white-text">
-  {{ funds$ | async }}
-  <i class="material-icons large">euro_symbol</i>
+<div class="funds-card card-panel teal white-text">
+  {{ funds$ | async }}<i class="material-icons large">euro_symbol</i>
 </div>
-<div class="manual-labor-panel">
+<div class="section manual-labor-panel">
   <app-work-button
     [salary$]="salary$"
     (earnedSalary)="earning$.next($event)"
   ></app-work-button>
 </div>
-<app-personal-panel
-  [funds$]="funds$"
-  (upgradePurchase)="upgradePurchase$.next($event)"
-></app-personal-panel>
-<app-business-panel
-  [funds$]="funds$"
-  [timeActive$]="timeActive$"
-  (upgradePurchase)="upgradePurchase$.next($event)"
-  (earning)="earning$.next($event)"
-></app-business-panel>
-<app-time-control-panel
-  *ngIf="timeControlPanelVisible$ | async"
-  (timeActive)="timeActive$.next($event)"
-></app-time-control-panel>
+<div class="section">
+  <app-personal-panel
+    [funds$]="funds$"
+    (upgradePurchase)="upgradePurchase$.next($event)"
+  ></app-personal-panel>
+</div>
+<div class="section">
+  <app-business-panel
+    [funds$]="funds$"
+    [timeActive$]="timeActive$"
+    (upgradePurchase)="upgradePurchase$.next($event)"
+    (earning)="earning$.next($event)"
+  ></app-business-panel>
+</div>
+<div class="section">
+  <app-time-control-panel
+    *ngIf="timeControlPanelVisible$ | async"
+    (timeActive)="timeActive$.next($event)"
+  ></app-time-control-panel>
+</div>

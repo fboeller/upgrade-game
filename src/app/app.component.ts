@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
       )
     ).pipe(
       scan((acc, f) => f(acc), 0),
-      startWith(0),
+      startWith(100),
       shareReplay(1)
     );
     this.timeControlPanelVisible$ = this.upgradePurchase$.pipe(
