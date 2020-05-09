@@ -1,5 +1,5 @@
 
-<div *ngIf="panelVisible$ | async" class="card-panel">
+<div @appear *ngIf="panelVisible$ | async" class="card-panel">
   <span class="card-title">Personal</span>
   <div class="upgrade-row">
     <span class="upgrade-name">Salary</span>
