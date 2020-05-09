@@ -5,14 +5,14 @@
 <div class="manual-labor-panel">
   <a #manualLaborButton class="btn-large">Work</a>
 </div>
-<div class="card-panel">
+<div [hidden]="!(factoryPanelVisible$ | async)" class="card-panel">
   <div class="upgrade-row">
     <span class="upgrade-name">Increment</span>
     <span class="upgrade-value">{{ increment$ | async }} </span>
     <a
       #incrementUpgradeButton
       class="upgrade-btn btn"
-      [class.disabled]="incrementUpgradePossible$ | async"
+      [class.disabled]="!(incrementUpgradePossible$ | async)"
       >Upgrade</a
     >
   </div>

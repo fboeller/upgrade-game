@@ -7,6 +7,10 @@ import {
   startWith,
   map,
   switchMap,
+  combineLatest,
+  filter,
+  first,
+  skipUntil,
 } from 'rxjs/operators';
 
 @Component({
@@ -30,6 +34,7 @@ export class AppComponent implements AfterViewInit {
   }>;
   incrementUpgradePossible$: Observable<boolean>;
   timeActive$: Observable<boolean>;
+  factoryPanelVisible$: Observable<boolean>;
 
   incrementUpgrade = { cost: 10, f: (x: number) => x + 1 };
 
@@ -56,9 +61,10 @@ export class AppComponent implements AfterViewInit {
       'click'
     ).pipe(mapTo(this.incrementUpgrade));
     this.increment$ = this.incrementUpgradePurchase$.pipe(
-      scan((increment, upgrade) => upgrade.f(increment), 1),
-      startWith(1)
+      scan((increment, upgrade) => upgrade.f(increment), 0),
+      startWith(0)
     );
+
     const tick$ = this.timeActive$.pipe(
       switchMap((timeActive) => (timeActive ? interval(1000) : NEVER))
     );
@@ -68,7 +74,7 @@ export class AppComponent implements AfterViewInit {
           value + increment
         )
       ),
-      manualLabor$.pipe(map(increment => value => increment + value)),
+      manualLabor$.pipe(map((increment) => (value) => increment + value)),
       this.incrementUpgradePurchase$.pipe(
         map((incrementUpgradePurchase) => (value) =>
           value - incrementUpgradePurchase.cost
@@ -78,8 +84,14 @@ export class AppComponent implements AfterViewInit {
       scan((acc, f) => f(acc), 0),
       startWith(0)
     );
+
     this.incrementUpgradePossible$ = this.value$.pipe(
-      map((value) => value < this.incrementUpgrade.cost)
+      map((value) => value >= this.incrementUpgrade.cost)
+    );
+    this.factoryPanelVisible$ = this.incrementUpgradePossible$.pipe(
+      filter((possible) => possible),
+      first(),
+      startWith(false)
     );
   }
 }
