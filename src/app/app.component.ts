@@ -1,16 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, merge, BehaviorSubject, Subject } from 'rxjs';
-import {
-  mapTo,
-  scan,
-  startWith,
-  map,
-  filter,
-  first,
-  shareReplay,
-  skipUntil,
-} from 'rxjs/operators';
-import { Upgrade } from './upgrade';
+import { Observable } from 'rxjs';
+import { startWith, filter, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState } from './actions';
 
@@ -33,7 +23,7 @@ export class AppComponent implements OnInit {
     this.timeControlPanelVisible$ = this.store.pipe(
       select('gameState'),
       select('timeActive'),
-      filter(timeActive => timeActive),
+      filter((timeActive) => timeActive),
       first(),
       startWith(false)
     );

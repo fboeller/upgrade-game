@@ -1,16 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable, Subject, range, zip } from 'rxjs';
-import {
-  scan,
-  startWith,
-  map,
-  filter,
-  first,
-  withLatestFrom,
-  skip,
-  tap,
-} from 'rxjs/operators';
-import { Upgrade } from '../upgrade';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, salaryUpgrade } from '../actions';
@@ -29,7 +19,6 @@ import { AppState, salaryUpgrade } from '../actions';
   ],
 })
 export class PersonalPanelComponent implements OnInit {
-
   constructor(private store: Store<AppState>) {}
 
   salary$: Observable<number>;
@@ -42,10 +31,7 @@ export class PersonalPanelComponent implements OnInit {
       select('gameState'),
       select('salaryUpgradeCost')
     );
-    this.salary$ = this.store.pipe(
-      select('gameState'),
-      select('salary')
-    );
+    this.salary$ = this.store.pipe(select('gameState'), select('salary'));
     this.salaryUpgradePossible$ = this.store.pipe(
       select('gameState'),
       map((state) => state.funds >= state.salaryUpgradeCost)

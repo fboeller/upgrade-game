@@ -1,12 +1,6 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, merge, Subject } from 'rxjs';
-import { withLatestFrom, delay, mapTo, startWith } from 'rxjs/operators';
+import { delay, mapTo, startWith } from 'rxjs/operators';
 import {
   trigger,
   state,
@@ -41,7 +35,6 @@ import { AppState, work } from '../actions';
   ],
 })
 export class WorkButtonComponent implements OnInit {
-
   constructor(private store: Store<AppState>) {}
 
   workButtonClicked$: Subject<any> = new Subject();

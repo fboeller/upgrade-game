@@ -1,24 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable, Subject, interval, NEVER, Subscription } from 'rxjs';
-import { Upgrade } from '../upgrade';
-import {
-  mapTo,
-  scan,
-  startWith,
-  switchMap,
-  filter,
-  first,
-  withLatestFrom,
-  map,
-} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Observable, interval, NEVER, Subscription } from 'rxjs';
+import { startWith, switchMap, filter, first, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import {
-  GameState,
-  AppState,
-  businessIncome,
-  businessIncomeUpgrade,
-} from '../actions';
+import { AppState, businessIncome, businessIncomeUpgrade } from '../actions';
 
 @Component({
   selector: 'app-business-panel',
