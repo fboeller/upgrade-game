@@ -16,7 +16,6 @@
 <div class="section">
   <app-business-panel
     [funds$]="funds$"
-    [timeActive$]="timeActive$"
     (upgradePurchase)="upgradePurchase$.next($event)"
     (earning)="earning$.next($event)"
   ></app-business-panel>
@@ -24,6 +23,5 @@
 <div class="section">
   <app-time-control-panel
     *ngIf="timeControlPanelVisible$ | async"
-    (timeActive)="timeActive$.next($event)"
   ></app-time-control-panel>
 </div>

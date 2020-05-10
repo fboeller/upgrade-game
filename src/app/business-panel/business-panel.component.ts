@@ -3,6 +3,7 @@ import { Observable, Subject, interval, NEVER } from 'rxjs';
 import { Upgrade } from '../upgrade';
 import { mapTo, scan, startWith, switchMap, filter, first, withLatestFrom, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-business-panel',
@@ -19,10 +20,13 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class BusinessPanelComponent implements OnInit {
 
-  constructor() { }
+  timeActive$: Observable<boolean>;
+
+  constructor(store: Store<{ timeActive: boolean }>) {
+    this.timeActive$ = store.pipe(select('timeActive'));
+  }
 
   @Input() funds$: Observable<number>;
-  @Input() timeActive$: Observable<boolean>;
 
   @Output('earning') earningOut: EventEmitter<number> = new EventEmitter();
   @Output('upgradePurchase') upgradePurchaseOut: EventEmitter<Upgrade> = new EventEmitter();

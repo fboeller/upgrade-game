@@ -1,32 +1,29 @@
 import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
+  Component
 } from '@angular/core';
-import { merge, Subject, Observable } from 'rxjs';
-import { mapTo, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { pause, resume } from '../time-actions';
 
 @Component({
   selector: 'app-time-control-panel',
   templateUrl: './time-control-panel.component.html',
   styleUrls: ['./time-control-panel.component.styl'],
 })
-export class TimeControlPanelComponent implements OnInit {
-  @Output('timeActive') timeActiveOut: EventEmitter<boolean> = new EventEmitter();
+export class TimeControlPanelComponent {
 
-  pauseButtonClicked$: Subject<any> = new Subject();
-  resumeButtonClicked$: Subject<any> = new Subject();
   timeActive$: Observable<boolean>;
 
-  constructor() {}
-
-  ngOnInit(): void {
-    const pauseRequest$ = this.pauseButtonClicked$.pipe(mapTo(false));
-    const resumeRequest$ = this.resumeButtonClicked$.pipe(mapTo(true));
-    this.timeActive$ = merge(pauseRequest$, resumeRequest$)
-      .pipe(startWith(true));
-
-    this.timeActive$.subscribe((timeActive) => this.timeActiveOut.emit(timeActive));
+  constructor(private store: Store<{ timeActive: boolean }>) {
+    this.timeActive$ = store.pipe(select('timeActive'));
   }
+
+  pause() {
+    this.store.dispatch(pause());
+  }
+
+  resume() {
+    this.store.dispatch(resume());
+  }
+
 }

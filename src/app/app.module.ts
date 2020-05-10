@@ -7,6 +7,8 @@ import { TimeControlPanelComponent } from './time-control-panel/time-control-pan
 import { WorkButtonComponent } from './work-button/work-button.component';
 import { PersonalPanelComponent } from './personal-panel/personal-panel.component';
 import { BusinessPanelComponent } from './business-panel/business-panel.component';
+import { StoreModule } from '@ngrx/store';
+import { timeReducer } from './time-actions';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { BusinessPanelComponent } from './business-panel/business-panel.componen
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot({ timeActive: timeReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

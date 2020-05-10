@@ -20,7 +20,6 @@ import { Upgrade } from './upgrade';
 export class AppComponent implements OnInit {
   title = 'upgrade-game';
 
-  timeActive$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   earning$: Subject<number> = new Subject();
   upgradePurchase$: Subject<Upgrade> = new Subject();
 
