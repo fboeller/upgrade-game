@@ -19,10 +19,9 @@ export class AppComponent implements OnInit {
   timeControlPanelVisible$: Observable<boolean>;
 
   ngOnInit() {
-    this.funds$ = this.store.pipe(select('gameState'), select('funds'));
+    this.funds$ = this.store.pipe(select('gameState', 'funds'));
     this.timeControlPanelVisible$ = this.store.pipe(
-      select('gameState'),
-      select('timeActive'),
+      select('gameState', 'timeActive'),
       filter((timeActive) => timeActive),
       first(),
       startWith(false)

@@ -1,4 +1,5 @@
 import { createAction, createReducer, on } from '@ngrx/store';
+import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 
 export interface AppState {
   gameState: GameState;
@@ -8,10 +9,14 @@ export interface GameState {
   timeActive: boolean;
   funds: number;
   properties: {
-    salaryUpgradeCost: number;
-    salary: number;
-    businessIncome: number;
-    businessIncomeUpgradeCost: number;
+    salary: {
+      value: number;
+      upgradeCost: number;
+    };
+    businessIncome: {
+      value: number;
+      upgradeCost: number;
+    };
   };
 }
 
@@ -26,10 +31,14 @@ const initialState: GameState = {
   timeActive: false,
   funds: 0,
   properties: {
-    salaryUpgradeCost: 1,
-    salary: 1,
-    businessIncome: 0,
-    businessIncomeUpgradeCost: 10,
+    salary: {
+      value: 1,
+      upgradeCost: 1,
+    },
+    businessIncome: {
+      value: 0,
+      upgradeCost: 10,
+    },
   },
 };
 
@@ -39,24 +48,34 @@ const _stateReducer = createReducer(
   on(pause, (state) => ({ ...state, timeActive: false })),
   on(salaryUpgrade, (state) => ({
     ...state,
-    funds: state.funds - state.properties.salaryUpgradeCost,
-    salaryUpgradeCost: state.properties.salaryUpgradeCost + 1,
-    salary: state.properties.salary + 1,
+    funds: state.funds - state.properties.salary.upgradeCost,
+    properties: {
+      ...state.properties,
+      salary: {
+        upgradeCost: state.properties.salary.upgradeCost + 1,
+        value: state.properties.salary.value + 1,
+      }
+    },
   })),
   on(work, (state) => ({
     ...state,
-    funds: state.funds + state.properties.salary,
+    funds: state.funds + state.properties.salary.value,
   })),
   on(businessIncomeUpgrade, (state) => ({
     ...state,
-    funds: state.funds - state.properties.businessIncomeUpgradeCost,
-    businessIncomeUpgradeCost: state.properties.businessIncomeUpgradeCost + 10,
-    businessIncome: state.properties.businessIncome + 1,
+    funds: state.funds - state.properties.businessIncome.upgradeCost,
     timeActive: true,
+    properties: {
+      ...state.properties,
+      businessIncome: {
+        value: state.properties.businessIncome.value + 1,
+        upgradeCost: state.properties.businessIncome.upgradeCost + 10,
+      }
+    },
   })),
   on(businessIncome, (state) => ({
     ...state,
-    funds: state.funds + state.properties.businessIncome,
+    funds: state.funds + state.properties.businessIncome.value,
   }))
 );
 

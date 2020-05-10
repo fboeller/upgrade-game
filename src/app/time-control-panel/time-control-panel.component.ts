@@ -17,7 +17,7 @@ export class TimeControlPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.timeActive$ = this.store.pipe(select('gameState'), select('timeActive'));
+    this.timeActive$ = this.store.pipe(select('gameState', 'timeActive'));
   }
 
   pause() {

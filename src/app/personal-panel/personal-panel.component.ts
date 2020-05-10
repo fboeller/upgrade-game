@@ -28,18 +28,14 @@ export class PersonalPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.salaryUpgradeCost$ = this.store.pipe(
-      select('gameState'),
-      select('properties'),
-      select('salaryUpgradeCost')
+      select('gameState', 'properties', 'salary', 'upgradeCost')
     );
     this.salary$ = this.store.pipe(
-      select('gameState'),
-      select('properties'),
-      select('salary')
+      select('gameState', 'properties', 'salary', 'value')
     );
     this.salaryUpgradePossible$ = this.store.pipe(
       select('gameState'),
-      map((state) => state.funds >= state.properties.salaryUpgradeCost)
+      map((state) => state.funds >= state.properties.salary.upgradeCost)
     );
     this.panelVisible$ = this.salaryUpgradePossible$.pipe(
       filter((possible) => possible),
