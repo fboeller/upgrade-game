@@ -7,10 +7,12 @@ export interface AppState {
 export interface GameState {
   timeActive: boolean;
   funds: number;
-  salaryUpgradeCost: number;
-  salary: number;
-  businessIncome: number;
-  businessIncomeUpgradeCost: number;
+  properties: {
+    salaryUpgradeCost: number;
+    salary: number;
+    businessIncome: number;
+    businessIncomeUpgradeCost: number;
+  };
 }
 
 export const resume = createAction('[Time] Resume');
@@ -23,10 +25,12 @@ export const businessIncome = createAction('[Funds] Business Income');
 const initialState: GameState = {
   timeActive: false,
   funds: 0,
-  salaryUpgradeCost: 1,
-  salary: 1,
-  businessIncome: 0,
-  businessIncomeUpgradeCost: 10
+  properties: {
+    salaryUpgradeCost: 1,
+    salary: 1,
+    businessIncome: 0,
+    businessIncomeUpgradeCost: 10,
+  },
 };
 
 const _stateReducer = createReducer(
@@ -35,24 +39,24 @@ const _stateReducer = createReducer(
   on(pause, (state) => ({ ...state, timeActive: false })),
   on(salaryUpgrade, (state) => ({
     ...state,
-    funds: state.funds - state.salaryUpgradeCost,
-    salaryUpgradeCost: state.salaryUpgradeCost + 1,
-    salary: state.salary + 1,
+    funds: state.funds - state.properties.salaryUpgradeCost,
+    salaryUpgradeCost: state.properties.salaryUpgradeCost + 1,
+    salary: state.properties.salary + 1,
   })),
   on(work, (state) => ({
     ...state,
-    funds: state.funds + state.salary,
+    funds: state.funds + state.properties.salary,
   })),
   on(businessIncomeUpgrade, (state) => ({
     ...state,
-    funds: state.funds - state.businessIncomeUpgradeCost,
-    businessIncomeUpgradeCost: state.businessIncomeUpgradeCost + 10,
-    businessIncome: state.businessIncome + 1,
-    timeActive: true
+    funds: state.funds - state.properties.businessIncomeUpgradeCost,
+    businessIncomeUpgradeCost: state.properties.businessIncomeUpgradeCost + 10,
+    businessIncome: state.properties.businessIncome + 1,
+    timeActive: true,
   })),
   on(businessIncome, (state) => ({
     ...state,
-    funds: state.funds + state.businessIncome,
+    funds: state.funds + state.properties.businessIncome,
   }))
 );
 

@@ -28,11 +28,12 @@ export class BusinessPanelComponent implements OnInit {
   ngOnInit() {
     this.businessIncome$ = this.store.pipe(
       select('gameState'),
+      select('properties'),
       select('businessIncome')
     );
     this.businessIncomeUpgradePossible$ = this.store.pipe(
       select('gameState'),
-      map((state) => state.funds >= state.businessIncomeUpgradeCost)
+      map((state) => state.funds >= state.properties.businessIncomeUpgradeCost)
     );
     this.factoryPanelVisible$ = this.businessIncomeUpgradePossible$.pipe(
       filter((possible) => possible),
