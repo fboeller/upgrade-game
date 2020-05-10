@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { startWith, filter, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { AppState } from './actions';
+import { AppState } from './actions/game.actions';
 
 @Component({
   selector: 'app-root',

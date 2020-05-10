@@ -9,7 +9,7 @@ import {
   animate,
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
-import { AppState, work } from '../actions';
+import { AppState, work } from '../actions/game.actions';
 
 @Component({
   selector: 'app-work-button',

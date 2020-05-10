@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { pause, resume, AppState } from '../actions';
+import { pause, resume, AppState } from '../actions/game.actions';
 
 @Component({
   selector: 'app-time-control-panel',

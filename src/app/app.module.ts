@@ -10,7 +10,7 @@ import { BusinessPanelComponent } from './business-panel/business-panel.componen
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { stateReducer } from './actions';
+import { stateReducer } from './actions/game.actions';
 import { IncomeEffects } from './effects/income.effects';
 
 @NgModule({

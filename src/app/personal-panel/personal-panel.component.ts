@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, upgrade, Property } from '../actions';
+import { AppState, upgrade, Property } from '../actions/game.actions';
 
 @Component({
   selector: 'app-personal-panel',
