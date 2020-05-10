@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { startWith, filter, first, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, upgrade, resume } from '../actions/game.actions';
-import { isUpgradePossible } from '../selectors/game.selectors';
+import { AppState, upgrade, resume } from '../../actions/game.actions';
+import { isUpgradePossible } from '../../selectors/game.selectors';
 
 @Component({
   selector: 'app-business-panel',
