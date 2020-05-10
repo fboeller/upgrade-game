@@ -1,5 +1,9 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
 
+export interface AppState {
+  gameState: GameState;
+}
+
 export interface GameState {
   timeActive: boolean;
   funds: number;
@@ -20,6 +24,6 @@ const _stateReducer = createReducer<GameState>(
   on(changeFunds, (state, { amount }) => ({ ...state, funds: state.funds + amount }))
 );
 
-export function stateReducer(state: GameState, action) {
+export function stateReducer(state, action) {
   return _stateReducer(state, action);
 }

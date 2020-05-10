@@ -1,10 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject, interval, NEVER } from 'rxjs';
 import { Upgrade } from '../upgrade';
-import { mapTo, scan, startWith, switchMap, filter, first, withLatestFrom, map } from 'rxjs/operators';
+import {
+  mapTo,
+  scan,
+  startWith,
+  switchMap,
+  filter,
+  first,
+  withLatestFrom,
+  map,
+} from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { GameState } from '../actions';
+import { GameState, AppState } from '../actions';
 
 @Component({
   selector: 'app-business-panel',
@@ -20,17 +29,16 @@ import { GameState } from '../actions';
   ],
 })
 export class BusinessPanelComponent implements OnInit {
-
   timeActive$: Observable<boolean>;
 
-  constructor(store: Store<GameState>) {
-    this.timeActive$ = store.pipe(select('timeActive'));
-  }
+  constructor(private store: Store<AppState>) { }
 
   @Input() funds$: Observable<number>;
 
   @Output('earning') earningOut: EventEmitter<number> = new EventEmitter();
-  @Output('upgradePurchase') upgradePurchaseOut: EventEmitter<Upgrade> = new EventEmitter();
+  @Output('upgradePurchase') upgradePurchaseOut: EventEmitter<
+    Upgrade
+  > = new EventEmitter();
 
   incrementUpgradeButtonClicked$: Subject<any> = new Subject();
 
@@ -39,9 +47,14 @@ export class BusinessPanelComponent implements OnInit {
   incrementUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
   earning$: Observable<number>;
-  incrementUpgrade: Upgrade = { property: 'Factory', cost: 10, update: (x: number) => x + 1 };
+  incrementUpgrade: Upgrade = {
+    property: 'Factory',
+    cost: 10,
+    update: (x: number) => x + 1,
+  };
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.timeActive$ = this.store.pipe(select('gameState'), select('timeActive'));
     this.incrementUpgradePurchase$ = this.incrementUpgradeButtonClicked$.pipe(
       mapTo(this.incrementUpgrade)
     );
@@ -62,8 +75,9 @@ export class BusinessPanelComponent implements OnInit {
       startWith(false)
     );
 
-    this.earning$.subscribe(value => this.earningOut.emit(value));
-    this.incrementUpgradePurchase$.subscribe(purchase => this.upgradePurchaseOut.emit(purchase));
+    this.earning$.subscribe((value) => this.earningOut.emit(value));
+    this.incrementUpgradePurchase$.subscribe((purchase) =>
+      this.upgradePurchaseOut.emit(purchase)
+    );
   }
-
 }
