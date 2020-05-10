@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, interval, NEVER, Subscription } from 'rxjs';
-import { startWith, switchMap, filter, first, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { startWith, filter, first, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, businessIncome, businessIncomeUpgrade } from '../actions';
+import { AppState, upgrade, resume } from '../actions';
 
 @Component({
   selector: 'app-business-panel',
@@ -41,6 +41,7 @@ export class BusinessPanelComponent implements OnInit {
   }
 
   upgradeBusinessIncome() {
-    this.store.dispatch(businessIncomeUpgrade());
+    this.store.dispatch(upgrade({ property: 'businessIncome' }));
+    this.store.dispatch(resume());
   }
 }

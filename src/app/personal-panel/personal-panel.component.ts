@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, salaryUpgrade } from '../actions';
+import { AppState, upgrade } from '../actions';
 
 @Component({
   selector: 'app-personal-panel',
@@ -45,6 +45,6 @@ export class PersonalPanelComponent implements OnInit {
   }
 
   upgradeSalary() {
-    this.store.dispatch(salaryUpgrade());
+    this.store.dispatch(upgrade({ property: 'salary' }));
   }
 }

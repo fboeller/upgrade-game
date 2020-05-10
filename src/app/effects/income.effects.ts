@@ -11,8 +11,7 @@ export class IncomeEffects {
 
   regularIncome$ = createEffect(() =>
     this.store.pipe(
-      select('gameState'),
-      select('timeActive'),
+      select('gameState', 'timeActive'),
       switchMap((timeActive) => (timeActive ? interval(1000) : NEVER)),
       map((_) => businessIncome())
     )
