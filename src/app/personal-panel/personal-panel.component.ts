@@ -4,6 +4,7 @@ import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, Property } from '../actions/game.actions';
+import { isUpgradePossible } from '../selectors/game.selectors';
 
 @Component({
   selector: 'app-personal-panel',
@@ -30,8 +31,7 @@ export class PersonalPanelComponent implements OnInit {
       select('gameState', 'properties', 'salary')
     );
     this.salaryUpgradePossible$ = this.store.pipe(
-      select('gameState'),
-      map((state) => state.funds >= state.properties.salary.upgradeCost)
+      select(isUpgradePossible, { property: 'salary' })
     );
     this.panelVisible$ = this.salaryUpgradePossible$.pipe(
       filter((possible) => possible),

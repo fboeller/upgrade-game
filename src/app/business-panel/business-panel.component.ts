@@ -4,6 +4,7 @@ import { startWith, filter, first, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, resume } from '../actions/game.actions';
+import { isUpgradePossible } from '../selectors/game.selectors';
 
 @Component({
   selector: 'app-business-panel',
@@ -30,8 +31,7 @@ export class BusinessPanelComponent implements OnInit {
       select('gameState', 'properties', 'businessIncome', 'value')
     );
     this.businessIncomeUpgradePossible$ = this.store.pipe(
-      select('gameState'),
-      map((state) => state.funds >= state.properties.businessIncome.upgradeCost)
+      select(isUpgradePossible, { property: 'businessIncome' })
     );
     this.factoryPanelVisible$ = this.businessIncomeUpgradePossible$.pipe(
       filter((possible) => possible),
