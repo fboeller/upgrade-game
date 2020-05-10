@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { pause, resume } from '../time-actions';
+import { GameState, pause, resume } from '../actions';
 
 @Component({
   selector: 'app-time-control-panel',
@@ -14,7 +14,7 @@ export class TimeControlPanelComponent {
 
   timeActive$: Observable<boolean>;
 
-  constructor(private store: Store<{ timeActive: boolean }>) {
+  constructor(private store: Store<GameState>) {
     this.timeActive$ = store.pipe(select('timeActive'));
   }
 

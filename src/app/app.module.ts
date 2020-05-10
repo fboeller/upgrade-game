@@ -8,7 +8,7 @@ import { WorkButtonComponent } from './work-button/work-button.component';
 import { PersonalPanelComponent } from './personal-panel/personal-panel.component';
 import { BusinessPanelComponent } from './business-panel/business-panel.component';
 import { StoreModule } from '@ngrx/store';
-import { timeReducer } from './time-actions';
+import { stateReducer } from './actions';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { timeReducer } from './time-actions';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ timeActive: timeReducer })
+    StoreModule.forRoot({ gameState: stateReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

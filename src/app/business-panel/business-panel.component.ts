@@ -4,6 +4,7 @@ import { Upgrade } from '../upgrade';
 import { mapTo, scan, startWith, switchMap, filter, first, withLatestFrom, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
+import { GameState } from '../actions';
 
 @Component({
   selector: 'app-business-panel',
@@ -22,7 +23,7 @@ export class BusinessPanelComponent implements OnInit {
 
   timeActive$: Observable<boolean>;
 
-  constructor(store: Store<{ timeActive: boolean }>) {
+  constructor(store: Store<GameState>) {
     this.timeActive$ = store.pipe(select('timeActive'));
   }
 
