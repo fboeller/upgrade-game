@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState, businessIncome } from '../actions';
+import { AppState, income } from '../actions';
 import { switchMap, map } from 'rxjs/operators';
 import { interval, NEVER } from 'rxjs';
 import { createEffect } from '@ngrx/effects';
@@ -13,7 +13,7 @@ export class IncomeEffects {
     this.store.pipe(
       select('gameState', 'timeActive'),
       switchMap((timeActive) => (timeActive ? interval(1000) : NEVER)),
-      map((_) => businessIncome())
+      map((_) => income({ property: 'businessIncome' }))
     )
   );
 }

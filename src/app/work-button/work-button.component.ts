@@ -9,7 +9,7 @@ import {
   animate,
 } from '@angular/animations';
 import { Store } from '@ngrx/store';
-import { AppState, work } from '../actions';
+import { AppState, income } from '../actions';
 
 @Component({
   selector: 'app-work-button',
@@ -50,6 +50,6 @@ export class WorkButtonComponent implements OnInit {
 
   work() {
     this.workButtonClicked$.next();
-    this.store.dispatch(work());
+    this.store.dispatch(income({ property: 'salary' }));
   }
 }

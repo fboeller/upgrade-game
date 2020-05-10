@@ -1,5 +1,4 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 
 export interface AppState {
   gameState: GameState;
@@ -22,8 +21,7 @@ export interface GameState {
 
 export const resume = createAction('[Time] Resume');
 export const pause = createAction('[Time] Pause');
-export const work = createAction('[Funds] Work');
-export const businessIncome = createAction('[Funds] Business Income');
+export const income = createAction('[Funds] Income', props<{ property: 'salary' | 'businessIncome' }>());
 export const upgrade = createAction('[Upgrade] Property', props<{ property: 'salary' | 'businessIncome' }>());
 
 const initialState: GameState = {
@@ -47,13 +45,9 @@ const _stateReducer = createReducer(
   initialState,
   on(resume, (state) => ({ ...state, timeActive: true })),
   on(pause, (state) => ({ ...state, timeActive: false })),
-  on(work, (state) => ({
+  on(income, (state, { property }) => ({
     ...state,
-    funds: state.funds + state.properties.salary.value,
-  })),
-  on(businessIncome, (state) => ({
-    ...state,
-    funds: state.funds + state.properties.businessIncome.value,
+    funds: state.funds + state.properties[property].value,
   })),
   on(upgrade, (state, { property }) => ({
     ...state,
