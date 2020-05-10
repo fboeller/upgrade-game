@@ -19,14 +19,16 @@ export const work = createAction('[Funds] Work');
 export const businessIncomeUpgrade = createAction('[Upgrade] Business Income');
 export const businessIncome = createAction('[Funds] Business Income');
 
-const _stateReducer = createReducer<GameState>(
-  {
-    timeActive: false,
-    funds: 0,
-    salaryUpgradeCost: 3,
-    salary: 1,
-    businessIncome: 0,
-  },
+const initialState: GameState = {
+  timeActive: false,
+  funds: 0,
+  salaryUpgradeCost: 1,
+  salary: 1,
+  businessIncome: 0,
+};
+
+const _stateReducer = createReducer(
+  initialState,
   on(resume, (state) => ({ ...state, timeActive: true })),
   on(pause, (state) => ({ ...state, timeActive: false })),
   on(salaryUpgrade, (state) => ({
