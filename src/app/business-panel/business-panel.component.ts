@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable, Subject, interval, NEVER } from 'rxjs';
+import { Observable, Subject, interval, NEVER, Subscription } from 'rxjs';
 import { Upgrade } from '../upgrade';
 import {
   mapTo,
@@ -13,7 +13,12 @@ import {
 } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { GameState, AppState } from '../actions';
+import {
+  GameState,
+  AppState,
+  businessIncome,
+  businessIncomeUpgrade,
+} from '../actions';
 
 @Component({
   selector: 'app-business-panel',
@@ -29,55 +34,41 @@ import { GameState, AppState } from '../actions';
   ],
 })
 export class BusinessPanelComponent implements OnInit {
-  timeActive$: Observable<boolean>;
+  constructor(private store: Store<AppState>) {}
 
-  constructor(private store: Store<AppState>) { }
-
-  @Input() funds$: Observable<number>;
-
-  @Output('earning') earningOut: EventEmitter<number> = new EventEmitter();
-  @Output('upgradePurchase') upgradePurchaseOut: EventEmitter<
-    Upgrade
-  > = new EventEmitter();
-
-  incrementUpgradeButtonClicked$: Subject<any> = new Subject();
-
-  increment$: Observable<number>;
-  incrementUpgradePurchase$: Observable<Upgrade>;
-  incrementUpgradePossible$: Observable<boolean>;
+  businessIncome$: Observable<number>;
+  businessIncomeUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
-  earning$: Observable<number>;
-  incrementUpgrade: Upgrade = {
-    property: 'Factory',
-    cost: 10,
-    update: (x: number) => x + 1,
-  };
+  subscription: Subscription;
 
   ngOnInit() {
-    this.timeActive$ = this.store.pipe(select('gameState'), select('timeActive'));
-    this.incrementUpgradePurchase$ = this.incrementUpgradeButtonClicked$.pipe(
-      mapTo(this.incrementUpgrade)
+    this.businessIncome$ = this.store.pipe(
+      select('gameState'),
+      select('businessIncome')
     );
-    this.increment$ = this.incrementUpgradePurchase$.pipe(
-      scan((increment, upgrade) => upgrade.update(increment), 0),
-      startWith(0)
+    this.subscription = this.store
+      .pipe(
+        select('gameState'),
+        select('timeActive'),
+        switchMap((timeActive) => (timeActive ? interval(1000) : NEVER))
+      )
+      .subscribe((_) => this.businessIncome());
+    this.businessIncomeUpgradePossible$ = this.store.pipe(
+      select('gameState'),
+      map((state) => state.funds >= 10)
     );
-    this.earning$ = this.timeActive$.pipe(
-      switchMap((timeActive) => (timeActive ? interval(1000) : NEVER)),
-      withLatestFrom(this.increment$, (_, increment) => increment)
-    );
-    this.incrementUpgradePossible$ = this.funds$.pipe(
-      map((value) => value >= this.incrementUpgrade.cost)
-    );
-    this.factoryPanelVisible$ = this.incrementUpgradePossible$.pipe(
+    this.factoryPanelVisible$ = this.businessIncomeUpgradePossible$.pipe(
       filter((possible) => possible),
       first(),
       startWith(false)
     );
+  }
 
-    this.earning$.subscribe((value) => this.earningOut.emit(value));
-    this.incrementUpgradePurchase$.subscribe((purchase) =>
-      this.upgradePurchaseOut.emit(purchase)
-    );
+  businessIncome() {
+    this.store.dispatch(businessIncome());
+  }
+
+  upgradeBusinessIncome() {
+    this.store.dispatch(businessIncomeUpgrade());
   }
 }

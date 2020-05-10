@@ -8,8 +8,11 @@ import {
   filter,
   first,
   shareReplay,
+  skipUntil,
 } from 'rxjs/operators';
 import { Upgrade } from './upgrade';
+import { Store, select } from '@ngrx/store';
+import { AppState } from './actions';
 
 @Component({
   selector: 'app-root',
@@ -20,34 +23,17 @@ import { Upgrade } from './upgrade';
 export class AppComponent implements OnInit {
   title = 'upgrade-game';
 
-  earning$: Subject<number> = new Subject();
-  upgradePurchase$: Subject<Upgrade> = new Subject();
+  constructor(private store: Store<AppState>) {}
 
   funds$: Observable<number>;
-  salary$: Observable<number>;
-
   timeControlPanelVisible$: Observable<boolean>;
 
   ngOnInit() {
-    this.salary$ = this.upgradePurchase$.pipe(
-      filter((upgrade) => upgrade.property == 'Salary'),
-      scan((salary, upgrade) => upgrade.update(salary), 1),
-      startWith(1),
-      shareReplay(1)
-    );
-    this.funds$ = merge(
-      this.earning$.pipe(map((salary) => (value) => value + salary)),
-      this.upgradePurchase$.pipe(
-        map((purchase) => (value) => value - purchase.cost)
-      )
-    ).pipe(
-      scan((acc, f) => f(acc), 0),
-      startWith(100),
-      shareReplay(1)
-    );
-    this.timeControlPanelVisible$ = this.upgradePurchase$.pipe(
-      filter((upgrade) => upgrade.property == 'Factory'),
-      mapTo(true),
+    this.funds$ = this.store.pipe(select('gameState'), select('funds'));
+    this.timeControlPanelVisible$ = this.store.pipe(
+      select('gameState'),
+      select('timeActive'),
+      filter(timeActive => timeActive),
       first(),
       startWith(false)
     );

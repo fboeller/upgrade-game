@@ -2,23 +2,13 @@
   {{ funds$ | async }}<i class="material-icons large">euro_symbol</i>
 </div>
 <div class="section manual-labor-panel">
-  <app-work-button
-    [salary$]="salary$"
-    (earnedSalary)="earning$.next($event)"
-  ></app-work-button>
+  <app-work-button></app-work-button>
 </div>
 <div class="section">
-  <app-personal-panel
-    [funds$]="funds$"
-    (upgradePurchase)="upgradePurchase$.next($event)"
-  ></app-personal-panel>
+  <app-personal-panel></app-personal-panel>
 </div>
 <div class="section">
-  <app-business-panel
-    [funds$]="funds$"
-    (upgradePurchase)="upgradePurchase$.next($event)"
-    (earning)="earning$.next($event)"
-  ></app-business-panel>
+  <app-business-panel></app-business-panel>
 </div>
 <div class="section">
   <app-time-control-panel

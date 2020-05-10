@@ -29,12 +29,8 @@ import { AppState, salaryUpgrade } from '../actions';
   ],
 })
 export class PersonalPanelComponent implements OnInit {
-  constructor(private store: Store<AppState>) {}
 
-  @Input() funds$: Observable<number>;
-  @Output('upgradePurchase') upgradePurchaseOut: EventEmitter<
-    Upgrade
-  > = new EventEmitter();
+  constructor(private store: Store<AppState>) {}
 
   salary$: Observable<number>;
   salaryUpgradeCost$: Observable<number>;
@@ -50,9 +46,9 @@ export class PersonalPanelComponent implements OnInit {
       select('gameState'),
       select('salary')
     );
-
-    this.salaryUpgradePossible$ = this.funds$.pipe(
-      withLatestFrom(this.salaryUpgradeCost$, (value, cost) => value >= cost)
+    this.salaryUpgradePossible$ = this.store.pipe(
+      select('gameState'),
+      map((state) => state.funds >= state.salaryUpgradeCost)
     );
     this.panelVisible$ = this.salaryUpgradePossible$.pipe(
       filter((possible) => possible),
@@ -63,10 +59,5 @@ export class PersonalPanelComponent implements OnInit {
 
   upgradeSalary() {
     this.store.dispatch(salaryUpgrade());
-    this.upgradePurchaseOut.emit({
-      property: 'Salary',
-      cost: 3, // TODO: Actual cost
-      update: (x: number) => x + 1,
-    });
   }
 }
