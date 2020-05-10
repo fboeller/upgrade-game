@@ -32,7 +32,7 @@ export class BusinessPanelComponent implements OnInit {
     );
     this.businessIncomeUpgradePossible$ = this.store.pipe(
       select('gameState'),
-      map((state) => state.funds >= 10)
+      map((state) => state.funds >= state.businessIncomeUpgradeCost)
     );
     this.factoryPanelVisible$ = this.businessIncomeUpgradePossible$.pipe(
       filter((possible) => possible),

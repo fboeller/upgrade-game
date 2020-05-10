@@ -10,6 +10,7 @@ export interface GameState {
   salaryUpgradeCost: number;
   salary: number;
   businessIncome: number;
+  businessIncomeUpgradeCost: number;
 }
 
 export const resume = createAction('[Time] Resume');
@@ -25,6 +26,7 @@ const initialState: GameState = {
   salaryUpgradeCost: 1,
   salary: 1,
   businessIncome: 0,
+  businessIncomeUpgradeCost: 10
 };
 
 const _stateReducer = createReducer(
@@ -43,7 +45,8 @@ const _stateReducer = createReducer(
   })),
   on(businessIncomeUpgrade, (state) => ({
     ...state,
-    funds: state.funds - 10,
+    funds: state.funds - state.businessIncomeUpgradeCost,
+    businessIncomeUpgradeCost: state.businessIncomeUpgradeCost + 10,
     businessIncome: state.businessIncome + 1,
     timeActive: true
   })),
