@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, upgrade } from '../actions';
+import { AppState, upgrade, Property } from '../actions';
 
 @Component({
   selector: 'app-personal-panel',
@@ -21,17 +21,13 @@ import { AppState, upgrade } from '../actions';
 export class PersonalPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
-  salary$: Observable<number>;
-  salaryUpgradeCost$: Observable<number>;
+  salaryProperty$: Observable<Property>;
   salaryUpgradePossible$: Observable<boolean>;
   panelVisible$: Observable<boolean>;
 
   ngOnInit(): void {
-    this.salaryUpgradeCost$ = this.store.pipe(
-      select('gameState', 'properties', 'salary', 'upgradeCost')
-    );
-    this.salary$ = this.store.pipe(
-      select('gameState', 'properties', 'salary', 'value')
+    this.salaryProperty$ = this.store.pipe(
+      select('gameState', 'properties', 'salary')
     );
     this.salaryUpgradePossible$ = this.store.pipe(
       select('gameState'),
