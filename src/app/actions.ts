@@ -1,4 +1,4 @@
-import { createAction, createReducer, on, props } from '@ngrx/store';
+import { createAction, createReducer, on } from '@ngrx/store';
 
 export interface AppState {
   gameState: GameState;
@@ -6,15 +6,18 @@ export interface AppState {
 
 export interface GameState {
   timeActive: boolean;
+  salaryUpgradeCost: number;
 }
 
 export const resume = createAction('[Time] Resume');
 export const pause = createAction('[Time] Pause');
+export const salaryUpgrade = createAction('[Upgrade] Salary');
 
 const _stateReducer = createReducer<GameState>(
-  { timeActive: true },
+  { timeActive: true, salaryUpgradeCost: 3 },
   on(resume, state => ({ ...state, timeActive: true })),
   on(pause, state => ({ ...state, timeActive: false })),
+  on(salaryUpgrade, state => ({ ...state, salaryUpgradeCost: state.salaryUpgradeCost + 1 }))
 );
 
 export function stateReducer(state, action) {

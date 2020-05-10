@@ -5,12 +5,12 @@
     <div class="col s2">{{ salary$ | async }}</div>
     <div class="col s6">
       <a
-        (click)="increaseSalaryButtonClicked$.next()"
+        (click)="upgradeSalary()"
         class="upgrade-btn waves-effect btn"
         [class.disabled]="!(salaryUpgradePossible$ | async)"
         >Promote</a
       >
-      <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">-{{(nextPurchase$ | async).cost}}<i class="material-icons right">euro_symbol</i></div>
+      <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">-{{salaryUpgradeCost$ | async}}<i class="material-icons right">euro_symbol</i></div>
     </div>
   </div>
 </div>
