@@ -24,20 +24,12 @@ export class BusinessPanelComponent implements OnInit {
   businessIncome$: Observable<number>;
   businessIncomeUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
-  subscription: Subscription;
 
   ngOnInit() {
     this.businessIncome$ = this.store.pipe(
       select('gameState'),
       select('businessIncome')
     );
-    this.subscription = this.store
-      .pipe(
-        select('gameState'),
-        select('timeActive'),
-        switchMap((timeActive) => (timeActive ? interval(1000) : NEVER))
-      )
-      .subscribe((_) => this.businessIncome());
     this.businessIncomeUpgradePossible$ = this.store.pipe(
       select('gameState'),
       map((state) => state.funds >= 10)
@@ -47,10 +39,6 @@ export class BusinessPanelComponent implements OnInit {
       first(),
       startWith(false)
     );
-  }
-
-  businessIncome() {
-    this.store.dispatch(businessIncome());
   }
 
   upgradeBusinessIncome() {

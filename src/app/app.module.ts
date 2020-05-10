@@ -8,7 +8,10 @@ import { WorkButtonComponent } from './work-button/work-button.component';
 import { PersonalPanelComponent } from './personal-panel/personal-panel.component';
 import { BusinessPanelComponent } from './business-panel/business-panel.component';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { stateReducer } from './actions';
+import { IncomeEffects } from './effects/income.effects';
 
 @NgModule({
   declarations: [
@@ -16,14 +19,18 @@ import { stateReducer } from './actions';
     TimeControlPanelComponent,
     WorkButtonComponent,
     PersonalPanelComponent,
-    BusinessPanelComponent
+    BusinessPanelComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ gameState: stateReducer })
+    StoreModule.forRoot({ gameState: stateReducer }),
+    EffectsModule.forRoot([IncomeEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
