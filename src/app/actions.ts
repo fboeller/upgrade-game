@@ -21,6 +21,7 @@ export interface GameState {
 
 export const resume = createAction('[Time] Resume');
 export const pause = createAction('[Time] Pause');
+export const work = createAction('[Button] Work');
 export const income = createAction('[Funds] Income', props<{ property: 'salary' | 'businessIncome' }>());
 export const upgrade = createAction('[Upgrade] Property', props<{ property: 'salary' | 'businessIncome' }>());
 
