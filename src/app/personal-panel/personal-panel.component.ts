@@ -36,37 +36,21 @@ export class PersonalPanelComponent implements OnInit {
     Upgrade
   > = new EventEmitter();
 
-  increaseSalaryButtonClicked$: Subject<any> = new Subject();
-
   salary$: Observable<number>;
-  upgradePurchase$: Observable<Upgrade>;
   salaryUpgradeCost$: Observable<number>;
   salaryUpgradePossible$: Observable<boolean>;
   panelVisible$: Observable<boolean>;
-  salaryUpgrade$: Observable<Upgrade>;
 
   ngOnInit(): void {
     this.salaryUpgradeCost$ = this.store.pipe(
       select('gameState'),
       select('salaryUpgradeCost')
     );
+    this.salary$ = this.store.pipe(
+      select('gameState'),
+      select('salary')
+    );
 
-    this.salaryUpgrade$ = range(3, 1000).pipe(
-      map((cost) => ({
-        property: 'Salary',
-        cost,
-        update: (x: number) => x + 1,
-      }))
-    );
-    this.upgradePurchase$ = zip(
-      this.increaseSalaryButtonClicked$,
-      this.salaryUpgrade$,
-      (_, upgrade) => upgrade
-    );
-    this.salary$ = this.upgradePurchase$.pipe(
-      scan((salary, upgrade) => upgrade.update(salary), 1),
-      startWith(1)
-    );
     this.salaryUpgradePossible$ = this.funds$.pipe(
       withLatestFrom(this.salaryUpgradeCost$, (value, cost) => value >= cost)
     );
@@ -75,14 +59,14 @@ export class PersonalPanelComponent implements OnInit {
       first(),
       startWith(false)
     );
-
-    this.upgradePurchase$.subscribe((purchase) =>
-      this.upgradePurchaseOut.emit(purchase)
-    );
   }
 
   upgradeSalary() {
     this.store.dispatch(salaryUpgrade());
-    this.increaseSalaryButtonClicked$.next();
+    this.upgradePurchaseOut.emit({
+      property: 'Salary',
+      cost: 3, // TODO: Actual cost
+      update: (x: number) => x + 1,
+    });
   }
 }

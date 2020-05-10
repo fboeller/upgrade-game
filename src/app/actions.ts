@@ -7,6 +7,7 @@ export interface AppState {
 export interface GameState {
   timeActive: boolean;
   salaryUpgradeCost: number;
+  salary: number;
 }
 
 export const resume = createAction('[Time] Resume');
@@ -14,10 +15,14 @@ export const pause = createAction('[Time] Pause');
 export const salaryUpgrade = createAction('[Upgrade] Salary');
 
 const _stateReducer = createReducer<GameState>(
-  { timeActive: true, salaryUpgradeCost: 3 },
-  on(resume, state => ({ ...state, timeActive: true })),
-  on(pause, state => ({ ...state, timeActive: false })),
-  on(salaryUpgrade, state => ({ ...state, salaryUpgradeCost: state.salaryUpgradeCost + 1 }))
+  { timeActive: true, salaryUpgradeCost: 3, salary: 1 },
+  on(resume, (state) => ({ ...state, timeActive: true })),
+  on(pause, (state) => ({ ...state, timeActive: false })),
+  on(salaryUpgrade, (state) => ({
+    ...state,
+    salaryUpgradeCost: state.salaryUpgradeCost + 1,
+    salary: state.salary + 1
+  }))
 );
 
 export function stateReducer(state, action) {
