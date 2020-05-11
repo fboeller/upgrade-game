@@ -3,15 +3,15 @@
   <app-property-row
     propertyName="salary"
     [propertyType]="propertyTypes.salary"
-    [propertyState]="salaryProperty$ | async"
-    [upgradePossible]="salaryUpgradePossible$ | async"
+    [propertyState]="(propertyStates$ | async).salary"
+    [upgradePossible]="(upgradesPossible$ | async).salary"
     (upgrade)="upgrade('salary')"
   ></app-property-row>
   <app-property-row
     propertyName="workEfficiency"
     [propertyType]="propertyTypes.workEfficiency"
-    [propertyState]="workEfficiencyProperty$ | async"
-    [upgradePossible]="workEfficiencyUpgradePossible$ | async"
+    [propertyState]="(propertyStates$ | async).workEfficiency"
+    [upgradePossible]="(upgradesPossible$ | async).workEfficiency"
     (upgrade)="upgrade('workEfficiency')"
   ></app-property-row>
 </div>

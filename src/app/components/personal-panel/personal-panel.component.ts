@@ -4,7 +4,10 @@ import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from '../../actions/game.actions';
-import { isUpgradePossible } from '../../selectors/game.selectors';
+import {
+  isUpgradePossible,
+  upgradesPossible,
+} from '../../selectors/game.selectors';
 import { propertyTypes, Property } from 'src/app/property.type';
 
 @Component({
@@ -24,27 +27,16 @@ export class PersonalPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   propertyTypes = propertyTypes;
+  propertyStates$: Observable<{ [property: string]: Property }>;
+  upgradesPossible$: Observable<{ [property: string]: boolean }>;
 
-  salaryProperty$: Observable<Property>;
-  salaryUpgradePossible$: Observable<boolean>;
-  workEfficiencyProperty$: Observable<Property>;
-  workEfficiencyUpgradePossible$: Observable<boolean>;
   panelVisible$: Observable<boolean>;
 
   ngOnInit(): void {
-    this.salaryProperty$ = this.store.pipe(
-      select('gameState', 'properties', 'salary')
-    );
-    this.salaryUpgradePossible$ = this.store.pipe(
-      select(isUpgradePossible, { property: 'salary' })
-    );
-    this.workEfficiencyProperty$ = this.store.pipe(
-      select('gameState', 'properties', 'workEfficiency')
-    );
-    this.workEfficiencyUpgradePossible$ = this.store.pipe(
-      select(isUpgradePossible, { property: 'workEfficiency' })
-    );
-    this.panelVisible$ = this.salaryUpgradePossible$.pipe(
+    this.propertyStates$ = this.store.pipe(select('gameState', 'properties'));
+    this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
+    this.panelVisible$ = this.upgradesPossible$.pipe(
+      map((upgradesPossible) => upgradesPossible.salary),
       filter((possible) => possible),
       first(),
       startWith(false)
