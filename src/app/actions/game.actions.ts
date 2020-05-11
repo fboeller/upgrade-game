@@ -1,5 +1,5 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { PropertyState } from '../property.type';
+import { PropertyState, Property } from '../property.type';
 
 export interface AppState {
   gameState: GameState;
@@ -25,7 +25,7 @@ export const income = createAction(
 );
 export const upgrade = createAction(
   '[Upgrade] Property',
-  props<{ property: 'salary' | 'businessIncome' | 'workEfficiency' }>()
+  props<{ property: Property }>()
 );
 
 const initialState: GameState = {

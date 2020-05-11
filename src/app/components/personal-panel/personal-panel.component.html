@@ -1,17 +1,11 @@
 <div @appear *ngIf="panelVisible$ | async">
   <h5>Personal</h5>
   <app-property-row
-    propertyName="salary"
-    [propertyType]="propertyTypes.salary"
-    [propertyState]="(propertyStates$ | async).salary"
-    [upgradePossible]="(upgradesPossible$ | async).salary"
-    (upgrade)="upgrade('salary')"
-  ></app-property-row>
-  <app-property-row
-    propertyName="workEfficiency"
-    [propertyType]="propertyTypes.workEfficiency"
-    [propertyState]="(propertyStates$ | async).workEfficiency"
-    [upgradePossible]="(upgradesPossible$ | async).workEfficiency"
-    (upgrade)="upgrade('workEfficiency')"
+    *ngFor="let property of properties"
+    [propertyName]="property"
+    [propertyType]="propertyTypes[property]"
+    [propertyState]="(propertyStates$ | async)[property]"
+    [upgradePossible]="(upgradesPossible$ | async)[property]"
+    (upgrade)="upgrade(property)"
   ></app-property-row>
 </div>

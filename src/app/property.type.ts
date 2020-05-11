@@ -1,3 +1,5 @@
+export type Property = 'salary' | 'businessIncome' | 'workEfficiency';
+
 export interface PropertyState {
   value: number;
   upgradeEffect: number;
