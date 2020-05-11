@@ -5,7 +5,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, resume } from '../../actions/game.actions';
 import { isUpgradePossible } from '../../selectors/game.selectors';
-import { propertyTypes } from 'src/app/property.type';
+import { propertyTypes, PropertyState } from 'src/app/property.type';
 
 @Component({
   selector: 'app-business-panel',
@@ -25,13 +25,13 @@ export class BusinessPanelComponent implements OnInit {
 
   propertyTypes = propertyTypes;
 
-  businessIncome$: Observable<number>;
+  businessIncome$: Observable<PropertyState>;
   businessIncomeUpgradePossible$: Observable<boolean>;
   factoryPanelVisible$: Observable<boolean>;
 
   ngOnInit() {
     this.businessIncome$ = this.store.pipe(
-      select('gameState', 'properties', 'businessIncome', 'value')
+      select('gameState', 'properties', 'businessIncome')
     );
     this.businessIncomeUpgradePossible$ = this.store.pipe(
       select(isUpgradePossible, { property: 'businessIncome' })
