@@ -8,7 +8,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState, work } from '../../actions/game.actions';
 
 @Component({
@@ -29,27 +29,23 @@ import { AppState, work } from '../../actions/game.actions';
           width: '0%',
         })
       ),
-      transition('noWorkInProgress => workInProgress', [animate('1s')]),
-      transition('workInProgress => noWorkInProgress', [animate('0s')]),
+      transition('noWorkInProgress => workInProgress', [animate('{{ duration }}ms')]),
+      // transition('workInProgress => noWorkInProgress', [animate('0s')]),
     ]),
   ],
 })
 export class WorkButtonComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
-  workButtonClicked$: Subject<any> = new Subject();
-  workButtonPressable$: Observable<boolean>;
+  workActive$: Observable<boolean>;
+  animationDuration$: Observable<number>;
 
   ngOnInit() {
-    const workEnded$ = this.workButtonClicked$.pipe(delay(1000));
-    this.workButtonPressable$ = merge(
-      this.workButtonClicked$.pipe(mapTo(false)),
-      workEnded$.pipe(mapTo(true))
-    ).pipe(startWith(true));
+    this.animationDuration$ = this.store.pipe(select('gameState', 'properties', 'workEfficiency', 'value'));
+    this.workActive$ = this.store.pipe(select('gameState', 'workActive'));
   }
 
   work() {
-    this.workButtonClicked$.next();
     this.store.dispatch(work());
   }
 }

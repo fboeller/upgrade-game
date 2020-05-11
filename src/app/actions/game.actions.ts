@@ -6,6 +6,7 @@ export interface AppState {
 
 export interface Property {
   value: number;
+  upgradeEffect: number;
   upgradeCost: number;
   upgradeCostIncrease: number;
 }
@@ -13,8 +14,10 @@ export interface Property {
 export interface GameState {
   timeActive: boolean;
   funds: number;
+  workActive: boolean;
   properties: {
     salary: Property;
+    workEfficiency: Property;
     businessIncome: Property;
   };
 }
@@ -22,22 +25,37 @@ export interface GameState {
 export const resume = createAction('[Time] Resume');
 export const pause = createAction('[Time] Pause');
 export const work = createAction('[Button] Work');
-export const income = createAction('[Funds] Income', props<{ property: 'salary' | 'businessIncome' }>());
-export const upgrade = createAction('[Upgrade] Property', props<{ property: 'salary' | 'businessIncome' }>());
+export const income = createAction(
+  '[Funds] Income',
+  props<{ property: 'salary' | 'businessIncome' }>()
+);
+export const upgrade = createAction(
+  '[Upgrade] Property',
+  props<{ property: 'salary' | 'businessIncome' | 'workEfficiency' }>()
+);
 
 const initialState: GameState = {
   timeActive: false,
   funds: 0,
+  workActive: false,
   properties: {
     salary: {
       value: 1,
+      upgradeEffect: 1,
       upgradeCost: 1,
-      upgradeCostIncrease: 1
+      upgradeCostIncrease: 1,
+    },
+    workEfficiency: {
+      value: 1000,
+      upgradeEffect: -50,
+      upgradeCost: 2,
+      upgradeCostIncrease: 2,
     },
     businessIncome: {
       value: 0,
+      upgradeEffect: 1,
       upgradeCost: 10,
-      upgradeCostIncrease: 10
+      upgradeCostIncrease: 10,
     },
   },
 };
@@ -49,7 +67,9 @@ const _stateReducer = createReducer(
   on(income, (state, { property }) => ({
     ...state,
     funds: state.funds + state.properties[property].value,
+    workActive: property == 'salary' ? false : state.workActive,
   })),
+  on(work, (state) => ({ ...state, workActive: true })),
   on(upgrade, (state, { property }) => ({
     ...state,
     funds: state.funds - state.properties[property].upgradeCost,
@@ -57,9 +77,13 @@ const _stateReducer = createReducer(
       ...state.properties,
       [property]: {
         ...state.properties[property],
-        value: state.properties[property].value + 1,
-        upgradeCost: state.properties[property].upgradeCost + state.properties[property].upgradeCostIncrease,
-      }
+        value:
+          state.properties[property].value +
+          state.properties[property].upgradeEffect,
+        upgradeCost:
+          state.properties[property].upgradeCost +
+          state.properties[property].upgradeCostIncrease,
+      },
     },
   }))
 );

@@ -5,13 +5,29 @@
     <div class="col s2">{{ (salaryProperty$ | async).value }}</div>
     <div class="col s6">
       <a
-        (click)="upgradeSalary()"
+        (click)="upgrade('salary')"
         class="upgrade-btn waves-effect btn"
         [class.disabled]="!(salaryUpgradePossible$ | async)"
         >Promote</a
       >
       <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">
         {{ (salaryProperty$ | async).upgradeCost * -1
+        }}<i class="material-icons right">euro_symbol</i>
+      </div>
+    </div>
+  </div>
+  <div class="row upgrade-row">
+    <div class="col s4">Work Efficiency</div>
+    <div class="col s2">{{ (workEfficiencyProperty$ | async).value }}</div>
+    <div class="col s6">
+      <a
+        (click)="upgrade('workEfficiency')"
+        class="upgrade-btn waves-effect btn"
+        [class.disabled]="!(workEfficiencyUpgradePossible$ | async)"
+        >Promote</a
+      >
+      <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">
+        {{ (workEfficiencyProperty$ | async).upgradeCost * -1
         }}<i class="material-icons right">euro_symbol</i>
       </div>
     </div>

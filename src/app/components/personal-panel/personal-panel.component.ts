@@ -24,6 +24,8 @@ export class PersonalPanelComponent implements OnInit {
 
   salaryProperty$: Observable<Property>;
   salaryUpgradePossible$: Observable<boolean>;
+  workEfficiencyProperty$: Observable<Property>;
+  workEfficiencyUpgradePossible$: Observable<boolean>;
   panelVisible$: Observable<boolean>;
 
   ngOnInit(): void {
@@ -33,6 +35,12 @@ export class PersonalPanelComponent implements OnInit {
     this.salaryUpgradePossible$ = this.store.pipe(
       select(isUpgradePossible, { property: 'salary' })
     );
+    this.workEfficiencyProperty$ = this.store.pipe(
+      select('gameState', 'properties', 'workEfficiency')
+    );
+    this.workEfficiencyUpgradePossible$ = this.store.pipe(
+      select(isUpgradePossible, { property: 'workEfficiency' })
+    );
     this.panelVisible$ = this.salaryUpgradePossible$.pipe(
       filter((possible) => possible),
       first(),
@@ -40,7 +48,7 @@ export class PersonalPanelComponent implements OnInit {
     );
   }
 
-  upgradeSalary() {
-    this.store.dispatch(upgrade({ property: 'salary' }));
+  upgrade(property: 'salary' | 'workEfficiency') {
+    this.store.dispatch(upgrade({ property }));
   }
 }
