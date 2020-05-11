@@ -5,6 +5,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, resume } from '../../actions/game.actions';
 import { isUpgradePossible } from '../../selectors/game.selectors';
+import { propertyTypes } from 'src/app/property.type';
 
 @Component({
   selector: 'app-business-panel',
@@ -21,6 +22,8 @@ import { isUpgradePossible } from '../../selectors/game.selectors';
 })
 export class BusinessPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
+
+  propertyTypes = propertyTypes;
 
   businessIncome$: Observable<number>;
   businessIncomeUpgradePossible$: Observable<boolean>;

@@ -5,6 +5,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, Property } from '../../actions/game.actions';
 import { isUpgradePossible } from '../../selectors/game.selectors';
+import { propertyTypes } from 'src/app/property.type';
 
 @Component({
   selector: 'app-personal-panel',
@@ -21,6 +22,8 @@ import { isUpgradePossible } from '../../selectors/game.selectors';
 })
 export class PersonalPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
+
+  propertyTypes = propertyTypes;
 
   salaryProperty$: Observable<Property>;
   salaryUpgradePossible$: Observable<boolean>;

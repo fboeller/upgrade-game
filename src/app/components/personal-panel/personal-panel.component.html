@@ -1,14 +1,14 @@
 <div @appear *ngIf="panelVisible$ | async">
   <h5>Personal</h5>
   <div class="row upgrade-row">
-    <div class="col s4">Salary</div>
+    <div class="col s4">{{ propertyTypes.salary.displayName }}</div>
     <div class="col s2">{{ (salaryProperty$ | async).value }}</div>
     <div class="col s6">
       <a
         (click)="upgrade('salary')"
         class="upgrade-btn waves-effect btn"
         [class.disabled]="!(salaryUpgradePossible$ | async)"
-        >Promote</a
+        >{{ propertyTypes.salary.upgradeText }}</a
       >
       <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">
         {{ (salaryProperty$ | async).upgradeCost * -1
@@ -17,14 +17,14 @@
     </div>
   </div>
   <div class="row upgrade-row">
-    <div class="col s4">Work Efficiency</div>
+    <div class="col s4">{{ propertyTypes.workEfficiency.displayName }}</div>
     <div class="col s2">{{ (workEfficiencyProperty$ | async).value }}</div>
     <div class="col s6">
       <a
         (click)="upgrade('workEfficiency')"
         class="upgrade-btn waves-effect btn"
         [class.disabled]="!(workEfficiencyUpgradePossible$ | async)"
-        >Promote</a
+        >{{ propertyTypes.workEfficiency.upgradeText }}</a
       >
       <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">
         {{ (workEfficiencyProperty$ | async).upgradeCost * -1

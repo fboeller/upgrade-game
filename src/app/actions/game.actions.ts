@@ -1,14 +1,8 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
+import { Property } from '../property.type';
 
 export interface AppState {
   gameState: GameState;
-}
-
-export interface Property {
-  value: number;
-  upgradeEffect: number;
-  upgradeCost: number;
-  upgradeCostIncrease: number;
 }
 
 export interface GameState {
