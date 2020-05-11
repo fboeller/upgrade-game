@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { stateReducer } from './actions/game.actions';
 import { IncomeEffects } from './effects/income.effects';
+import { PropertyRowComponent } from './components/property-row/property-row.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { IncomeEffects } from './effects/income.effects';
     WorkButtonComponent,
     PersonalPanelComponent,
     BusinessPanelComponent,
+    PropertyRowComponent,
   ],
   imports: [
     BrowserModule,

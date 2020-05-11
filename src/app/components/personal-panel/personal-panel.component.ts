@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, upgrade, Property } from '../../actions/game.actions';
+import { AppState, upgrade } from '../../actions/game.actions';
 import { isUpgradePossible } from '../../selectors/game.selectors';
-import { propertyTypes } from 'src/app/property.type';
+import { propertyTypes, Property } from 'src/app/property.type';
 
 @Component({
   selector: 'app-personal-panel',
