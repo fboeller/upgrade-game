@@ -1,10 +1,11 @@
-<div @appear *ngIf="factoryPanelVisible$ | async">
+<div @appear *ngIf="panelVisible$ | async">
   <h5 class="card-title">Businesses</h5>
   <app-property-row
-    propertyName="businessIncome"
-    [propertyType]="propertyTypes.businessIncome"
-    [propertyState]="(businessIncome$ | async)"
-    [upgradePossible]="(businessIncomeUpgradePossible$ | async)"
-    (upgrade)="upgradeBusinessIncome()"
+    *ngFor="let property of properties"
+    [propertyName]="property"
+    [propertyType]="propertyTypes[property]"
+    [propertyState]="(propertyStates$ | async)[property]"
+    [upgradePossible]="(upgradesPossible$ | async)[property]"
+    (upgrade)="upgrade(property)"
   ></app-property-row>
 </div>

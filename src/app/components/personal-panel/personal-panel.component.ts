@@ -4,10 +4,7 @@ import { startWith, map, filter, first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from '../../actions/game.actions';
-import {
-  isUpgradePossible,
-  upgradesPossible,
-} from '../../selectors/game.selectors';
+import { upgradesPossible } from '../../selectors/game.selectors';
 import { propertyTypes, PropertyState, Property } from 'src/app/property.type';
 
 @Component({
@@ -30,10 +27,9 @@ export class PersonalPanelComponent implements OnInit {
   propertyTypes = propertyTypes;
   propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
-
   panelVisible$: Observable<boolean>;
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.propertyStates$ = this.store.pipe(select('gameState', 'properties'));
     this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
     this.panelVisible$ = this.upgradesPossible$.pipe(

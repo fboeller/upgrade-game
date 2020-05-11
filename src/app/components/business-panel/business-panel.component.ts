@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { startWith, filter, first } from 'rxjs/operators';
+import { startWith, filter, first, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, resume } from '../../actions/game.actions';
-import { isUpgradePossible } from '../../selectors/game.selectors';
-import { propertyTypes, PropertyState } from 'src/app/property.type';
+import { upgradesPossible } from '../../selectors/game.selectors';
+import { propertyTypes, PropertyState, Property } from 'src/app/property.type';
 
 @Component({
   selector: 'app-business-panel',
@@ -23,28 +23,25 @@ import { propertyTypes, PropertyState } from 'src/app/property.type';
 export class BusinessPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
+  properties: Property[] = ['businessIncome'];
   propertyTypes = propertyTypes;
-
-  businessIncome$: Observable<PropertyState>;
-  businessIncomeUpgradePossible$: Observable<boolean>;
-  factoryPanelVisible$: Observable<boolean>;
+  propertyStates$: Observable<{ [property: string]: PropertyState }>;
+  upgradesPossible$: Observable<{ [property: string]: boolean }>;
+  panelVisible$: Observable<boolean>;
 
   ngOnInit() {
-    this.businessIncome$ = this.store.pipe(
-      select('gameState', 'properties', 'businessIncome')
-    );
-    this.businessIncomeUpgradePossible$ = this.store.pipe(
-      select(isUpgradePossible, { property: 'businessIncome' })
-    );
-    this.factoryPanelVisible$ = this.businessIncomeUpgradePossible$.pipe(
+    this.propertyStates$ = this.store.pipe(select('gameState', 'properties'));
+    this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
+    this.panelVisible$ = this.upgradesPossible$.pipe(
+      map(upgradesPossible => upgradesPossible.businessIncome),
       filter((possible) => possible),
       first(),
       startWith(false)
     );
   }
 
-  upgradeBusinessIncome() {
-    this.store.dispatch(upgrade({ property: 'businessIncome' }));
+  upgrade(property: Property) {
+    this.store.dispatch(upgrade({ property }));
     this.store.dispatch(resume());
   }
 }
