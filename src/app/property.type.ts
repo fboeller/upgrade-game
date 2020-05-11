@@ -1,4 +1,4 @@
-export interface Property {
+export interface PropertyState {
   value: number;
   upgradeEffect: number;
   upgradeCost: number;

@@ -1,5 +1,5 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { Property } from '../property.type';
+import { PropertyState } from '../property.type';
 
 export interface AppState {
   gameState: GameState;
@@ -10,9 +10,9 @@ export interface GameState {
   funds: number;
   workActive: boolean;
   properties: {
-    salary: Property;
-    workEfficiency: Property;
-    businessIncome: Property;
+    salary: PropertyState;
+    workEfficiency: PropertyState;
+    businessIncome: PropertyState;
   };
 }
 

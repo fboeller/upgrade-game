@@ -8,7 +8,7 @@ import {
   isUpgradePossible,
   upgradesPossible,
 } from '../../selectors/game.selectors';
-import { propertyTypes, Property } from 'src/app/property.type';
+import { propertyTypes, PropertyState } from 'src/app/property.type';
 
 @Component({
   selector: 'app-personal-panel',
@@ -27,7 +27,7 @@ export class PersonalPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   propertyTypes = propertyTypes;
-  propertyStates$: Observable<{ [property: string]: Property }>;
+  propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
 
   panelVisible$: Observable<boolean>;
