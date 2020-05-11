@@ -1,7 +1,7 @@
-<div @appear *ngIf="panelVisible$ | async">
+<div @appear>
   <h5>Personal</h5>
   <app-property-row
-    *ngFor="let property of properties"
+    *ngFor="let property of (becameAffordableProperties$ | async)"
     [propertyName]="property"
     [propertyType]="propertyTypes[property]"
     [propertyState]="(propertyStates$ | async)[property]"

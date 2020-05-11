@@ -5,7 +5,14 @@ import { PropertyState } from '../property.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
 
-export const upgradesPossible = createSelector(
+export const upgradesPossible = createSelector(selectGameState, (state) =>
+  mapValues(
+    (propertyState: PropertyState) => state.funds >= propertyState.upgradeCost
+  )(state.properties)
+);
+
+export const filterBecameAffordable = createSelector(
   selectGameState,
-  (state) => mapValues((propertyState: PropertyState) => state.funds >= propertyState.upgradeCost)(state.properties)
+  (state, { properties }) =>
+    properties.filter((property) => state.properties[property].becameAffordable)
 );

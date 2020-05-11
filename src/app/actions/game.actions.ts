@@ -1,5 +1,6 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
 import { PropertyState, Property } from '../property.type';
+import { mapValues } from 'lodash/fp';
 
 export interface AppState {
   gameState: GameState;
@@ -38,18 +39,21 @@ const initialState: GameState = {
       upgradeEffect: 1,
       upgradeCost: 1,
       upgradeCostIncrease: 1,
+      becameAffordable: false,
     },
     workEfficiency: {
       value: 1000,
       upgradeEffect: -50,
       upgradeCost: 2,
       upgradeCostIncrease: 2,
+      becameAffordable: false,
     },
     businessIncome: {
       value: 0,
       upgradeEffect: 1,
       upgradeCost: 10,
       upgradeCostIncrease: 10,
+      becameAffordable: false,
     },
   },
 };
@@ -62,6 +66,13 @@ const _stateReducer = createReducer(
     ...state,
     funds: state.funds + state.properties[property].value,
     workActive: property == 'salary' ? false : state.workActive,
+    properties: mapValues((propertyState: PropertyState) => ({
+      ...propertyState,
+      becameAffordable:
+        propertyState.becameAffordable ||
+        state.funds + state.properties[property].value >=
+          propertyState.upgradeCost,
+    }))(state.properties),
   })),
   on(work, (state) => ({ ...state, workActive: true })),
   on(upgrade, (state, { property }) => ({
