@@ -3,9 +3,9 @@
   <app-property-row
     *ngFor="let property of (becameAffordableProperties$ | async)"
     [propertyName]="property"
-    [propertyType]="propertyTypes[property]"
     [propertyState]="(propertyStates$ | async)[property]"
     [upgradePossible]="(upgradesPossible$ | async)[property]"
+    [upgradeConditions]="(unfulfiledUpgradeConditions$ | async)[property]"
     (upgrade)="upgrade(property)"
   ></app-property-row>
 </div>

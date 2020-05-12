@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { startWith, filter, first, map } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, resume } from '../../actions/game.actions';
 import { upgradesPossible, filterBecameAffordable } from '../../selectors/game.selectors';
-import { propertyTypes, PropertyState, Property } from 'src/app/property.type';
+import { PropertyState, Property } from 'src/app/property.type';
 
 @Component({
   selector: 'app-business-panel',
@@ -24,7 +23,6 @@ export class BusinessPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   properties: Property[] = ['businessIncome'];
-  propertyTypes = propertyTypes;
   propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
   panelVisible$: Observable<boolean>;
