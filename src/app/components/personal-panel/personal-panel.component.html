@@ -1,4 +1,4 @@
-<div @appear>
+<div @appear *ngIf="(becameAffordableProperties$ | async).length > 0">
   <h5>Personal</h5>
   <app-property-row
     *ngFor="let property of (becameAffordableProperties$ | async)"
