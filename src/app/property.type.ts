@@ -4,26 +4,37 @@ export type Property =
   | 'businessIncome'
   | 'workEfficiency';
 
-export interface Increase {
-  type: 'plus' | 'times';
-  value: number;
+export class Increase {
+  constructor(
+    public readonly type: 'plus' | 'times',
+    public readonly value: number
+  ) {}
+
+  invoke(v: number): number {
+    switch (this.type) {
+      case 'plus':
+        return v + this.value;
+      case 'times':
+        return v * this.value;
+    }
+  }
+
+  toHtml(): string {
+    switch (this.type) {
+      case 'plus':
+        return '+' + this.value;
+      case 'times':
+        return '&lowast;' + this.value;
+    }
+  }
 }
 
 export function plus(value: number): Increase {
-  return { type: 'plus', value };
+  return new Increase('plus', value);
 }
 
 export function times(value: number): Increase {
-  return { type: 'times', value };
-}
-
-export function toFunction(increase: Increase): (number) => number {
-  switch (increase.type) {
-    case 'plus':
-      return (v) => v + increase.value;
-    case 'times':
-      return (v) => v * increase.value;
-  }
+  return new Increase('times', value);
 }
 
 export interface PropertyState {

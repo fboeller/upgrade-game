@@ -1,5 +1,10 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { PropertyState, Property, plus, toFunction, times } from '../property.type';
+import {
+  PropertyState,
+  Property,
+  plus,
+  times,
+} from '../property.type';
 import { mapValues } from 'lodash/fp';
 
 export interface AppState {
@@ -96,7 +101,7 @@ const _stateReducer = createReducer(
       ...state.properties,
       [property]: {
         ...state.properties[property],
-        value: toFunction(state.properties[property].upgradeEffect)(
+        value: state.properties[property].upgradeEffect.invoke(
           state.properties[property].value
         ),
         upgradeCost:
