@@ -1,8 +1,23 @@
 export type Property = 'education' | 'salary' | 'businessIncome' | 'workEfficiency';
 
+export interface Increase {
+  type: 'plus';
+  value: number;
+}
+
+export function plus(value: number): Increase {
+  return { type: 'plus', value }
+}
+
+export function toFunction(increase: Increase): (number) => number {
+  switch(increase.type) {
+    case 'plus': return v => v + increase.value;
+  }
+}
+
 export interface PropertyState {
   value: number;
-  upgradeEffect: number;
+  upgradeEffect: Increase;
   upgradeCost: number;
   upgradeCostIncrease: number;
   upgradeConditions: { [property: string]: number };

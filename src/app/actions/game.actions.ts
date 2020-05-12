@@ -1,5 +1,5 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { PropertyState, Property } from '../property.type';
+import { PropertyState, Property, plus, toFunction } from '../property.type';
 import { mapValues } from 'lodash/fp';
 
 export interface AppState {
@@ -37,7 +37,7 @@ const initialState: GameState = {
   properties: {
     education: {
       value: 0,
-      upgradeEffect: 1,
+      upgradeEffect: plus(1),
       upgradeCost: 1,
       upgradeCostIncrease: 1,
       upgradeConditions: {},
@@ -45,7 +45,7 @@ const initialState: GameState = {
     },
     salary: {
       value: 1,
-      upgradeEffect: 1,
+      upgradeEffect: plus(1),
       upgradeCost: 1,
       upgradeCostIncrease: 1,
       upgradeConditions: {
@@ -55,7 +55,7 @@ const initialState: GameState = {
     },
     workEfficiency: {
       value: 1000,
-      upgradeEffect: -50,
+      upgradeEffect: plus(-50),
       upgradeCost: 2,
       upgradeCostIncrease: 2,
       upgradeConditions: {},
@@ -63,7 +63,7 @@ const initialState: GameState = {
     },
     businessIncome: {
       value: 0,
-      upgradeEffect: 1,
+      upgradeEffect: plus(1),
       upgradeCost: 10,
       upgradeCostIncrease: 10,
       upgradeConditions: {},
@@ -96,9 +96,9 @@ const _stateReducer = createReducer(
       ...state.properties,
       [property]: {
         ...state.properties[property],
-        value:
-          state.properties[property].value +
-          state.properties[property].upgradeEffect,
+        value: toFunction(state.properties[property].upgradeEffect)(
+          state.properties[property].value
+        ),
         upgradeCost:
           state.properties[property].upgradeCost +
           state.properties[property].upgradeCostIncrease,
