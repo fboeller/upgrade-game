@@ -1,16 +1,20 @@
 <div class="row upgrade-row">
-  <div class="col s4">{{ propertyType.displayName }}</div>
-  <div class="col s2">{{ propertyState.value }}</div>
-  <div class="col s6">
+  <div class="col s2">{{ propertyType.displayName }}</div>
+  <div class="col s1">{{ propertyState.value }}</div>
+  <div class="col s3">
     <a
       (click)="upgrade()"
       class="upgrade-btn waves-effect btn"
       [class.disabled]="!upgradePossible"
       >{{ propertyType.upgradeText }}</a
     >
+  </div>
+  <div class="col s2">
     <div class="next-upgrade-cost cyan darken-1 white-text z-depth-1">
       {{ propertyState.upgradeCost * -1
       }}<i class="material-icons right">euro_symbol</i>
     </div>
+  </div>
+  <div class="col s4">
   </div>
 </div>
