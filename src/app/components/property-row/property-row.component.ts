@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { PropertyType, PropertyState, propertyTypes } from 'src/app/property.type';
 
 @Component({
   selector: 'app-property-row',
   templateUrl: './property-row.component.html',
-  styleUrls: ['./property-row.component.styl']
+  styleUrls: ['./property-row.component.styl'],
 })
 export class PropertyRowComponent implements OnChanges {
 
@@ -19,6 +19,7 @@ export class PropertyRowComponent implements OnChanges {
   propertyTypes = propertyTypes;
 
   upgradeConditionProperties: string[];
+  showUpgradeDetails: boolean = false;
 
   constructor() { }
 
