@@ -49,7 +49,7 @@ const initialState: GameState = {
       upgradeCost: 1,
       upgradeCostIncrease: 1,
       upgradeConditions: {
-        education: 1
+        education: 1,
       },
       becameAffordable: false,
     },
@@ -102,6 +102,9 @@ const _stateReducer = createReducer(
         upgradeCost:
           state.properties[property].upgradeCost +
           state.properties[property].upgradeCostIncrease,
+        upgradeConditions: mapValues((threshold: number) => threshold + 1)(
+          state.properties[property].upgradeConditions
+        ),
       },
     },
   }))
