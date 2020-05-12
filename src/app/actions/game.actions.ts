@@ -11,6 +11,7 @@ export interface GameState {
   funds: number;
   workActive: boolean;
   properties: {
+    education: PropertyState;
     salary: PropertyState;
     workEfficiency: PropertyState;
     businessIncome: PropertyState;
@@ -34,6 +35,13 @@ const initialState: GameState = {
   funds: 0,
   workActive: false,
   properties: {
+    education: {
+      value: 0,
+      upgradeEffect: 1,
+      upgradeCost: 1,
+      upgradeCostIncrease: 1,
+      becameAffordable: false,
+    },
     salary: {
       value: 1,
       upgradeEffect: 1,

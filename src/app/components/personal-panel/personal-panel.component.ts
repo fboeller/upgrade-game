@@ -23,7 +23,7 @@ import { propertyTypes, PropertyState, Property } from 'src/app/property.type';
 export class PersonalPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
-  properties: Property[] = ['salary', 'workEfficiency'];
+  properties: Property[] = ['education', 'salary', 'workEfficiency'];
   propertyTypes = propertyTypes;
   propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;

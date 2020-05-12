@@ -1,4 +1,4 @@
-export type Property = 'salary' | 'businessIncome' | 'workEfficiency';
+export type Property = 'education' | 'salary' | 'businessIncome' | 'workEfficiency';
 
 export interface PropertyState {
   value: number;
@@ -14,6 +14,10 @@ export interface PropertyType {
 }
 
 export const propertyTypes: { [property: string]: PropertyType } = {
+  education: {
+    displayName: 'Education',
+    upgradeText: 'Learn'
+  },
   salary: {
     displayName: 'Salary',
     upgradeText: 'Promote'
