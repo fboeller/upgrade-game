@@ -5,6 +5,7 @@
     [propertyName]="property"
     [propertyState]="(propertyStates$ | async)[property]"
     [upgradePossible]="(upgradesPossible$ | async)[property]"
+    [upgradeConditions]="(unfulfiledUpgradeConditions$ | async)[property]"
     (upgrade)="upgrade(property)"
   ></app-property-row>
 </div>

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade, resume } from '../../actions/game.actions';
-import { upgradesPossible, filterBecameAffordable } from '../../selectors/game.selectors';
+import { upgradesPossible, filterBecameAffordable, unfulfiledUpgradeConditions } from '../../selectors/game.selectors';
 import { PropertyState, Property } from 'src/app/property.type';
 
 @Component({
@@ -25,12 +25,14 @@ export class BusinessPanelComponent implements OnInit {
   properties: Property[] = ['businessIncome'];
   propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
+  unfulfiledUpgradeConditions$: Observable<{ [property: string]: { [property: string]: number } }>;
   panelVisible$: Observable<boolean>;
   becameAffordableProperties$: Observable<Property[]>;
 
   ngOnInit() {
     this.propertyStates$ = this.store.pipe(select('gameState', 'properties'));
     this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
+    this.unfulfiledUpgradeConditions$ = this.store.pipe(select(unfulfiledUpgradeConditions));
     this.becameAffordableProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.properties }));
   }
 

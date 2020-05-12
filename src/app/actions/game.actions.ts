@@ -1,5 +1,5 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { PropertyState, Property, plus, toFunction } from '../property.type';
+import { PropertyState, Property, plus, toFunction, times } from '../property.type';
 import { mapValues } from 'lodash/fp';
 
 export interface AppState {
@@ -55,7 +55,7 @@ const initialState: GameState = {
     },
     workEfficiency: {
       value: 1000,
-      upgradeEffect: plus(-50),
+      upgradeEffect: times(0.8),
       upgradeCost: 2,
       upgradeCostIncrease: 2,
       upgradeConditions: {},

@@ -1,17 +1,28 @@
-export type Property = 'education' | 'salary' | 'businessIncome' | 'workEfficiency';
+export type Property =
+  | 'education'
+  | 'salary'
+  | 'businessIncome'
+  | 'workEfficiency';
 
 export interface Increase {
-  type: 'plus';
+  type: 'plus' | 'times';
   value: number;
 }
 
 export function plus(value: number): Increase {
-  return { type: 'plus', value }
+  return { type: 'plus', value };
+}
+
+export function times(value: number): Increase {
+  return { type: 'times', value };
 }
 
 export function toFunction(increase: Increase): (number) => number {
-  switch(increase.type) {
-    case 'plus': return v => v + increase.value;
+  switch (increase.type) {
+    case 'plus':
+      return (v) => v + increase.value;
+    case 'times':
+      return (v) => v * increase.value;
   }
 }
 
@@ -32,18 +43,18 @@ export interface PropertyType {
 export const propertyTypes: { [property: string]: PropertyType } = {
   education: {
     displayName: 'Education',
-    upgradeText: 'Learn'
+    upgradeText: 'Learn',
   },
   salary: {
     displayName: 'Salary',
-    upgradeText: 'Promote'
+    upgradeText: 'Promote',
   },
   workEfficiency: {
     displayName: 'Work Efficiency',
-    upgradeText: 'Increase'
+    upgradeText: 'Increase',
   },
   businessIncome: {
     displayName: 'Factories',
-    upgradeText: 'Buy'
-  }
-}
+    upgradeText: 'Buy',
+  },
+};
