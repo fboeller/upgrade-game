@@ -40,6 +40,7 @@ const initialState: GameState = {
       upgradeEffect: 1,
       upgradeCost: 1,
       upgradeCostIncrease: 1,
+      upgradeConditions: {},
       becameAffordable: false,
     },
     salary: {
@@ -47,6 +48,9 @@ const initialState: GameState = {
       upgradeEffect: 1,
       upgradeCost: 1,
       upgradeCostIncrease: 1,
+      upgradeConditions: {
+        education: 1
+      },
       becameAffordable: false,
     },
     workEfficiency: {
@@ -54,6 +58,7 @@ const initialState: GameState = {
       upgradeEffect: -50,
       upgradeCost: 2,
       upgradeCostIncrease: 2,
+      upgradeConditions: {},
       becameAffordable: false,
     },
     businessIncome: {
@@ -61,6 +66,7 @@ const initialState: GameState = {
       upgradeEffect: 1,
       upgradeCost: 10,
       upgradeCostIncrease: 10,
+      upgradeConditions: {},
       becameAffordable: false,
     },
   },

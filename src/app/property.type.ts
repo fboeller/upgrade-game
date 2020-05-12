@@ -5,6 +5,7 @@ export interface PropertyState {
   upgradeEffect: number;
   upgradeCost: number;
   upgradeCostIncrease: number;
+  upgradeConditions: { [property: string]: number };
   becameAffordable: boolean;
 }
 
