@@ -4,14 +4,20 @@
     {{ funds$ | async }}<i class="material-icons large">euro_symbol</i>
   </div>
   <div *ngIf="visibleFundsEffect" class="col s2 funds-effect-container">
-    <div class="funds-effect red-text text-accent-2">
-    {{ visibleFundsEffect * -1 }}<i class="material-icons medium">euro_symbol</i>
+    <div
+      class="funds-effect text-accent-2"
+      [class.red-text]="visibleFundsEffect < 0"
+      [class.green-text]="visibleFundsEffect > 0"
+    >
+      {{ visibleFundsEffect }}<i class="material-icons medium">euro_symbol</i>
     </div>
   </div>
   <div class="col s3"></div>
 </div>
 <div class="section manual-labor-panel">
-  <app-work-button></app-work-button>
+  <app-work-button
+    (visibleFundsEffect)="visibleFundsEffect = $event"
+  ></app-work-button>
 </div>
 <div
   *ngIf="(becameAffordablePersonalProperties$ | async).length > 0"

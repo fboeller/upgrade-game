@@ -34,7 +34,7 @@ export class PropertyRowComponent implements OnChanges {
 
   onUpgradeButtonHover(isMouseOnButton: boolean) {
     this.showUpgradeDetails = isMouseOnButton;
-    this.visibleFundsEffect.emit(isMouseOnButton ? this.propertyState.upgradeCost : null);
+    this.visibleFundsEffect.emit(isMouseOnButton ? this.propertyState.upgradeCost * -1 : null);
   }
 
 }

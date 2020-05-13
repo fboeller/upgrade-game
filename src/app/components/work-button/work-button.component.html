@@ -1,6 +1,17 @@
-<a (click)="work()" class="waves-effect btn-large" [class.disabled]="workActive$ | async"
+<a
+  (click)="work()"
+  (mouseenter)="hoverActive$.next(true)"
+  (mouseleave)="hoverActive$.next(false)"
+  class="waves-effect btn-large"
+  [class.disabled]="workActive$ | async"
   ><i class="material-icons left">work</i>Work</a
 >
 <div class="progress">
-  <div class="determinate" [@startWork]="{ value: (workActive$ | async) ? 'workInProgress': 'noWorkInProgress', params: { duration: (animationDuration$ | async) } }"></div>
+  <div
+    class="determinate"
+    [@startWork]="{
+      value: (workActive$ | async) ? 'workInProgress' : 'noWorkInProgress',
+      params: { duration: animationDuration$ | async }
+    }"
+  ></div>
 </div>
