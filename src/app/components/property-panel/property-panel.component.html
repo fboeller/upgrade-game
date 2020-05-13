@@ -7,5 +7,6 @@
     [upgradePossible]="(upgradesPossible$ | async)[property]"
     [upgradeConditions]="(unfulfiledUpgradeConditions$ | async)[property]"
     (upgrade)="upgrade(property)"
+    (visibleFundsEffect)="visibleFundsEffect.emit($event)"
   ></app-property-row>
 </div>

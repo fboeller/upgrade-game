@@ -1,5 +1,14 @@
-<div class="funds-card card-panel teal white-text">
-  {{ funds$ | async }}<i class="material-icons large">euro_symbol</i>
+<div class="funds-card row card-panel teal white-text">
+  <div class="col s5"></div>
+  <div class="col s2 funds">
+    {{ funds$ | async }}<i class="material-icons large">euro_symbol</i>
+  </div>
+  <div *ngIf="visibleFundsEffect" class="col s2 funds-effect-container">
+    <div class="funds-effect red-text text-accent-2">
+    {{ visibleFundsEffect * -1 }}<i class="material-icons medium">euro_symbol</i>
+    </div>
+  </div>
+  <div class="col s3"></div>
 </div>
 <div class="section manual-labor-panel">
   <app-work-button></app-work-button>
@@ -10,6 +19,7 @@
 >
   <app-personal-panel
     [properties]="becameAffordablePersonalProperties$ | async"
+    (visibleFundsEffect)="visibleFundsEffect = $event"
   ></app-personal-panel>
 </div>
 <div
@@ -18,8 +28,12 @@
 >
   <app-personal-panel
     [properties]="becameAffordableBusinessProperties$ | async"
+    (visibleFundsEffect)="visibleFundsEffect = $event"
   ></app-personal-panel>
 </div>
-<div *ngIf="(becameAffordableBusinessProperties$ | async).length > 0" class="section">
+<div
+  *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
+  class="section"
+>
   <app-time-control-panel></app-time-control-panel>
 </div>

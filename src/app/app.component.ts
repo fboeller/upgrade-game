@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   businessProperties: Property[] = ['businessIncome'];
 
   funds$: Observable<number>;
+  visibleFundsEffect: number;
   becameAffordablePersonalProperties$: Observable<Property[]>;
   becameAffordableBusinessProperties$: Observable<Property[]>;
 

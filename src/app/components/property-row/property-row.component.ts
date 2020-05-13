@@ -15,6 +15,7 @@ export class PropertyRowComponent implements OnChanges {
   @Input() upgradeConditions: { [property: string]: number };
 
   @Output('upgrade') upgradeOut: EventEmitter<any> = new EventEmitter();
+  @Output('visibleFundsEffect') visibleFundsEffect: EventEmitter<number> = new EventEmitter();
 
   propertyTypes = propertyTypes;
 
@@ -29,6 +30,11 @@ export class PropertyRowComponent implements OnChanges {
 
   upgrade() {
     this.upgradeOut.emit();
+  }
+
+  onUpgradeButtonHover(isMouseOnButton: boolean) {
+    this.showUpgradeDetails = isMouseOnButton;
+    this.visibleFundsEffect.emit(isMouseOnButton ? this.propertyState.upgradeCost : null);
   }
 
 }

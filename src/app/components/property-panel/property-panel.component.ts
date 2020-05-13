@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
@@ -23,6 +23,8 @@ export class PropertyPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   @Input() properties: Property[] = [];
+  @Output() visibleFundsEffect: EventEmitter<number> = new EventEmitter();
+
   propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
   unfulfiledUpgradeConditions$: Observable<{ [property: string]: { [property: string]: number } }>;

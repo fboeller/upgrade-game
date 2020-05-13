@@ -11,8 +11,8 @@
   <div class="col s3">
     <a
       (click)="upgrade()"
-      (mouseenter)="showUpgradeDetails = true"
-      (mouseleave)="showUpgradeDetails = false"
+      (mouseenter)="onUpgradeButtonHover(true)"
+      (mouseleave)="onUpgradeButtonHover(false)"
       class="upgrade-btn waves-effect btn"
       [class.disabled]="!upgradePossible"
       >{{ propertyTypes[propertyName].upgradeText }}</a
