@@ -1,11 +1,7 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import {
-  PropertyState,
-  Property,
-  plus,
-  times,
-} from '../property.type';
-import { mapValues } from 'lodash/fp';
+import { PropertyState, Property, plus, times } from '../types/property.type';
+import { mapValues, concat } from 'lodash/fp';
+import { Achievement } from '../types/achievement.type';
 
 export interface AppState {
   gameState: GameState;
@@ -21,6 +17,7 @@ export interface GameState {
     workEfficiency: PropertyState;
     businessIncome: PropertyState;
   };
+  achievements: Achievement[];
 }
 
 export const resume = createAction('[Time] Resume');
@@ -34,9 +31,13 @@ export const upgrade = createAction(
   '[Upgrade] Property',
   props<{ property: Property }>()
 );
+export const achievementUnlocked = createAction(
+  '[Achievement] Unlocked',
+  props<{ achievement: Achievement }>()
+);
 
 const initialState: GameState = {
-  timeActive: true,
+  timeActive: false,
   funds: 0,
   workActive: false,
   properties: {
@@ -75,6 +76,7 @@ const initialState: GameState = {
       becameAffordable: false,
     },
   },
+  achievements: [],
 };
 
 const _stateReducer = createReducer(
@@ -112,6 +114,10 @@ const _stateReducer = createReducer(
         ),
       },
     },
+  })),
+  on(achievementUnlocked, (state, { achievement }) => ({
+    ...state,
+    achievements: concat(achievement, state.achievements),
   }))
 );
 

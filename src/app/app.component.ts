@@ -4,7 +4,7 @@ import { startWith, filter, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState } from './actions/game.actions';
 import { filterBecameAffordable } from './selectors/game.selectors';
-import { Property } from './property.type';
+import { Property } from './types/property.type';
 
 @Component({
   selector: 'app-root',

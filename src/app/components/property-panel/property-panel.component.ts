@@ -4,7 +4,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from '../../actions/game.actions';
 import { upgradesPossible, unfulfiledUpgradeConditions } from '../../selectors/game.selectors';
-import { PropertyState, Property } from 'src/app/property.type';
+import { PropertyState, Property } from 'src/app/types/property.type';
 
 @Component({
   selector: 'app-personal-panel',
