@@ -36,7 +36,7 @@ export const upgrade = createAction(
 );
 
 const initialState: GameState = {
-  timeActive: false,
+  timeActive: true,
   funds: 0,
   workActive: false,
   properties: {

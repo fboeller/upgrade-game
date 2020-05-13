@@ -16,10 +16,10 @@
   *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
   class="section"
 >
-  <app-business-panel
+  <app-personal-panel
     [properties]="becameAffordableBusinessProperties$ | async"
-  ></app-business-panel>
+  ></app-personal-panel>
 </div>
-<div *ngIf="timeControlPanelVisible$ | async" class="section">
+<div *ngIf="(becameAffordableBusinessProperties$ | async).length > 0" class="section">
   <app-time-control-panel></app-time-control-panel>
 </div>

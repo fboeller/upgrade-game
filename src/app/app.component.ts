@@ -21,18 +21,11 @@ export class AppComponent implements OnInit {
   businessProperties: Property[] = ['businessIncome'];
 
   funds$: Observable<number>;
-  timeControlPanelVisible$: Observable<boolean>;
   becameAffordablePersonalProperties$: Observable<Property[]>;
   becameAffordableBusinessProperties$: Observable<Property[]>;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
-    this.timeControlPanelVisible$ = this.store.pipe(
-      select('gameState', 'timeActive'),
-      filter((timeActive) => timeActive),
-      first(),
-      startWith(false)
-    );
     this.becameAffordablePersonalProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.personalProperties }));
     this.becameAffordableBusinessProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.businessProperties }));
   }
