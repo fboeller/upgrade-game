@@ -4,14 +4,22 @@
 <div class="section manual-labor-panel">
   <app-work-button></app-work-button>
 </div>
-<div class="section">
-  <app-personal-panel></app-personal-panel>
+<div
+  *ngIf="(becameAffordablePersonalProperties$ | async).length > 0"
+  class="section"
+>
+  <app-personal-panel
+    [properties]="becameAffordablePersonalProperties$ | async"
+  ></app-personal-panel>
 </div>
-<div class="section">
-  <app-business-panel></app-business-panel>
+<div
+  *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
+  class="section"
+>
+  <app-business-panel
+    [properties]="becameAffordableBusinessProperties$ | async"
+  ></app-business-panel>
 </div>
-<div class="section">
-  <app-time-control-panel
-    *ngIf="timeControlPanelVisible$ | async"
-  ></app-time-control-panel>
+<div *ngIf="timeControlPanelVisible$ | async" class="section">
+  <app-time-control-panel></app-time-control-panel>
 </div>

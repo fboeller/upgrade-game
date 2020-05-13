@@ -1,7 +1,7 @@
-<div @appear *ngIf="(becameAffordableProperties$ | async).length > 0">
+<div @appear *ngIf="properties.length > 0">
   <h5 class="card-title">Businesses</h5>
   <app-property-row
-    *ngFor="let property of (becameAffordableProperties$ | async)"
+    *ngFor="let property of properties"
     [propertyName]="property"
     [propertyState]="(propertyStates$ | async)[property]"
     [upgradePossible]="(upgradesPossible$ | async)[property]"

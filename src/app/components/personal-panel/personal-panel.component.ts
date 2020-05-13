@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from '../../actions/game.actions';
-import { upgradesPossible, filterBecameAffordable, unfulfiledUpgradeConditions } from '../../selectors/game.selectors';
+import { upgradesPossible, unfulfiledUpgradeConditions } from '../../selectors/game.selectors';
 import { PropertyState, Property } from 'src/app/property.type';
 
 @Component({
@@ -22,17 +22,15 @@ import { PropertyState, Property } from 'src/app/property.type';
 export class PersonalPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
-  properties: Property[] = ['education', 'salary', 'workEfficiency'];
+  @Input() properties: Property[] = [];
   propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
   unfulfiledUpgradeConditions$: Observable<{ [property: string]: { [property: string]: number } }>;
-  becameAffordableProperties$: Observable<Property[]>;
 
   ngOnInit() {
     this.propertyStates$ = this.store.pipe(select('gameState', 'properties'));
     this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
     this.unfulfiledUpgradeConditions$ = this.store.pipe(select(unfulfiledUpgradeConditions));
-    this.becameAffordableProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.properties }));
   }
 
   upgrade(property: Property) {

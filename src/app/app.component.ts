@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { startWith, filter, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState } from './actions/game.actions';
+import { filterBecameAffordable } from './selectors/game.selectors';
+import { Property } from './property.type';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +17,13 @@ export class AppComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {}
 
+  personalProperties: Property[] = ['education', 'salary', 'workEfficiency'];
+  businessProperties: Property[] = ['businessIncome'];
+
   funds$: Observable<number>;
   timeControlPanelVisible$: Observable<boolean>;
+  becameAffordablePersonalProperties$: Observable<Property[]>;
+  becameAffordableBusinessProperties$: Observable<Property[]>;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
@@ -26,5 +33,7 @@ export class AppComponent implements OnInit {
       first(),
       startWith(false)
     );
+    this.becameAffordablePersonalProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.personalProperties }));
+    this.becameAffordableBusinessProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.businessProperties }));
   }
 }
