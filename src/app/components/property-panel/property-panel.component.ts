@@ -8,8 +8,8 @@ import { PropertyState, Property } from 'src/app/property.type';
 
 @Component({
   selector: 'app-personal-panel',
-  templateUrl: './personal-panel.component.html',
-  styleUrls: ['./personal-panel.component.styl'],
+  templateUrl: './property-panel.component.html',
+  styleUrls: ['./property-panel.component.styl'],
   animations: [
     trigger('appear', [
       transition(':enter', [
@@ -19,7 +19,7 @@ import { PropertyState, Property } from 'src/app/property.type';
     ]),
   ],
 })
-export class PersonalPanelComponent implements OnInit {
+export class PropertyPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   @Input() properties: Property[] = [];
