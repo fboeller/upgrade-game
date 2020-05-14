@@ -13,6 +13,7 @@ import { stateReducer } from './actions/game.actions';
 import { AchievementEffects } from './effects/achievement.effects';
 import { IncomeEffects } from './effects/income.effects';
 import { PropertyRowComponent } from './components/property-row/property-row.component';
+import { AchievementPanelComponent } from './components/achievement-panel/achievement-panel.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { PropertyRowComponent } from './components/property-row/property-row.com
     WorkButtonComponent,
     PropertyPanelComponent,
     PropertyRowComponent,
+    AchievementPanelComponent,
   ],
   imports: [
     BrowserModule,

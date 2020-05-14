@@ -1,0 +1,6 @@
+<ul class="collection">
+  <li class="collection-item teal white-text" *ngFor="let achievement of achievements$ | async">
+    <i class="fa fa-trophy" aria-hidden="true"></i>
+    <span>{{ achievement.name }}</span>
+  </li>
+</ul>

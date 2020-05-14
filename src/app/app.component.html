@@ -1,45 +1,53 @@
-<div class="funds-card row card-panel teal white-text">
-  <div class="col s5"></div>
-  <div class="col s2 funds">
-    {{ funds$ | async }}<i class="material-icons large">euro_symbol</i>
-  </div>
-  <div *ngIf="visibleFundsEffect" class="col s2 funds-effect-container">
+<div class="row">
+  <div class="col s10">
+    <div class="funds-card row card-panel teal white-text">
+      <div class="col s5"></div>
+      <div class="col s2 funds">
+        {{ funds$ | async }}<i class="material-icons large">euro_symbol</i>
+      </div>
+      <div *ngIf="visibleFundsEffect" class="col s2 funds-effect-container">
+        <div
+          class="funds-effect text-accent-2"
+          [class.red-text]="visibleFundsEffect < 0"
+          [class.green-text]="visibleFundsEffect > 0"
+        >
+          {{ visibleFundsEffect
+          }}<i class="material-icons medium">euro_symbol</i>
+        </div>
+      </div>
+      <div class="col s3"></div>
+    </div>
+    <div class="section manual-labor-panel">
+      <app-work-button
+        (visibleFundsEffect)="visibleFundsEffect = $event"
+      ></app-work-button>
+    </div>
     <div
-      class="funds-effect text-accent-2"
-      [class.red-text]="visibleFundsEffect < 0"
-      [class.green-text]="visibleFundsEffect > 0"
+      *ngIf="(becameAffordablePersonalProperties$ | async).length > 0"
+      class="section"
     >
-      {{ visibleFundsEffect }}<i class="material-icons medium">euro_symbol</i>
+      <app-personal-panel
+        [properties]="becameAffordablePersonalProperties$ | async"
+        (visibleFundsEffect)="visibleFundsEffect = $event"
+      ></app-personal-panel>
+    </div>
+    <div
+      *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
+      class="section"
+    >
+      <app-personal-panel
+        [properties]="becameAffordableBusinessProperties$ | async"
+        (visibleFundsEffect)="visibleFundsEffect = $event"
+      ></app-personal-panel>
+    </div>
+    <div
+      *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
+      class="section"
+    >
+      <app-time-control-panel></app-time-control-panel>
     </div>
   </div>
-  <div class="col s3"></div>
-</div>
-<div class="section manual-labor-panel">
-  <app-work-button
-    (visibleFundsEffect)="visibleFundsEffect = $event"
-  ></app-work-button>
-</div>
-<div
-  *ngIf="(becameAffordablePersonalProperties$ | async).length > 0"
-  class="section"
->
-  <app-personal-panel
-    [properties]="becameAffordablePersonalProperties$ | async"
-    (visibleFundsEffect)="visibleFundsEffect = $event"
-  ></app-personal-panel>
-</div>
-<div
-  *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
-  class="section"
->
-  <app-personal-panel
-    [properties]="becameAffordableBusinessProperties$ | async"
-    (visibleFundsEffect)="visibleFundsEffect = $event"
-  ></app-personal-panel>
-</div>
-<div
-  *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
-  class="section"
->
-  <app-time-control-panel></app-time-control-panel>
+  <div class="col s2">
+    <app-achievement-panel></app-achievement-panel>
+  </div>
 </div>
