@@ -18,4 +18,14 @@ export const achievements$: Observable<Achievement> = from([
     icon: 'fa-university',
     condition: (state: GameState) => state.properties.education.value > 0,
   },
+  {
+    name: 'First Promotion',
+    icon: 'fa-award',
+    condition: (state: GameState) => state.properties.salary.value > 1,
+  },
+  {
+    name: 'Factory Owner',
+    icon: 'fa-industry',
+    condition: (state: GameState) => state.properties.businessIncome.value > 0,
+  },
 ]);
