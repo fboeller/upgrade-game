@@ -1,23 +1,11 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { PropertyState, Property, plus, times } from '../types/property.type';
+import { PropertyState, Property } from '../types/property.type';
 import { mapValues, concat } from 'lodash/fp';
 import { Achievement } from '../types/achievement.type';
+import { GameState, initialState } from '../types/game-state.type';
 
 export interface AppState {
   gameState: GameState;
-}
-
-export interface GameState {
-  timeActive: boolean;
-  funds: number;
-  workActive: boolean;
-  properties: {
-    education: PropertyState;
-    salary: PropertyState;
-    workEfficiency: PropertyState;
-    businessIncome: PropertyState;
-  };
-  achievements: Achievement[];
 }
 
 export const resume = createAction('[Time] Resume');
@@ -35,49 +23,6 @@ export const achievementUnlocked = createAction(
   '[Achievement] Unlocked',
   props<{ achievement: Achievement }>()
 );
-
-const initialState: GameState = {
-  timeActive: false,
-  funds: 0,
-  workActive: false,
-  properties: {
-    education: {
-      value: 0,
-      upgradeEffect: plus(1),
-      upgradeCost: 1,
-      upgradeCostIncrease: 1,
-      upgradeConditions: {},
-      becameAffordable: false,
-    },
-    salary: {
-      value: 1,
-      upgradeEffect: plus(1),
-      upgradeCost: 1,
-      upgradeCostIncrease: 1,
-      upgradeConditions: {
-        education: 1,
-      },
-      becameAffordable: false,
-    },
-    workEfficiency: {
-      value: 1000,
-      upgradeEffect: times(0.8),
-      upgradeCost: 2,
-      upgradeCostIncrease: 2,
-      upgradeConditions: {},
-      becameAffordable: false,
-    },
-    businessIncome: {
-      value: 0,
-      upgradeEffect: plus(1),
-      upgradeCost: 10,
-      upgradeCostIncrease: 10,
-      upgradeConditions: {},
-      becameAffordable: false,
-    },
-  },
-  achievements: [],
-};
 
 const _stateReducer = createReducer(
   initialState,
