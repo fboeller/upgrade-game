@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PropertyPanelComponent } from './property-panel.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { initialState } from 'src/app/types/game-state.type';
 
 describe('PropertyPanelComponent', () => {
   let component: PropertyPanelComponent;
@@ -8,7 +10,8 @@ describe('PropertyPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PropertyPanelComponent ]
+      declarations: [ PropertyPanelComponent ],
+      providers: [provideMockStore({ initialState: { gameState: initialState } })],
     })
     .compileComponents();
   }));

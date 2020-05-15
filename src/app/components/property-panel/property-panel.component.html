@@ -4,6 +4,7 @@
     *ngFor="let property of properties"
     [propertyName]="property"
     [propertyState]="(propertyStates$ | async)[property]"
+    [propertyType]="propertyTypes[property]"
     [upgradePossible]="(upgradesPossible$ | async)[property]"
     [upgradeConditions]="(unfulfiledUpgradeConditions$ | async)[property]"
     (upgrade)="upgrade(property)"

@@ -4,7 +4,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from '../../actions/game.actions';
 import { upgradesPossible, unfulfiledUpgradeConditions } from '../../selectors/game.selectors';
-import { PropertyState, Property } from 'src/app/types/property.type';
+import { PropertyState, Property, propertyTypes } from 'src/app/types/property.type';
 
 @Component({
   selector: 'app-personal-panel',
@@ -28,6 +28,8 @@ export class PropertyPanelComponent implements OnInit {
   propertyStates$: Observable<{ [property: string]: PropertyState }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
   unfulfiledUpgradeConditions$: Observable<{ [property: string]: { [property: string]: number } }>;
+
+  propertyTypes = propertyTypes;
 
   ngOnInit() {
     this.propertyStates$ = this.store.pipe(select('gameState', 'properties'));

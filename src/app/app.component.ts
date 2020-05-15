@@ -13,8 +13,6 @@ import { Property } from './types/property.type';
   animations: [],
 })
 export class AppComponent implements OnInit {
-  title = 'upgrade-game';
-
   constructor(private store: Store<AppState>) {}
 
   personalProperties: Property[] = ['education', 'salary', 'workEfficiency'];

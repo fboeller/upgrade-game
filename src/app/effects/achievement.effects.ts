@@ -10,12 +10,16 @@ import { every } from 'lodash/fp';
 export class AchievementEffects {
   constructor(private store: Store<AppState>) {}
 
-  achievementUnlocking$ = createEffect(() =>
+  stateAchievementUnlocking$ = createEffect(() =>
     this.store.pipe(
       select('gameState'),
       flatMap((gameState) =>
         achievements$.pipe(
-          filter((achievement) => every((a: Achievement) => a.name != achievement.name)(gameState.achievements)),
+          filter((achievement) =>
+            every((a: Achievement) => a.name != achievement.name)(
+              gameState.achievements
+            )
+          ),
           filter((achievement) => achievement.condition(gameState))
         )
       ),
