@@ -1,4 +1,4 @@
-import { PropertyState } from './property.type';
+import { PropertyState } from './property-state.type';
 import { Achievement } from './achievement.type';
 import { plus, times } from './increase.type';
 
