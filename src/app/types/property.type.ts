@@ -6,6 +6,13 @@ export type Property =
   | 'businessIncome'
   | 'workEfficiency';
 
+export const personalProperties: Property[] = [
+  'education',
+  'salary',
+  'workEfficiency',
+];
+export const businessProperties: Property[] = ['businessIncome'];
+
 export interface PropertyState {
   value: number;
   upgradeEffect: Increase;

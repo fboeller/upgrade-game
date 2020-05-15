@@ -1,42 +1,15 @@
 <div class="row">
   <div class="col s10">
-    <app-funds-panel
+    <app-game-panel
       [funds]="funds$ | async"
-      [fundsEffect]="visibleFundsEffect"
-    ></app-funds-panel>
-    <div class="section manual-labor-panel">
-      <app-work-button
-        (visibleFundsEffect)="visibleFundsEffect = $event"
-      ></app-work-button>
-    </div>
-    <div
-      *ngIf="(becameAffordablePersonalProperties$ | async).length > 0"
-      class="section"
-    >
-      <app-personal-panel
-        title="Personal"
-        [properties]="becameAffordablePersonalProperties$ | async"
-        (visibleFundsEffect)="visibleFundsEffect = $event"
-      ></app-personal-panel>
-    </div>
-    <div
-      *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
-      class="section"
-    >
-      <app-personal-panel
-        title="Business"
-        [properties]="becameAffordableBusinessProperties$ | async"
-        (visibleFundsEffect)="visibleFundsEffect = $event"
-      ></app-personal-panel>
-    </div>
-    <div
-      *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
-      class="section"
-    >
-      <app-time-control-panel
-        [timeActive]="timeActive$ | async"
-      ></app-time-control-panel>
-    </div>
+      [becameAffordablePersonalProperties]="
+        becameAffordablePersonalProperties$ | async
+      "
+      [becameAffordableBusinessProperties]="
+        becameAffordableBusinessProperties$ | async
+      "
+      [timeActive]="timeActive$ | async"
+    ></app-game-panel>
   </div>
   <div class="col s2">
     <app-achievement-panel

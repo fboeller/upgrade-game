@@ -26,8 +26,8 @@ export class AppComponent implements OnInit {
   visibleFundsEffect: number;
   becameAffordablePersonalProperties$: Observable<Property[]>;
   becameAffordableBusinessProperties$: Observable<Property[]>;
-  achievements$: Observable<Achievement[]>;
   timeActive$: Observable<boolean>;
+  achievements$: Observable<Achievement[]>;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
@@ -37,10 +37,10 @@ export class AppComponent implements OnInit {
     this.becameAffordableBusinessProperties$ = this.store.pipe(
       select(filterBecameAffordable, { properties: this.businessProperties })
     );
+    this.timeActive$ = this.store.pipe(select('gameState', 'timeActive'));
     this.achievements$ = this.store.pipe(
       select(selectGameState),
       map((state) => state.achievements)
     );
-    this.timeActive$ = this.store.pipe(select('gameState', 'timeActive'));
   }
 }
