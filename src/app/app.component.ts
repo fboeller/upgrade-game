@@ -7,7 +7,11 @@ import {
   filterBecameAffordable,
   selectGameState,
 } from './selectors/game.selectors';
-import { Property } from './types/property.type';
+import {
+  Property,
+  personalProperties,
+  businessProperties,
+} from './types/property.type';
 import { Achievement } from './types/achievement.type';
 
 @Component({
@@ -19,9 +23,6 @@ import { Achievement } from './types/achievement.type';
 export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
-  personalProperties: Property[] = ['education', 'salary', 'workEfficiency'];
-  businessProperties: Property[] = ['businessIncome'];
-
   funds$: Observable<number>;
   visibleFundsEffect: number;
   becameAffordablePersonalProperties$: Observable<Property[]>;
@@ -32,10 +33,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
     this.becameAffordablePersonalProperties$ = this.store.pipe(
-      select(filterBecameAffordable, { properties: this.personalProperties })
+      select(filterBecameAffordable, { properties: personalProperties })
     );
     this.becameAffordableBusinessProperties$ = this.store.pipe(
-      select(filterBecameAffordable, { properties: this.businessProperties })
+      select(filterBecameAffordable, { properties: businessProperties })
     );
     this.timeActive$ = this.store.pipe(select('gameState', 'timeActive'));
     this.achievements$ = this.store.pipe(
