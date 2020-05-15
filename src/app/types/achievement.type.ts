@@ -7,7 +7,7 @@ export interface Achievement {
   condition: (GameState) => boolean;
 }
 
-export const achievements$: Observable<Achievement> = from([
+export const achievements: Achievement[] = [
   {
     name: 'First Income',
     icon: 'fa-euro-sign',
@@ -28,4 +28,6 @@ export const achievements$: Observable<Achievement> = from([
     icon: 'fa-industry',
     condition: (state: GameState) => state.properties.businessIncome.value > 0,
   },
-]);
+];
+
+export const achievements$: Observable<Achievement> = from(achievements);

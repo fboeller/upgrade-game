@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { startWith, filter, first } from 'rxjs/operators';
+import { startWith, filter, first, map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState } from './actions/game.actions';
-import { filterBecameAffordable } from './selectors/game.selectors';
+import {
+  filterBecameAffordable,
+  selectGameState,
+} from './selectors/game.selectors';
 import { Property } from './types/property.type';
+import { Achievement } from './types/achievement.type';
 
 @Component({
   selector: 'app-root',
@@ -22,10 +26,19 @@ export class AppComponent implements OnInit {
   visibleFundsEffect: number;
   becameAffordablePersonalProperties$: Observable<Property[]>;
   becameAffordableBusinessProperties$: Observable<Property[]>;
+  achievements$: Observable<Achievement[]>;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
-    this.becameAffordablePersonalProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.personalProperties }));
-    this.becameAffordableBusinessProperties$ = this.store.pipe(select(filterBecameAffordable, { properties: this.businessProperties }));
+    this.becameAffordablePersonalProperties$ = this.store.pipe(
+      select(filterBecameAffordable, { properties: this.personalProperties })
+    );
+    this.becameAffordableBusinessProperties$ = this.store.pipe(
+      select(filterBecameAffordable, { properties: this.businessProperties })
+    );
+    this.achievements$ = this.store.pipe(
+      select(selectGameState),
+      map((state) => state.achievements)
+    );
   }
 }
