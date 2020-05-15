@@ -24,7 +24,7 @@ export const negativeEffectVisible = () => ({
   component: FundsPanelComponent,
   props: {
     funds: 0,
-    fundsEffect: 7
+    fundsEffect: -7
   }
 });
 
