@@ -1,0 +1,16 @@
+<div class="funds-card row card-panel teal white-text">
+  <div class="col s5"></div>
+  <div class="col s2 funds">
+    {{ funds }}<i class="material-icons large">euro_symbol</i>
+  </div>
+  <div *ngIf="fundsEffect" class="col s2 funds-effect-container">
+    <div
+      class="funds-effect text-accent-2"
+      [class.red-text]="fundsEffect < 0"
+      [class.green-text]="fundsEffect > 0"
+    >
+      {{ fundsEffect }}<i class="material-icons medium">euro_symbol</i>
+    </div>
+  </div>
+  <div class="col s3"></div>
+</div>

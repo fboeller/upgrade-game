@@ -14,6 +14,7 @@ import { AchievementEffects } from './effects/achievement.effects';
 import { IncomeEffects } from './effects/income.effects';
 import { PropertyRowComponent } from './components/property-row/property-row.component';
 import { AchievementPanelComponent } from './components/achievement-panel/achievement-panel.component';
+import { FundsPanelComponent } from './components/funds-panel/funds-panel.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AchievementPanelComponent } from './components/achievement-panel/achiev
     PropertyPanelComponent,
     PropertyRowComponent,
     AchievementPanelComponent,
+    FundsPanelComponent,
   ],
   imports: [
     BrowserModule,
