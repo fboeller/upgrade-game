@@ -1,5 +1,5 @@
 <div @appear *ngIf="properties.length > 0">
-  <h5>Personal</h5>
+  <h5>{{ title }}</h5>
   <app-property-row
     *ngFor="let property of properties"
     [propertyName]="property"

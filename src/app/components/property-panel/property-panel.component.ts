@@ -22,6 +22,7 @@ import { PropertyState, Property, propertyTypes } from 'src/app/types/property.t
 export class PropertyPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
+  @Input() title: string;
   @Input() properties: Property[] = [];
   @Output() visibleFundsEffect: EventEmitter<number> = new EventEmitter();
 

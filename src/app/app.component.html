@@ -27,6 +27,7 @@
       class="section"
     >
       <app-personal-panel
+        title="Personal"
         [properties]="becameAffordablePersonalProperties$ | async"
         (visibleFundsEffect)="visibleFundsEffect = $event"
       ></app-personal-panel>
@@ -36,6 +37,7 @@
       class="section"
     >
       <app-personal-panel
+        title="Business"
         [properties]="becameAffordableBusinessProperties$ | async"
         (visibleFundsEffect)="visibleFundsEffect = $event"
       ></app-personal-panel>
