@@ -46,7 +46,7 @@
       *ngIf="(becameAffordableBusinessProperties$ | async).length > 0"
       class="section"
     >
-      <app-time-control-panel></app-time-control-panel>
+      <app-time-control-panel [timeActive]="timeActive$ | async"></app-time-control-panel>
     </div>
   </div>
   <div class="col s2">

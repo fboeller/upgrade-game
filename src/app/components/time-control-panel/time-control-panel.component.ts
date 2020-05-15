@@ -1,8 +1,7 @@
 import {
-  Component, OnInit
+  Component, Input
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { pause, resume, AppState } from '../../actions/game.actions';
 
 @Component({
@@ -10,15 +9,11 @@ import { pause, resume, AppState } from '../../actions/game.actions';
   templateUrl: './time-control-panel.component.html',
   styleUrls: ['./time-control-panel.component.styl'],
 })
-export class TimeControlPanelComponent implements OnInit {
+export class TimeControlPanelComponent {
 
-  timeActive$: Observable<boolean>;
+  @Input() timeActive: boolean;
 
   constructor(private store: Store<AppState>) {}
-
-  ngOnInit() {
-    this.timeActive$ = this.store.pipe(select('gameState', 'timeActive'));
-  }
 
   pause() {
     this.store.dispatch(pause());

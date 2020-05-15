@@ -1,7 +1,7 @@
 
 <div class="time-control-panel">
-  <a (click)="pause()" class="waves-effect btn" [class.disabled]="!(timeActive$ | async)"
-    ><i class="material-icons left">pause</i>Pause</a
+  <a (click)="pause()" class="waves-effect btn" [class.disabled]="!timeActive"
+    ><i class="fas fa-pause left"></i>Pause</a
   >
-  <a (click)="resume()" class="waves-effect btn" [class.disabled]="timeActive$ | async"><i class="material-icons left">play_arrow</i>Resume</a>
+  <a (click)="resume()" class="waves-effect btn" [class.disabled]="timeActive"><i class="fas fa-play left"></i>Resume</a>
 </div>
