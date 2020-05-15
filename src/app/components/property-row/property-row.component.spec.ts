@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PropertyRowComponent } from './property-row.component';
-import { plus } from 'src/app/types/increase.type';
+import { plus } from 'types/increase.type';
 
 describe('PropertyRowComponent', () => {
   let component: PropertyRowComponent;

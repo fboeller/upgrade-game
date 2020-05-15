@@ -1,9 +1,9 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
-import { Property } from '../types/property.type';
-import { PropertyState } from '../types/property-state.type';
+import { Property } from 'types/property.type';
+import { PropertyState } from 'types/property-state.type';
 import { mapValues, concat } from 'lodash/fp';
-import { Achievement } from '../types/achievement.type';
-import { GameState, initialState } from '../types/game-state.type';
+import { Achievement } from 'types/achievement.type';
+import { GameState, initialState } from 'types/game-state.type';
 
 export interface AppState {
   gameState: GameState;

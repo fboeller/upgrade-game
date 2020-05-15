@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -11,10 +10,15 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"],
+    "baseUrl": "./",
+    "paths": {
+      "types/*": ["./src/app/types/*"],
+      "components/*": ["./src/app/components/*"],
+      "selectors/*": ["./src/app/selectors/*"],
+      "effects/*": ["./src/app/effects/*"],
+      "actions/*": ["./src/app/actions/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

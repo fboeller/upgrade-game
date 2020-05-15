@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState, achievementUnlocked } from '../actions/game.actions';
+import { AppState, achievementUnlocked } from 'actions/game.actions';
 import { map, flatMap, filter } from 'rxjs/operators';
 import { createEffect } from '@ngrx/effects';
-import { achievements$, Achievement } from '../types/achievement.type';
+import { achievements$, Achievement } from 'types/achievement.type';
 import { every } from 'lodash/fp';
 
 @Injectable()

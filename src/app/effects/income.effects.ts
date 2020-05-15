@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState, income } from '../actions/game.actions';
+import { AppState, income } from 'actions/game.actions';
 import { switchMap, map, delay, flatMap, withLatestFrom } from 'rxjs/operators';
 import { interval, NEVER, of } from 'rxjs';
 import { createEffect, Actions, ofType } from '@ngrx/effects';

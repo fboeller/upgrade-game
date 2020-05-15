@@ -2,7 +2,7 @@ import {
   Component, Input
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { pause, resume, AppState } from '../../actions/game.actions';
+import { pause, resume, AppState } from 'actions/game.actions';
 
 @Component({
   selector: 'app-time-control-panel',

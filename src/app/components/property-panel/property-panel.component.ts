@@ -2,14 +2,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, upgrade } from '../../actions/game.actions';
+import { AppState, upgrade } from 'actions/game.actions';
 import {
   upgradesPossible,
   unfulfiledUpgradeConditions,
-} from '../../selectors/game.selectors';
-import { Property } from 'src/app/types/property.type';
-import { PropertyState } from 'src/app/types/property-state.type';
-import { propertyTypes } from 'src/app/types/property-type.type';
+} from 'selectors/game.selectors';
+import { Property } from 'types/property.type';
+import { PropertyState } from 'types/property-state.type';
+import { propertyTypes } from 'types/property-type.type';
 
 @Component({
   selector: 'app-personal-panel',

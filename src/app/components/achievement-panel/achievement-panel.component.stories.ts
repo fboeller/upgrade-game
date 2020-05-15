@@ -1,5 +1,5 @@
 import { AchievementPanelComponent } from './achievement-panel.component';
-import { achievements } from '../../types/achievement.type';
+import { achievements } from 'types/achievement.type';
 import { take } from 'lodash/fp';
 
 export default {

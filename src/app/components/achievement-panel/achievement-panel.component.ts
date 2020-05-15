@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Achievement } from 'src/app/types/achievement.type';
+import { Achievement } from 'types/achievement.type';
 
 @Component({
   selector: 'app-achievement-panel',

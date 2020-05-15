@@ -1,5 +1,5 @@
 import { moduleMetadata } from '@storybook/angular';
-import { initialState } from '../../types/game-state.type';
+import { initialState } from 'types/game-state.type';
 import { provideMockStore } from '@ngrx/store/testing';
 import { WorkButtonComponent } from './work-button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

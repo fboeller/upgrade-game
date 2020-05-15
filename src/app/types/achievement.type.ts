@@ -1,4 +1,4 @@
-import { GameState } from '../types/game-state.type';
+import { GameState } from 'types/game-state.type';
 import { Observable, from } from 'rxjs';
 
 export interface Achievement {

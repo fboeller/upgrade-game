@@ -1,5 +1,5 @@
 import { PropertyRowComponent } from './property-row.component';
-import { plus } from '../../types/increase.type';
+import { plus } from 'types/increase.type';
 import { set } from 'lodash/fp';
 
 export default { title: 'Property Row' }

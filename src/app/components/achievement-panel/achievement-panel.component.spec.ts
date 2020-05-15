@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AchievementPanelComponent } from './achievement-panel.component';
 import { provideMockStore } from '@ngrx/store/testing';
-import { initialState } from 'src/app/types/game-state.type';
+import { initialState } from 'types/game-state.type';
 
 describe('AchievementPanelComponent', () => {
   let component: AchievementPanelComponent;

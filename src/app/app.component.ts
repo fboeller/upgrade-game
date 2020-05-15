@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { startWith, filter, first, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { AppState } from './actions/game.actions';
+import { AppState } from 'actions/game.actions';
 import {
   filterBecameAffordable,
   selectGameState,
-} from './selectors/game.selectors';
+} from 'selectors/game.selectors';
 import {
   Property,
   personalProperties,
   businessProperties,
-} from './types/property.type';
-import { Achievement } from './types/achievement.type';
+} from 'types/property.type';
+import { Achievement } from 'types/achievement.type';
 
 @Component({
   selector: 'app-root',

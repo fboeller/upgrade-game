@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { AppState } from '../actions/game.actions';
+import { AppState } from 'actions/game.actions';
 import { mapValues, every, toPairs, flow, pickBy } from 'lodash/fp';
-import { PropertyState } from '../types/property-state.type';
+import { PropertyState } from 'types/property-state.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
 

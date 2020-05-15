@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { PropertyType, propertyTypes } from '../../types/property-type.type';
-import { PropertyState } from '../../types/property-state.type';
+import { PropertyType, propertyTypes } from 'types/property-type.type';
+import { PropertyState } from 'types/property-state.type';
 
 @Component({
   selector: 'app-property-row',

@@ -1,5 +1,3 @@
-import { Increase } from './increase.type';
-
 export type Property =
   | 'education'
   | 'salary'

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable, merge, Subject } from 'rxjs';
-import { delay, mapTo, startWith, withLatestFrom } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { withLatestFrom } from 'rxjs/operators';
 import {
   trigger,
   state,
@@ -9,7 +9,7 @@ import {
   animate,
 } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
-import { AppState, work } from '../../actions/game.actions';
+import { AppState, work } from 'actions/game.actions';
 
 @Component({
   selector: 'app-work-button',

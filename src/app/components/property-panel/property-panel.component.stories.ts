@@ -1,9 +1,7 @@
 import { PropertyPanelComponent } from './property-panel.component';
 import { PropertyRowComponent } from '../property-row/property-row.component';
-import { plus } from '../../types/increase.type';
-import { set } from 'lodash/fp';
 import { moduleMetadata } from '@storybook/angular';
-import { initialState } from '../../types/game-state.type';
+import { initialState } from 'types/game-state.type';
 import { provideMockStore } from '@ngrx/store/testing';
 
 export default {
