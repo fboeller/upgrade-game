@@ -3,37 +3,25 @@ import { Store, select, Action } from '@ngrx/store';
 import { AppState, achievementUnlocked } from 'actions/game.actions';
 import { map, flatMap, scan, filter, first } from 'rxjs/operators';
 import { createEffect, Actions } from '@ngrx/effects';
-import {
-  achievementMap,
-  achievements,
-  ActionCounts,
-  Achievement,
-} from 'types/achievement.type';
-import {
-  flow as _flow,
-  pullAll as _pullAll,
-  filter as _filter,
-} from 'lodash/fp';
+import { achievementMap, achievements } from 'types/achievement.type';
 import { from } from 'rxjs';
-import { GameState } from 'types/game-state.type';
 
 @Injectable()
 export class AchievementEffects {
   constructor(private store: Store<AppState>, private actions$: Actions) {}
 
-  newStateAchievements = (gameState: GameState) =>
-    _flow(
-      _pullAll(gameState.achievements),
-      _filter((achievementName) =>
-        achievementMap[achievementName].stateCondition(gameState)
-      )
-    )(achievements);
-
   stateAchievementUnlocking$ = createEffect(() =>
-    this.store.pipe(
-      select('gameState'),
-      flatMap((gameState) => from(this.newStateAchievements(gameState))),
-      map((achievement) => achievementUnlocked({ achievement }))
+    from(achievements).pipe(
+      flatMap((achievement) =>
+        this.store.pipe(
+          select('gameState'),
+          filter((gameState) =>
+            achievementMap[achievement].stateCondition(gameState)
+          ),
+          first(),
+          map(() => achievementUnlocked({ achievement }))
+        )
+      )
     )
   );
 
