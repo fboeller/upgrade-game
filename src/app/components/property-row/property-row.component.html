@@ -5,7 +5,7 @@
     }}<span
       *ngIf="showUpgradeDetails"
       class="upgrade-effect"
-      [innerHTML]="propertyType.upgradeEffect.toHtml()"
+      [innerHTML]="propertyType.valueOfLevel(propertyState.level + 1) - propertyType.valueOfLevel(propertyState.level)"
     ></span>
   </div>
   <div class="col s3">
