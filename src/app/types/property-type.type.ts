@@ -4,17 +4,17 @@ export interface PropertyType {
 }
 
 export const propertyTypes: { [property: string]: PropertyType } = {
-  education: {
-    displayName: 'Education',
-    upgradeText: 'Learn',
-  },
   salary: {
     displayName: 'Salary',
-    upgradeText: 'Promote',
+    upgradeText: 'Ask for raise',
   },
   workEfficiency: {
     displayName: 'Work Efficiency',
     upgradeText: 'Increase',
+  },
+  education: {
+    displayName: 'Education',
+    upgradeText: 'Study',
   },
   businessIncome: {
     displayName: 'Factories',

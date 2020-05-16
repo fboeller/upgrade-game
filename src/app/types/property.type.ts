@@ -1,12 +1,13 @@
 export type Property =
-  | 'education'
   | 'salary'
-  | 'businessIncome'
-  | 'workEfficiency';
+  | 'workEfficiency'
+  | 'education'
+  | 'businessIncome';
 
 export const personalProperties: Property[] = [
-  'education',
   'salary',
   'workEfficiency',
+  'education',
 ];
+
 export const businessProperties: Property[] = ['businessIncome'];
