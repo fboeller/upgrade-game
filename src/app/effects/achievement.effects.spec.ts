@@ -1,17 +1,24 @@
 import { AchievementEffects } from './achievement.effects';
 import { TestBed, async } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
 import { marbles } from 'rxjs-marbles/jasmine';
 import { achievementUnlocked } from 'actions/game.actions';
 import { initialState } from 'types/game-state.type';
+import { Actions } from '@ngrx/effects';
 
 describe('AchievementEffects', () => {
   let effects: AchievementEffects;
   let mockStore: MockStore;
+  let actions$: Actions;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [AchievementEffects, provideMockStore()],
+      providers: [
+        AchievementEffects,
+        provideMockStore(),
+        provideMockActions(() => actions$),
+      ],
     });
   }));
 

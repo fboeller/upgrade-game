@@ -4,13 +4,15 @@ export type Achievement =
   | 'firstIncome'
   | 'educated'
   | 'firstPromotion'
-  | 'factoryOwner';
+  | 'factoryOwner'
+  | 'workHorse';
 
 export const achievements: Achievement[] = [
   'firstIncome',
   'educated',
   'firstPromotion',
   'factoryOwner',
+  'workHorse'
 ];
 
 export interface AchievementType {
@@ -40,5 +42,10 @@ export const achievementMap: { [key: string]: AchievementType } = {
     icon: 'fa-industry',
     condition: (state: GameState) =>
       state.properties?.businessIncome?.value > 0,
+  },
+  workHorse: {
+    displayName: 'Work Horse',
+    icon: 'fa-horse',
+    condition: (state: GameState) => false,
   },
 };
