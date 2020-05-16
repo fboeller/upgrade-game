@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Achievement } from 'types/achievement.type';
+import { achievementMap } from 'types/achievement.type';
 
 @Component({
   selector: 'app-achievement-panel',
@@ -7,7 +7,9 @@ import { Achievement } from 'types/achievement.type';
   styleUrls: ['./achievement-panel.component.styl'],
 })
 export class AchievementPanelComponent {
-  @Input() achievements: Achievement[];
+  @Input() achievements: string[];
+
+  achievementMap = achievementMap;
 
   constructor() {}
 }

@@ -14,7 +14,7 @@ export class IncomeEffects {
       ofType('[Button] Work'),
       withLatestFrom(this.store.pipe(select('gameState', 'properties', 'workEfficiency', 'value')), (_, workEfficiency) => workEfficiency),
       flatMap(workEfficiency => of({}).pipe(delay(workEfficiency))),
-      map((_) => income({ property: 'salary' }))
+      map(() => income({ property: 'salary' }))
     )
   );
 
@@ -22,7 +22,7 @@ export class IncomeEffects {
     this.store.pipe(
       select('gameState', 'timeActive'),
       switchMap((timeActive) => (timeActive ? interval(1000) : NEVER)),
-      map((_) => income({ property: 'businessIncome' }))
+      map(() => income({ property: 'businessIncome' }))
     )
   );
 }

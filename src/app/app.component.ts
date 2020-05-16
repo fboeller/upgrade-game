@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   becameAffordablePersonalProperties$: Observable<Property[]>;
   becameAffordableBusinessProperties$: Observable<Property[]>;
   timeActive$: Observable<boolean>;
-  achievements$: Observable<Achievement[]>;
+  achievements$: Observable<string[]>;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));

@@ -2,7 +2,6 @@ import { createAction, createReducer, on, props } from '@ngrx/store';
 import { Property } from 'types/property.type';
 import { PropertyState } from 'types/property-state.type';
 import { mapValues, concat } from 'lodash/fp';
-import { Achievement } from 'types/achievement.type';
 import { GameState, initialState } from 'types/game-state.type';
 
 export interface AppState {
@@ -22,7 +21,7 @@ export const upgrade = createAction(
 );
 export const achievementUnlocked = createAction(
   '[Achievement] Unlocked',
-  props<{ achievement: Achievement }>()
+  props<{ achievement: string }>()
 );
 
 const _stateReducer = createReducer(

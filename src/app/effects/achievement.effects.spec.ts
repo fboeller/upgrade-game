@@ -2,9 +2,7 @@ import { AchievementEffects } from './achievement.effects';
 import { TestBed, async } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { marbles } from 'rxjs-marbles/jasmine';
-import { of } from 'rxjs';
 import { achievementUnlocked } from 'actions/game.actions';
-import { achievements } from 'types/achievement.type';
 import { initialState } from 'types/game-state.type';
 
 describe('AchievementEffects', () => {
@@ -35,7 +33,7 @@ describe('AchievementEffects', () => {
     marbles((m) => {
       mockStore.setState({ gameState: { funds: 1 } });
       m.expect(effects.stateAchievementUnlocking$).toBeObservable('a', {
-        a: achievementUnlocked({ achievement: achievements[0] }),
+        a: achievementUnlocked({ achievement: 'firstIncome' }),
       });
     })
   );
@@ -47,8 +45,8 @@ describe('AchievementEffects', () => {
         gameState: { funds: 1, properties: { education: { value: 1 } } },
       });
       m.expect(effects.stateAchievementUnlocking$).toBeObservable('(ab)', {
-        a: achievementUnlocked({ achievement: achievements[0] }),
-        b: achievementUnlocked({ achievement: achievements[1] }),
+        a: achievementUnlocked({ achievement: 'firstIncome' }),
+        b: achievementUnlocked({ achievement: 'educated' }),
       });
     })
   );

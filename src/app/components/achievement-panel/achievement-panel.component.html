@@ -1,6 +1,6 @@
 <ul class="collection">
   <li class="collection-item teal" [class.lighten-4]="i != 0" [class.white-text]="i == 0" *ngFor="let achievement of achievements; let i = index">
-    <i class="fa {{ achievement.icon }}" aria-hidden="true"></i>
-    <span>{{ achievement.name }}</span>
+    <i class="fa {{ achievementMap[achievement].icon }}" aria-hidden="true"></i>
+    <span>{{ achievementMap[achievement].name }}</span>
   </li>
 </ul>
