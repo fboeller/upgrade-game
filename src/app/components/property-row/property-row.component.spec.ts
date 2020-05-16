@@ -23,10 +23,11 @@ describe('PropertyRowComponent', () => {
     component.propertyType = {
       displayName: 'My Property',
       upgradeText: 'Upgrade',
+      upgradeEffect: plus(1),
     };
     component.propertyState = {
+      level: 1,
       value: 1,
-      upgradeEffect: plus(1),
       upgradeCost: 1,
       upgradeCostIncrease: 1,
       upgradeConditions: {},

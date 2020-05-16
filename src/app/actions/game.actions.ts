@@ -4,6 +4,7 @@ import { PropertyState } from 'types/property-state.type';
 import { mapValues, concat } from 'lodash/fp';
 import { GameState, initialState } from 'types/game-state.type';
 import { Achievement } from 'types/achievement.type';
+import { propertyTypes } from 'types/property-type.type';
 
 export interface AppState {
   gameState: GameState;
@@ -50,7 +51,7 @@ const _stateReducer = createReducer(
       [property]: {
         ...state.properties[property],
         level: state.properties[property].level + 1,
-        value: state.properties[property].upgradeEffect.invoke(
+        value: propertyTypes[property].upgradeEffect.invoke(
           state.properties[property].value
         ),
         upgradeCost:

@@ -1,5 +1,4 @@
 import { PropertyState } from './property-state.type';
-import { plus, times } from './increase.type';
 import { Achievement } from './achievement.type';
 
 export interface GameState {
@@ -23,7 +22,6 @@ export const initialState: GameState = {
     salary: {
       level: 1,
       value: 1,
-      upgradeEffect: plus(1),
       upgradeCost: 1,
       upgradeCostIncrease: 1,
       upgradeConditions: {},
@@ -32,7 +30,6 @@ export const initialState: GameState = {
     workEfficiency: {
       level: 1,
       value: 1000,
-      upgradeEffect: times(0.8),
       upgradeCost: 3,
       upgradeCostIncrease: 3,
       upgradeConditions: {},
@@ -41,7 +38,6 @@ export const initialState: GameState = {
     education: {
       level: 1,
       value: 0,
-      upgradeEffect: plus(1),
       upgradeCost: 10,
       upgradeCostIncrease: 10,
       upgradeConditions: {},
@@ -50,7 +46,6 @@ export const initialState: GameState = {
     businessIncome: {
       level: 1,
       value: 0,
-      upgradeEffect: plus(1),
       upgradeCost: 100,
       upgradeCostIncrease: 100,
       upgradeConditions: {},
