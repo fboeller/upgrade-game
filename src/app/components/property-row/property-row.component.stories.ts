@@ -1,20 +1,18 @@
 import { PropertyRowComponent } from './property-row.component';
-import { plus } from 'types/increase.type';
 import { set } from 'lodash/fp';
 
-export default { title: 'Property Row' }
+export default { title: 'Property Row' };
 
 const baseProps = {
   propertyName: 'myProperty',
   propertyType: {
     displayName: 'My Property',
     upgradeText: 'Upgrade',
+    valueOfLevel: (level) => level + 1,
+    upgradeCostFromLevel: (level) => level + 1,
   },
   propertyState: {
-    value: 1,
-    upgradeEffect: plus(1),
-    upgradeCost: 1,
-    upgradeCostIncrease: 1,
+    level: 1,
     upgradeConditions: {},
     becameAffordable: true,
   },
@@ -29,15 +27,19 @@ export const withBaseProps = () => ({
 
 export const upgradeNotPossible = () => ({
   component: PropertyRowComponent,
-  props: set('upgradePossible')(false)(baseProps)
+  props: set('upgradePossible')(false)(baseProps),
 });
 
 export const withUpgradeCondition = () => ({
   component: PropertyRowComponent,
-  props: set('upgradeConditions')({ 'salary': 3 })(baseProps)
+  props: set('upgradeConditions')({ salary: 3 })(baseProps),
 });
 
 export const withMultipleUpgradeConditions = () => ({
   component: PropertyRowComponent,
-  props: set('upgradeConditions')({ 'salary': 3, 'businessIncome': 10, 'workEfficiency': 20 })(baseProps)
+  props: set('upgradeConditions')({
+    salary: 3,
+    businessIncome: 10,
+    workEfficiency: 20,
+  })(baseProps),
 });

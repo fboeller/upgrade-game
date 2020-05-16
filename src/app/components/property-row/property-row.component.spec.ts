@@ -19,16 +19,15 @@ describe('PropertyRowComponent', () => {
   });
 
   it('should create', () => {
-    component.propertyName = 'myProperty';
+    component.propertyName = 'salary';
     component.propertyType = {
       displayName: 'My Property',
       upgradeText: 'Upgrade',
       valueOfLevel: (level) => level + 1,
+      upgradeCostFromLevel: (level) => level + 1,
     };
     component.propertyState = {
       level: 1,
-      upgradeCost: 1,
-      upgradeCostIncrease: 1,
       upgradeConditions: {},
       becameAffordable: true,
     };
