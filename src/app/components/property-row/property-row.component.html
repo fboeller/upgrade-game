@@ -1,13 +1,12 @@
 <div class="row upgrade-row">
   <div class="col s2">{{ propertyType.displayName }}</div>
   <div class="col s1">
-    {{ propertyType.valueOfLevel(propertyState.level)
+    {{ propertyType.valueOfLevel(level)
     }}<span
       *ngIf="showUpgradeDetails"
       class="upgrade-effect"
       [innerHTML]="
-        propertyType.valueOfLevel(propertyState.level + 1) -
-        propertyType.valueOfLevel(propertyState.level)
+        propertyType.valueOfLevel(level + 1) - propertyType.valueOfLevel(level)
       "
     ></span>
   </div>
@@ -24,7 +23,7 @@
   <div class="col s3">
     <div class="boxed-value cyan darken-1 white-text z-depth-1">
       {{
-        propertyType.upgradeCostFromLevel(propertyState.level) * -1
+        propertyType.upgradeCostFromLevel(level) * -1
           | currency: "USD":"symbol":"1.0":"en-US"
       }}
     </div>

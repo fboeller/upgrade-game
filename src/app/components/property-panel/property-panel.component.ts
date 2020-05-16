@@ -10,6 +10,8 @@ import {
 import { Property } from 'types/property.type';
 import { PropertyState } from 'types/property-state.type';
 import { propertyTypes } from 'types/property-type.type';
+import { map } from 'rxjs/operators';
+import { mapValues } from 'lodash/fp';
 
 @Component({
   selector: 'app-personal-panel',
@@ -31,7 +33,7 @@ export class PropertyPanelComponent implements OnInit {
   @Input() properties: Property[] = [];
   @Output() visibleFundsEffect: EventEmitter<number> = new EventEmitter();
 
-  propertyStates$: Observable<{ [property: string]: PropertyState }>;
+  levels$: Observable<{ [property: string]: number }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
   unfulfiledUpgradeConditions$: Observable<{
     [property: string]: { [property: string]: number };
@@ -40,7 +42,14 @@ export class PropertyPanelComponent implements OnInit {
   propertyTypes = propertyTypes;
 
   ngOnInit() {
-    this.propertyStates$ = this.store.pipe(select('gameState', 'properties'));
+    this.levels$ = this.store.pipe(
+      select('gameState', 'properties'),
+      map((propertyStates) =>
+        mapValues((propertyState: PropertyState) => propertyState.level)(
+          propertyStates
+        )
+      )
+    );
     this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
     this.unfulfiledUpgradeConditions$ = this.store.pipe(
       select(unfulfiledUpgradeConditions)

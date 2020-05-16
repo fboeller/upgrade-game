@@ -21,7 +21,7 @@ import { Property } from 'types/property.type';
 export class PropertyRowComponent implements OnChanges {
   @Input() propertyName: Property;
   @Input() propertyType: PropertyType;
-  @Input() propertyState: PropertyState;
+  @Input() level: number;
   @Input() upgradePossible: boolean;
   @Input() upgradeConditions: { [property: string]: number };
 
@@ -49,7 +49,7 @@ export class PropertyRowComponent implements OnChanges {
     this.showUpgradeDetails = isMouseOnButton;
     this.visibleFundsEffect.emit(
       isMouseOnButton
-        ? upgradeCostOf(this.propertyName)(this.propertyState.level) * -1
+        ? upgradeCostOf(this.propertyName)(this.level) * -1
         : null
     );
   }

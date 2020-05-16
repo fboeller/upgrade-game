@@ -25,12 +25,9 @@ describe('PropertyRowComponent', () => {
       upgradeText: 'Upgrade',
       valueOfLevel: (level) => level + 1,
       upgradeCostFromLevel: (level) => level + 1,
-      upgradeConditionsFromLevel: (level) =>({}),
+      upgradeConditionsFromLevel: (level) => ({}),
     };
-    component.propertyState = {
-      level: 1,
-      becameAffordable: true,
-    };
+    component.level = 1;
     component.upgradePossible = true;
     component.upgradeConditions = {};
     fixture.detectChanges();

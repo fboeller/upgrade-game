@@ -10,12 +10,9 @@ const baseProps = {
     upgradeText: 'Upgrade',
     valueOfLevel: (level) => level + 1,
     upgradeCostFromLevel: (level) => level + 1,
+    upgradeConditionsFromLevel: (level) => ({}),
   },
-  propertyState: {
-    level: 1,
-    upgradeConditions: {},
-    becameAffordable: true,
-  },
+  level: 1,
   upgradePossible: true,
   upgradeConditions: {},
 };

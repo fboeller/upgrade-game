@@ -6,7 +6,6 @@ import { marbles } from 'rxjs-marbles/jasmine';
 import { achievementUnlocked, work } from 'actions/game.actions';
 import { initialState } from 'types/game-state.type';
 import { Actions } from '@ngrx/effects';
-import { of } from 'rxjs';
 
 describe('AchievementEffects', () => {
   let effects: AchievementEffects;
