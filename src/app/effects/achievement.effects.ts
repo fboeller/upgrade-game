@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store, select, Action } from '@ngrx/store';
 import { AppState, achievementUnlocked, work } from 'actions/game.actions';
-import { map, flatMap, scan, skipWhile, first } from 'rxjs/operators';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { map, flatMap, scan, skipWhile, first, filter } from 'rxjs/operators';
+import { createEffect, Actions } from '@ngrx/effects';
 import { achievementMap, achievements } from 'types/achievement.type';
-import { pullAll, flow, filter } from 'lodash/fp';
+import {
+  flow as _flow,
+  pullAll as _pullAll,
+  filter as _filter,
+} from 'lodash/fp';
 import { from } from 'rxjs';
 import { GameState } from 'types/game-state.type';
 
@@ -13,9 +17,9 @@ export class AchievementEffects {
   constructor(private store: Store<AppState>, private actions$: Actions) {}
 
   newAchievements = (gameState: GameState) =>
-    flow(
-      pullAll(gameState.achievements),
-      filter((achievementName) =>
+    _flow(
+      _pullAll(gameState.achievements),
+      _filter((achievementName) =>
         achievementMap[achievementName].condition(gameState)
       )
     )(achievements);
@@ -30,9 +34,15 @@ export class AchievementEffects {
 
   actionAchievementUnlocking$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(work),
-      scan((acc, action) => acc + 1, 0),
-      skipWhile((n) => n < 5),
+      filter((action: Action) => action.type !== achievementUnlocked.type),
+      scan(
+        (acc, action) => ({
+          ...acc,
+          [action.type]: (acc[action.type] || 0) + 1,
+        }),
+        {}
+      ),
+      skipWhile((actionCounts) => (actionCounts[work.type] || 0) < 5),
       first(),
       map(() => achievementUnlocked({ achievement: 'workHorse' }))
     )
