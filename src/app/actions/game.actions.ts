@@ -52,9 +52,6 @@ const _stateReducer = createReducer(
       [property]: {
         ...state.properties[property],
         level: state.properties[property].level + 1,
-        upgradeConditions: mapValues((threshold: number) => threshold + 1)(
-          state.properties[property].upgradeConditions
-        ),
       },
     },
   })),

@@ -21,22 +21,18 @@ export const initialState: GameState = {
   properties: {
     salary: {
       level: 0,
-      upgradeConditions: {},
       becameAffordable: false,
     },
     workEfficiency: {
       level: 0,
-      upgradeConditions: {},
       becameAffordable: false,
     },
     education: {
       level: 0,
-      upgradeConditions: {},
       becameAffordable: false,
     },
     businessIncome: {
       level: 0,
-      upgradeConditions: {},
       becameAffordable: false,
     },
   },

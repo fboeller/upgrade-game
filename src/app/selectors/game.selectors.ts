@@ -10,7 +10,11 @@ import {
   mapValues,
 } from 'lodash/fp';
 import { PropertyState } from 'types/property-state.type';
-import { valueOf, upgradeCostOf } from 'types/property-type.type';
+import {
+  valueOf,
+  upgradeCostOf,
+  upgradeConditionsOf,
+} from 'types/property-type.type';
 import { GameState } from 'types/game-state.type';
 import { Property } from 'types/property.type';
 
@@ -34,9 +38,9 @@ export const upgradesPossible = createSelector(
             toPairs,
             every(
               ([property, threshold]) =>
-                valueOf(property)(state.properties[property].level) >= threshold
+                valueOf(property)(state.properties[property]?.level || 0) >= threshold
             ),
-          ])(propertyState.upgradeConditions),
+          ])(upgradeConditionsOf(property)(propertyState.level)),
       ]),
       fromPairs,
     ])(state.properties)
@@ -51,10 +55,15 @@ export const filterBecameAffordable = createSelector(
 export const unfulfiledUpgradeConditions = createSelector(
   selectGameState,
   (state) =>
-    mapValues((propertyState: PropertyState) =>
-      pickBy(
-        (threshold: number, property: Property) =>
-          valueOf(property)(state.properties[property].level) < threshold
-      )(propertyState.upgradeConditions)
-    )(state.properties)
+    flow([
+      toPairs,
+      map(([property, propertyState]) => [
+        property,
+        pickBy(
+          (threshold: number, property: Property) =>
+            valueOf(property)(state.properties[property].level) < threshold
+        )(upgradeConditionsOf(property)(propertyState.level)),
+      ]),
+      fromPairs,
+    ])(state.properties)
 );

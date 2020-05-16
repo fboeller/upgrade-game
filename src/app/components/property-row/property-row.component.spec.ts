@@ -25,10 +25,10 @@ describe('PropertyRowComponent', () => {
       upgradeText: 'Upgrade',
       valueOfLevel: (level) => level + 1,
       upgradeCostFromLevel: (level) => level + 1,
+      upgradeConditionsFromLevel: (level) =>({}),
     };
     component.propertyState = {
       level: 1,
-      upgradeConditions: {},
       becameAffordable: true,
     };
     component.upgradePossible = true;
