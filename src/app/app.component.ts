@@ -12,7 +12,7 @@ import {
   personalProperties,
   businessProperties,
 } from 'types/property.type';
-import { Achievement } from 'types/achievement.type';
+import { AchievementType } from 'types/achievement.type';
 
 @Component({
   selector: 'app-root',

@@ -3,6 +3,7 @@ import { Property } from 'types/property.type';
 import { PropertyState } from 'types/property-state.type';
 import { mapValues, concat } from 'lodash/fp';
 import { GameState, initialState } from 'types/game-state.type';
+import { Achievement } from 'types/achievement.type';
 
 export interface AppState {
   gameState: GameState;
@@ -21,7 +22,7 @@ export const upgrade = createAction(
 );
 export const achievementUnlocked = createAction(
   '[Achievement] Unlocked',
-  props<{ achievement: string }>()
+  props<{ achievement: Achievement }>()
 );
 
 const _stateReducer = createReducer(

@@ -1,5 +1,6 @@
 import { PropertyState } from './property-state.type';
 import { plus, times } from './increase.type';
+import { Achievement } from './achievement.type';
 
 export interface GameState {
   timeActive: boolean;
@@ -11,7 +12,7 @@ export interface GameState {
     workEfficiency: PropertyState;
     businessIncome: PropertyState;
   };
-  achievements: string[];
+  achievements: Achievement[];
 }
 
 export const initialState: GameState = {

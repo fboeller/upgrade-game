@@ -1,14 +1,25 @@
 import { GameState } from 'types/game-state.type';
-import { Observable, from } from 'rxjs';
-import { keys } from 'lodash/fp';
 
-export interface Achievement {
+export type Achievement =
+  | 'firstIncome'
+  | 'educated'
+  | 'firstPromotion'
+  | 'factoryOwner';
+
+export const achievements: Achievement[] = [
+  'firstIncome',
+  'educated',
+  'firstPromotion',
+  'factoryOwner',
+];
+
+export interface AchievementType {
   name: string;
   icon: string;
   condition: (GameState) => boolean;
 }
 
-export const achievementMap: { [key: string]: Achievement } = {
+export const achievementMap: { [key: string]: AchievementType } = {
   firstIncome: {
     name: 'First Income',
     icon: 'fa-euro-sign',
@@ -27,10 +38,7 @@ export const achievementMap: { [key: string]: Achievement } = {
   factoryOwner: {
     name: 'Factory Owner',
     icon: 'fa-industry',
-    condition: (state: GameState) => state.properties?.businessIncome?.value > 0,
+    condition: (state: GameState) =>
+      state.properties?.businessIncome?.value > 0,
   },
 };
-
-export const achievements: string[] = keys(achievementMap);
-
-export const achievements$: Observable<string> = from(achievements);
