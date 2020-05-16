@@ -14,29 +14,29 @@ export const achievements: Achievement[] = [
 ];
 
 export interface AchievementType {
-  name: string;
+  displayName: string;
   icon: string;
   condition: (GameState) => boolean;
 }
 
 export const achievementMap: { [key: string]: AchievementType } = {
   firstIncome: {
-    name: 'First Income',
+    displayName: 'First Income',
     icon: 'fa-euro-sign',
     condition: (state: GameState) => state.funds > 0,
   },
   educated: {
-    name: 'Educated',
+    displayName: 'Educated',
     icon: 'fa-university',
     condition: (state: GameState) => state.properties?.education?.value > 0,
   },
   firstPromotion: {
-    name: 'First Promotion',
+    displayName: 'First Promotion',
     icon: 'fa-award',
     condition: (state: GameState) => state.properties?.salary?.value > 1,
   },
   factoryOwner: {
-    name: 'Factory Owner',
+    displayName: 'Factory Owner',
     icon: 'fa-industry',
     condition: (state: GameState) =>
       state.properties?.businessIncome?.value > 0,
