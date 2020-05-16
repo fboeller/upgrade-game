@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select, Action } from '@ngrx/store';
 import { AppState, achievementUnlocked } from 'actions/game.actions';
-import {
-  map,
-  flatMap,
-  scan,
-  filter,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { map, flatMap, scan, filter, first } from 'rxjs/operators';
 import { createEffect, Actions } from '@ngrx/effects';
 import {
   achievementMap,
@@ -43,34 +37,25 @@ export class AchievementEffects {
     )
   );
 
-  newActionAchievements = (
-    unlockedAchievements: Achievement[],
-    actionCounts: ActionCounts
-  ) =>
-    _flow(
-      _pullAll(unlockedAchievements),
-      _filter((achievementName) =>
-        achievementMap[achievementName].actionCondition(actionCounts)
-      )
-    )(achievements);
-
   actionAchievementUnlocking$ = createEffect(() =>
-    this.actions$.pipe(
-      filter((action: Action) => action.type !== achievementUnlocked.type),
-      scan(
-        (actionCounts, action) => ({
-          ...actionCounts,
-          [action.type]: (actionCounts[action.type] || 0) + 1,
-        }),
-        {}
-      ),
-      withLatestFrom(
-        this.store.pipe(select('gameState', 'achievements')),
-        (actionCounts, unlockedAchievements) =>
-          this.newActionAchievements(unlockedAchievements, actionCounts)
-      ),
-      flatMap((achievements) => from(achievements)),
-      map((achievement) => achievementUnlocked({ achievement }))
+    from(achievements).pipe(
+      flatMap((achievement) =>
+        this.actions$.pipe(
+          filter((action: Action) => action.type !== achievementUnlocked.type),
+          scan(
+            (actionCounts, action) => ({
+              ...actionCounts,
+              [action.type]: (actionCounts[action.type] || 0) + 1,
+            }),
+            {}
+          ),
+          filter((actionCounts) =>
+            achievementMap[achievement].actionCondition(actionCounts)
+          ),
+          first(),
+          map(() => achievementUnlocked({ achievement }))
+        )
+      )
     )
   );
 }
