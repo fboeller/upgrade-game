@@ -3,9 +3,10 @@ import { TestBed, async } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { marbles } from 'rxjs-marbles/jasmine';
-import { achievementUnlocked } from 'actions/game.actions';
+import { achievementUnlocked, work } from 'actions/game.actions';
 import { initialState } from 'types/game-state.type';
 import { Actions } from '@ngrx/effects';
+import { of } from 'rxjs';
 
 describe('AchievementEffects', () => {
   let effects: AchievementEffects;
@@ -54,6 +55,19 @@ describe('AchievementEffects', () => {
       m.expect(effects.stateAchievementUnlocking$).toBeObservable('(ab)', {
         a: achievementUnlocked({ achievement: 'firstIncome' }),
         b: achievementUnlocked({ achievement: 'educated' }),
+      });
+    })
+  );
+
+  it(
+    'should unlock an action achievement once the condition is met',
+    marbles((m) => {
+      mockStore.setState({
+        gameState: { achievements: [] },
+      });
+      actions$ = m.cold('wwwww', { w: work });
+      m.expect(effects.actionAchievementUnlocking$).toBeObservable('----a', {
+        a: achievementUnlocked({ achievement: 'workHorse' }),
       });
     })
   );
