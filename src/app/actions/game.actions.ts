@@ -49,6 +49,7 @@ const _stateReducer = createReducer(
       ...state.properties,
       [property]: {
         ...state.properties[property],
+        level: state.properties[property].level + 1,
         value: state.properties[property].upgradeEffect.invoke(
           state.properties[property].value
         ),

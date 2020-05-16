@@ -21,6 +21,7 @@ export const initialState: GameState = {
   workActive: false,
   properties: {
     salary: {
+      level: 1,
       value: 1,
       upgradeEffect: plus(1),
       upgradeCost: 1,
@@ -29,6 +30,7 @@ export const initialState: GameState = {
       becameAffordable: false,
     },
     workEfficiency: {
+      level: 1,
       value: 1000,
       upgradeEffect: times(0.8),
       upgradeCost: 3,
@@ -37,6 +39,7 @@ export const initialState: GameState = {
       becameAffordable: false,
     },
     education: {
+      level: 1,
       value: 0,
       upgradeEffect: plus(1),
       upgradeCost: 10,
@@ -45,6 +48,7 @@ export const initialState: GameState = {
       becameAffordable: false,
     },
     businessIncome: {
+      level: 1,
       value: 0,
       upgradeEffect: plus(1),
       upgradeCost: 100,
