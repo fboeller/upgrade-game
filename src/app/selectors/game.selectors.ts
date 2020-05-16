@@ -2,8 +2,17 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from 'actions/game.actions';
 import { mapValues, every, toPairs, flow, pickBy } from 'lodash/fp';
 import { PropertyState } from 'types/property-state.type';
+import { valueOf } from 'types/property-type.type';
+import { GameState } from 'types/game-state.type';
+import { Property } from 'types/property.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
+
+export const value = createSelector(
+  selectGameState,
+  (state: GameState, { property }) =>
+    valueOf(property)(state.properties[property].level)
+);
 
 export const upgradesPossible = createSelector(selectGameState, (state) =>
   mapValues(
@@ -13,7 +22,7 @@ export const upgradesPossible = createSelector(selectGameState, (state) =>
         toPairs,
         every(
           ([property, threshold]) =>
-            state.properties[property].value >= threshold
+            valueOf(property)(state.properties[property].level) >= threshold
         ),
       ])(propertyState.upgradeConditions)
   )(state.properties)
@@ -30,8 +39,8 @@ export const unfulfiledUpgradeConditions = createSelector(
   (state) =>
     mapValues((propertyState: PropertyState) =>
       pickBy(
-        (threshold: number, property) =>
-          state.properties[property].value < threshold
+        (threshold: number, property: Property) =>
+        valueOf(property)(state.properties[property].level) < threshold
       )(propertyState.upgradeConditions)
     )(state.properties)
 );

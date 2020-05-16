@@ -1,5 +1,6 @@
 import { GameState } from 'types/game-state.type';
 import { work } from 'actions/game.actions';
+import { propertyTypes, valueOf } from './property-type.type';
 
 export type Achievement =
   | 'firstIncome'
@@ -13,7 +14,7 @@ export const achievements: Achievement[] = [
   'educated',
   'firstPromotion',
   'factoryOwner',
-  'workHorse'
+  'workHorse',
 ];
 
 export type ActionCounts = { [action: string]: number };
@@ -35,26 +36,29 @@ export const achievementMap: { [key: string]: AchievementType } = {
   educated: {
     displayName: 'Educated',
     icon: 'fa-university',
-    stateCondition: (state: GameState) => state.properties?.education?.value > 0,
+    stateCondition: (state: GameState) =>
+      valueOf('education')(state.properties?.education?.level) > 0,
     actionCondition: () => false,
   },
   firstPromotion: {
     displayName: 'First Promotion',
     icon: 'fa-award',
-    stateCondition: (state: GameState) => state.properties?.salary?.value > 1,
+    stateCondition: (state: GameState) =>
+      valueOf('salary')(state.properties?.salary?.level) > 1,
     actionCondition: () => false,
   },
   factoryOwner: {
     displayName: 'Factory Owner',
     icon: 'fa-industry',
     stateCondition: (state: GameState) =>
-      state.properties?.businessIncome?.value > 0,
-      actionCondition: () => false,
+      valueOf('businessIncome')(state.properties?.businessIncome?.level) > 0,
+    actionCondition: () => false,
   },
   workHorse: {
     displayName: 'Work Horse',
     icon: 'fa-horse',
     stateCondition: () => false,
-    actionCondition: (actionCounts: ActionCounts) => actionCounts[work.type] >= 5,
+    actionCondition: (actionCounts: ActionCounts) =>
+      actionCounts[work.type] >= 5,
   },
 };
