@@ -1,25 +1,55 @@
 import { AchievementEffects } from './achievement.effects';
 import { TestBed, async } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { marbles } from 'rxjs-marbles/jasmine';
+import { of } from 'rxjs';
+import { achievementUnlocked } from 'actions/game.actions';
+import { achievements } from 'types/achievement.type';
 import { initialState } from 'types/game-state.type';
-import { Actions } from '@ngrx/effects';
 
 describe('AchievementEffects', () => {
   let effects: AchievementEffects;
-  let actions$: Actions;
+  let mockStore: MockStore;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [
-        AchievementEffects,
-        provideMockStore({ initialState: { gameState: initialState } }),
-        provideMockActions(() => actions$),
-      ],
+      providers: [AchievementEffects, provideMockStore()],
     });
   }));
 
   beforeEach(() => {
     effects = TestBed.inject(AchievementEffects);
+    mockStore = TestBed.inject(MockStore);
   });
+
+  it(
+    'should not unlock anything in the initial state',
+    marbles((m) => {
+      mockStore.setState({ gameState: initialState });
+      m.expect(effects.stateAchievementUnlocking$).toBeObservable('');
+    })
+  );
+
+  it(
+    'should unlock an achievement if the condition is met',
+    marbles((m) => {
+      mockStore.setState({ gameState: { funds: 1 } });
+      m.expect(effects.stateAchievementUnlocking$).toBeObservable('a', {
+        a: achievementUnlocked({ achievement: achievements[0] }),
+      });
+    })
+  );
+
+  it(
+    'should unlock multiple achievements if conditions are met at the same time',
+    marbles((m) => {
+      mockStore.setState({
+        gameState: { funds: 1, properties: { education: { value: 1 } } },
+      });
+      m.expect(effects.stateAchievementUnlocking$).toBeObservable('(ab)', {
+        a: achievementUnlocked({ achievement: achievements[0] }),
+        b: achievementUnlocked({ achievement: achievements[1] }),
+      });
+    })
+  );
 });
