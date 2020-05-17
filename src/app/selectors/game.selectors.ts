@@ -1,13 +1,6 @@
-import { createSelector } from '@ngrx/store';
+import { createSelector, select } from '@ngrx/store';
 import { AppState } from 'actions/game.actions';
-import {
-  every,
-  toPairs,
-  flow,
-  pickBy,
-  map,
-  fromPairs,
-} from 'lodash/fp';
+import { every, toPairs, flow, pickBy, map, fromPairs } from 'lodash/fp';
 import {
   valueOf,
   upgradeCostOf,
@@ -24,6 +17,22 @@ export const value = createSelector(
     valueOf(property)(state.properties[property].level)
 );
 
+export const powerup = createSelector(
+  selectGameState,
+  (state: GameState, { powerup }) => state.powerups?.[powerup] || 0
+);
+
+export const workDuration = createSelector(
+  selectGameState,
+  (state: GameState) => {
+    const workEfficiency = valueOf('workEfficiency')(
+      state?.properties?.workEfficiency?.level || 0
+    );
+    const coffeeCount = state?.powerups?.coffee || 0;
+    return workEfficiency / Math.pow(2, coffeeCount);
+  }
+);
+
 export const upgradesPossible = createSelector(
   selectGameState,
   (state: GameState) =>
@@ -36,7 +45,8 @@ export const upgradesPossible = createSelector(
             toPairs,
             every(
               ([property, threshold]) =>
-                valueOf(property)(state.properties[property]?.level || 0) >= threshold
+                valueOf(property)(state.properties[property]?.level || 0) >=
+                threshold
             ),
           ])(upgradeConditionsOf(property)(propertyState.level)),
       ]),

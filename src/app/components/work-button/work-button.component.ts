@@ -10,7 +10,7 @@ import {
 } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, work } from 'actions/game.actions';
-import { value } from 'selectors/game.selectors';
+import { value, workDuration } from 'selectors/game.selectors';
 
 @Component({
   selector: 'app-work-button',
@@ -48,9 +48,7 @@ export class WorkButtonComponent implements OnInit {
   hoverActive$: Subject<boolean> = new Subject();
 
   ngOnInit() {
-    this.animationDuration$ = this.store.pipe(
-      select(value, { property: 'workEfficiency' })
-    );
+    this.animationDuration$ = this.store.pipe(select(workDuration));
     this.workActive$ = this.store.pipe(select('gameState', 'workActive'));
     const workEffect$ = this.store.pipe(select(value, { property: 'salary' }));
     this.hoverActive$
