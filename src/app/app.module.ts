@@ -16,6 +16,7 @@ import { PropertyRowComponent } from './components/property-row/property-row.com
 import { AchievementPanelComponent } from './components/achievement-panel/achievement-panel.component';
 import { FundsPanelComponent } from './components/funds-panel/funds-panel.component';
 import { GamePanelComponent } from './components/game-panel/game-panel.component';
+import { PropertyEffects } from 'effects/property.effects';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { GamePanelComponent } from './components/game-panel/game-panel.component
     BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({ gameState: stateReducer }),
-    EffectsModule.forRoot([IncomeEffects, AchievementEffects]),
+    EffectsModule.forRoot([IncomeEffects, AchievementEffects, PropertyEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),

@@ -1,7 +1,6 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
 import { Property } from 'types/property.type';
-import { PropertyState } from 'types/property-state.type';
-import { mapValues, concat, flow, toPairs, map, fromPairs } from 'lodash/fp';
+import { concat, flow, toPairs, map, fromPairs } from 'lodash/fp';
 import { GameState, initialState } from 'types/game-state.type';
 import { Achievement } from 'types/achievement.type';
 import { valueOf, upgradeCostOf } from 'types/property-type.type';
@@ -18,7 +17,11 @@ export const income = createAction(
   props<{ property: 'salary' | 'businessIncome' }>()
 );
 export const upgrade = createAction(
-  '[Upgrade] Property',
+  '[Property] Upgrade',
+  props<{ property: Property }>()
+);
+export const propertyRevealed = createAction(
+  '[Property] Revealed',
   props<{ property: Property }>()
 );
 export const achievementUnlocked = createAction(
@@ -30,24 +33,10 @@ const _stateReducer = createReducer(
   initialState,
   on(resume, (state) => ({ ...state, timeActive: true })),
   on(pause, (state) => ({ ...state, timeActive: false })),
-  on(income, (state, { property: incomeProperty }) => ({
+  on(income, (state, { property }) => ({
     ...state,
-    funds: state.funds + valueOf(incomeProperty)(state.properties[incomeProperty].level),
-    workActive: incomeProperty == 'salary' ? false : state.workActive,
-    properties: flow([
-      toPairs,
-      map(([property, propertyState]) => [
-        property,
-        {
-          ...propertyState,
-          becameAffordable:
-            propertyState.becameAffordable ||
-            state.funds + valueOf(incomeProperty)(state.properties[incomeProperty].level) >=
-              upgradeCostOf(property)(propertyState.level),
-        },
-      ]),
-      fromPairs,
-    ])(state.properties),
+    funds: state.funds + valueOf(property)(state.properties[property].level),
+    workActive: property === 'salary' ? false : state.workActive,
   })),
   on(work, (state) => ({ ...state, workActive: true })),
   on(upgrade, (state, { property }) => ({
@@ -59,6 +48,16 @@ const _stateReducer = createReducer(
       [property]: {
         ...state.properties[property],
         level: state.properties[property].level + 1,
+      },
+    },
+  })),
+  on(propertyRevealed, (state, { property }) => ({
+    ...state,
+    properties: {
+      ...state.properties,
+      [property]: {
+        ...state.properties[property],
+        becameAffordable: true,
       },
     },
   })),

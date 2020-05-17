@@ -1,3 +1,5 @@
+import { concat } from 'lodash/fp';
+
 export type Property =
   | 'salary'
   | 'workEfficiency'
@@ -11,3 +13,5 @@ export const personalProperties: Property[] = [
 ];
 
 export const businessProperties: Property[] = ['businessIncome'];
+
+export const properties: Property[] = concat(personalProperties, businessProperties);
