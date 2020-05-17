@@ -10,7 +10,6 @@ import {
   propertyTypes,
   upgradeCostOf,
 } from 'types/property-type.type';
-import { PropertyState } from 'types/property-state.type';
 import { Property } from 'types/property.type';
 
 @Component({

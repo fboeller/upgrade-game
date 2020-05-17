@@ -12,6 +12,7 @@ import {
   personalProperties,
   businessProperties,
 } from 'types/property.type';
+import { powerups } from 'types/powerup.type';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit {
   becameAffordableBusinessProperties$: Observable<Property[]>;
   timeActive$: Observable<boolean>;
   achievements$: Observable<string[]>;
+  powerups = powerups;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));

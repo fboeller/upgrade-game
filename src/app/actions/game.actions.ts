@@ -4,6 +4,7 @@ import { concat, flow, toPairs, map, fromPairs } from 'lodash/fp';
 import { GameState, initialState } from 'types/game-state.type';
 import { Achievement } from 'types/achievement.type';
 import { valueOf, upgradeCostOf } from 'types/property-type.type';
+import { Powerup } from 'types/powerup.type';
 
 export interface AppState {
   gameState: GameState;
@@ -27,6 +28,14 @@ export const propertyRevealed = createAction(
 export const achievementUnlocked = createAction(
   '[Achievement] Unlocked',
   props<{ achievement: Achievement }>()
+);
+export const activatePowerup = createAction(
+  '[Powerup] Activated',
+  props<{ powerup: Powerup }>()
+);
+export const deactivatePowerup = createAction(
+  '[Powerup] Deactivated',
+  props<{ powerup: Powerup }>()
 );
 
 const _stateReducer = createReducer(
@@ -64,7 +73,21 @@ const _stateReducer = createReducer(
   on(achievementUnlocked, (state, { achievement }) => ({
     ...state,
     achievements: concat(achievement, state.achievements),
-  }))
+  })),
+  on(activatePowerup, (state, { powerup }) => ({
+    ...state,
+    powerups: {
+      ...state.powerups,
+      [powerup]: (state.powerups[powerup] || 0) + 1
+    },
+  })),
+  on(deactivatePowerup, (state, { powerup }) => ({
+    ...state,
+    powerups: {
+      ...state.powerups,
+      [powerup]: Math.max(0, state.powerups[powerup] - 1)
+    },
+  })),
 );
 
 export function stateReducer(state, action) {

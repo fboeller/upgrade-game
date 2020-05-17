@@ -12,6 +12,7 @@ export interface GameState {
     businessIncome: PropertyState;
   };
   achievements: Achievement[];
+  powerups: { [powerup: string]: number };
 }
 
 export const initialState: GameState = {
@@ -37,4 +38,5 @@ export const initialState: GameState = {
     },
   },
   achievements: [],
+  powerups: {},
 };

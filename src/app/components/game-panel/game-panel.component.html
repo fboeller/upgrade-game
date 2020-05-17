@@ -15,6 +15,9 @@
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-personal-panel>
   </div>
+  <div class="section">
+    <app-powerup-panel [powerups]="powerups"></app-powerup-panel>
+  </div>
   <div *ngIf="becameAffordableBusinessProperties.length > 0" class="section">
     <app-personal-panel
       title="Business"

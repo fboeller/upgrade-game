@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col s2">{{ powerupMap[powerup].displayName }}</div>
+  <div class="col s2">
+    <a class="waves-effect btn" (click)="buy()">{{
+      powerupMap[powerup].actionText
+    }}</a>
+  </div>
+  <div class="col s2">{{ powerupMap[powerup].cost }}$</div>
+  <div class="col s2">{{ powerupMap[powerup].duration }}ms</div>
+</div>
