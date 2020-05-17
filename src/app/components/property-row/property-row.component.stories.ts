@@ -8,6 +8,7 @@ const baseProps = {
   propertyType: {
     displayName: 'My Property',
     upgradeText: 'Upgrade',
+    unit: '$',
     valueOfLevel: (level) => level + 1,
     upgradeCostFromLevel: (level) => level + 1,
     upgradeConditionsFromLevel: (level) => ({}),

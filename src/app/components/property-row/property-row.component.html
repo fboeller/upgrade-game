@@ -1,14 +1,12 @@
 <div class="row upgrade-row">
   <div class="col s2">{{ propertyType.displayName }}</div>
   <div class="col s1">
-    {{ propertyType.valueOfLevel(level)
-    }}<span
-      *ngIf="showUpgradeDetails"
-      class="upgrade-effect"
-      [innerHTML]="
+    {{ propertyType.valueOfLevel(level) }}&nbsp;{{ propertyType.unit || ""
+    }}<span *ngIf="showUpgradeDetails" class="upgrade-effect"
+      >{{
         propertyType.valueOfLevel(level + 1) - propertyType.valueOfLevel(level)
-      "
-    ></span>
+      }}&nbsp;{{ propertyType.unit || "" }}</span
+    >
   </div>
   <div class="col s3">
     <a

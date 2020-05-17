@@ -5,6 +5,7 @@ type Level = number;
 export interface PropertyType {
   displayName: string;
   upgradeText: string;
+  unit: string;
   valueOfLevel: (Level) => number;
   upgradeCostFromLevel: (Level) => number;
   upgradeConditionsFromLevel: (Level) => { [property: string]: number };
@@ -25,6 +26,7 @@ export const propertyTypes: { [property: string]: PropertyType } = {
   salary: {
     displayName: 'Salary',
     upgradeText: 'Ask for raise',
+    unit: '$',
     valueOfLevel: (level) => level + 1,
     upgradeCostFromLevel: (level) => level + 1,
     upgradeConditionsFromLevel: (level) => ({
@@ -34,6 +36,7 @@ export const propertyTypes: { [property: string]: PropertyType } = {
   workEfficiency: {
     displayName: 'Work Efficiency',
     upgradeText: 'Increase',
+    unit: 'ms',
     valueOfLevel: (level) => 1000 * Math.pow(0.8, level),
     upgradeCostFromLevel: (level) => (level + 1) * 3,
     upgradeConditionsFromLevel: (level) => ({}),
@@ -41,6 +44,7 @@ export const propertyTypes: { [property: string]: PropertyType } = {
   education: {
     displayName: 'Education',
     upgradeText: 'Study',
+    unit: null,
     valueOfLevel: (level) => level,
     upgradeCostFromLevel: (level) => (level + 1) * 10,
     upgradeConditionsFromLevel: (level) => ({}),
@@ -48,6 +52,7 @@ export const propertyTypes: { [property: string]: PropertyType } = {
   businessIncome: {
     displayName: 'Factories',
     upgradeText: 'Buy',
+    unit: '$',
     valueOfLevel: (level) => level,
     upgradeCostFromLevel: (level) => (level + 1) * 100,
     upgradeConditionsFromLevel: (level) => ({}),
