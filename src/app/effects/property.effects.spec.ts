@@ -39,4 +39,19 @@ describe('PropertyEffects', () => {
       });
     })
   );
+
+  it(
+    'should reveal property if other property depends on it',
+    marbles((m) => {
+      mockStore.setState({
+        gameState: {
+          funds: 1,
+          properties: { salary: { level: 5, becameAffordable: true }, education: { level: 0 } },
+        },
+      });
+      m.expect(effects.propertyRevealing$).toBeObservable('a', {
+        a: propertyRevealed({ property: 'education' }),
+      });
+    })
+  );
 });
