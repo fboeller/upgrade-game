@@ -1,7 +1,7 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
 import { Property } from 'types/property.type';
 import { PropertyState } from 'types/property-state.type';
-import { mapValues, concat } from 'lodash/fp';
+import { mapValues, concat, flow, toPairs, map, fromPairs } from 'lodash/fp';
 import { GameState, initialState } from 'types/game-state.type';
 import { Achievement } from 'types/achievement.type';
 import { valueOf, upgradeCostOf } from 'types/property-type.type';
@@ -30,17 +30,24 @@ const _stateReducer = createReducer(
   initialState,
   on(resume, (state) => ({ ...state, timeActive: true })),
   on(pause, (state) => ({ ...state, timeActive: false })),
-  on(income, (state, { property }) => ({
+  on(income, (state, { property: incomeProperty }) => ({
     ...state,
-    funds: state.funds + valueOf(property)(state.properties[property].level),
-    workActive: property == 'salary' ? false : state.workActive,
-    properties: mapValues((propertyState: PropertyState) => ({
-      ...propertyState,
-      becameAffordable:
-        propertyState.becameAffordable ||
-        state.funds + valueOf(property)(state.properties[property].level) >=
-          upgradeCostOf(property)(state.properties[property].level),
-    }))(state.properties),
+    funds: state.funds + valueOf(incomeProperty)(state.properties[incomeProperty].level),
+    workActive: incomeProperty == 'salary' ? false : state.workActive,
+    properties: flow([
+      toPairs,
+      map(([property, propertyState]) => [
+        property,
+        {
+          ...propertyState,
+          becameAffordable:
+            propertyState.becameAffordable ||
+            state.funds + valueOf(incomeProperty)(state.properties[incomeProperty].level) >=
+              upgradeCostOf(property)(propertyState.level),
+        },
+      ]),
+      fromPairs,
+    ])(state.properties),
   })),
   on(work, (state) => ({ ...state, workActive: true })),
   on(upgrade, (state, { property }) => ({
