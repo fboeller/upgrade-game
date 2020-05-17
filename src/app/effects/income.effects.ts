@@ -4,7 +4,7 @@ import { AppState, income } from 'actions/game.actions';
 import { switchMap, map, delay, flatMap, withLatestFrom } from 'rxjs/operators';
 import { interval, NEVER, of } from 'rxjs';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { propertyTypes, valueOf } from 'types/property-type.type';
+import { value } from 'selectors/game.selectors';
 
 @Injectable()
 export class IncomeEffects {
@@ -14,10 +14,8 @@ export class IncomeEffects {
     this.actions$.pipe(
       ofType('[Button] Work'),
       withLatestFrom(
-        this.store.pipe(
-          select('gameState', 'properties', 'workEfficiency', 'level')
-        ),
-        (_, level) => valueOf('workEfficiency')(level)
+        this.store.pipe(select(value, { property: 'workEfficiency' })),
+        (_, value) => value
       ),
       flatMap((workEfficiency) => of({}).pipe(delay(workEfficiency))),
       map(() => income({ property: 'salary' }))

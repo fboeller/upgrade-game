@@ -7,9 +7,7 @@ import {
   pickBy,
   map,
   fromPairs,
-  mapValues,
 } from 'lodash/fp';
-import { PropertyState } from 'types/property-state.type';
 import {
   valueOf,
   upgradeCostOf,

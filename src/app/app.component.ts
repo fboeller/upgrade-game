@@ -12,7 +12,6 @@ import {
   personalProperties,
   businessProperties,
 } from 'types/property.type';
-import { AchievementType } from 'types/achievement.type';
 
 @Component({
   selector: 'app-root',
