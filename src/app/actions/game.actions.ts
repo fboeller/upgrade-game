@@ -1,6 +1,6 @@
 import { createAction, createReducer, on, props } from '@ngrx/store';
 import { Property } from 'types/property.type';
-import { concat, flow, toPairs, map, fromPairs } from 'lodash/fp';
+import { concat } from 'lodash/fp';
 import { GameState, initialState } from 'types/game-state.type';
 import { Achievement } from 'types/achievement.type';
 import { valueOf, upgradeCostOf } from 'types/property-type.type';
@@ -44,19 +44,19 @@ const _stateReducer = createReducer(
   on(pause, (state) => ({ ...state, timeActive: false })),
   on(income, (state, { property }) => ({
     ...state,
-    funds: state.funds + valueOf(property)(state.properties[property].level),
+    funds: state.funds + valueOf(property)(state.properties?.[property]?.level),
     workActive: property === 'salary' ? false : state.workActive,
   })),
   on(work, (state) => ({ ...state, workActive: true })),
   on(upgrade, (state, { property }) => ({
     ...state,
     funds:
-      state.funds - upgradeCostOf(property)(state.properties[property].level),
+      state.funds - upgradeCostOf(property)(state.properties?.[property]?.level),
     properties: {
       ...state.properties,
       [property]: {
-        ...state.properties[property],
-        level: state.properties[property].level + 1,
+        ...state.properties?.[property],
+        level: (state.properties?.[property]?.level || 0) + 1,
       },
     },
   })),
@@ -65,7 +65,7 @@ const _stateReducer = createReducer(
     properties: {
       ...state.properties,
       [property]: {
-        ...state.properties[property],
+        ...state.properties?.[property],
         becameAffordable: true,
       },
     },
@@ -78,14 +78,14 @@ const _stateReducer = createReducer(
     ...state,
     powerups: {
       ...state.powerups,
-      [powerup]: (state.powerups[powerup] || 0) + 1
+      [powerup]: (state.powerups?.[powerup] || 0) + 1
     },
   })),
   on(deactivatePowerup, (state, { powerup }) => ({
     ...state,
     powerups: {
       ...state.powerups,
-      [powerup]: Math.max(0, state.powerups[powerup] - 1)
+      [powerup]: Math.max(0, state.powerups?.[powerup] - 1)
     },
   })),
 );

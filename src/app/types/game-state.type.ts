@@ -5,12 +5,7 @@ export interface GameState {
   timeActive: boolean;
   funds: number;
   workActive: boolean;
-  properties: {
-    salary: PropertyState;
-    workEfficiency: PropertyState;
-    education: PropertyState;
-    businessIncome: PropertyState;
-  };
+  properties: { [property: string]: PropertyState };
   achievements: Achievement[];
   powerups: { [powerup: string]: number };
 }
@@ -19,24 +14,7 @@ export const initialState: GameState = {
   timeActive: false,
   funds: 0,
   workActive: false,
-  properties: {
-    salary: {
-      level: 0,
-      becameAffordable: false,
-    },
-    workEfficiency: {
-      level: 0,
-      becameAffordable: false,
-    },
-    education: {
-      level: 0,
-      becameAffordable: false,
-    },
-    businessIncome: {
-      level: 0,
-      becameAffordable: false,
-    },
-  },
+  properties: {},
   achievements: [],
   powerups: {},
 };

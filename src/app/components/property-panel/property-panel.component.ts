@@ -45,7 +45,7 @@ export class PropertyPanelComponent implements OnInit {
     this.levels$ = this.store.pipe(
       select('gameState', 'properties'),
       map((propertyStates) =>
-        mapValues((propertyState: PropertyState) => propertyState.level)(
+        mapValues((propertyState: PropertyState) => propertyState.level || 0)(
           propertyStates
         )
       )
@@ -53,6 +53,24 @@ export class PropertyPanelComponent implements OnInit {
     this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
     this.unfulfiledUpgradeConditions$ = this.store.pipe(
       select(unfulfiledUpgradeConditions)
+    );
+  }
+
+  upgradePossible(property: Property) {
+    return this.upgradesPossible$.pipe(
+      map((upgradesPossible) => upgradesPossible?.[property] || false)
+    );
+  }
+
+  level(property: Property) {
+    return this.levels$.pipe(map((levels) => levels?.[property] || 0));
+  }
+
+  unfulfiledUpgradeCondition(property: Property) {
+    return this.unfulfiledUpgradeConditions$.pipe(
+      map(
+        (unfulfiledUpgradeConditions) => unfulfiledUpgradeConditions?.[property] || false
+      )
     );
   }
 

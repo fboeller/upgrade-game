@@ -8,6 +8,8 @@ import { moduleMetadata } from '@storybook/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from 'types/game-state.type';
 import { personalProperties, businessProperties } from 'types/property.type';
+import { PowerupPanelComponent } from 'components/powerup-panel/powerup-panel.component';
+import { PowerupRowComponent } from 'components/powerup-row/powerup-row.component';
 
 export default {
   title: 'Game Panel',
@@ -19,6 +21,8 @@ export default {
         PropertyPanelComponent,
         PropertyRowComponent,
         TimeControlPanelComponent,
+        PowerupPanelComponent,
+        PowerupRowComponent,
         WorkButtonComponent,
       ],
       providers: [
@@ -35,5 +39,6 @@ export const full = () => ({
     timeActive: true,
     becameAffordablePersonalProperties: personalProperties,
     becameAffordableBusinessProperties: businessProperties,
+    powerups: []
   },
 });

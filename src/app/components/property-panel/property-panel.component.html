@@ -3,10 +3,10 @@
   <app-property-row
     *ngFor="let property of properties"
     [propertyName]="property"
-    [level]="(levels$ | async)[property]"
+    [level]="level(property) | async"
     [propertyType]="propertyTypes[property]"
-    [upgradePossible]="(upgradesPossible$ | async)[property]"
-    [upgradeConditions]="(unfulfiledUpgradeConditions$ | async)[property]"
+    [upgradePossible]="upgradePossible(property) | async"
+    [upgradeConditions]="unfulfiledUpgradeCondition(property) | async"
     (upgrade)="upgrade(property)"
     (visibleFundsEffect)="visibleFundsEffect.emit($event)"
   ></app-property-row>

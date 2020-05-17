@@ -1,4 +1,4 @@
-import { createSelector, select } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import { AppState } from 'actions/game.actions';
 import { every, toPairs, flow, pickBy, map, fromPairs } from 'lodash/fp';
 import {
@@ -14,7 +14,7 @@ export const selectGameState = (state: AppState) => state.gameState;
 export const value = createSelector(
   selectGameState,
   (state: GameState, { property }) =>
-    valueOf(property)(state.properties[property].level)
+    valueOf(property)(state.properties?.[property]?.level)
 );
 
 export const powerup = createSelector(
@@ -26,7 +26,7 @@ export const workDuration = createSelector(
   selectGameState,
   (state: GameState) => {
     const workEfficiency = valueOf('workEfficiency')(
-      state?.properties?.workEfficiency?.level || 0
+      state.properties?.workEfficiency?.level || 0
     );
     const coffeeCount = state?.powerups?.coffee || 0;
     return workEfficiency / Math.pow(2, coffeeCount);
@@ -45,7 +45,7 @@ export const upgradesPossible = createSelector(
             toPairs,
             every(
               ([property, threshold]) =>
-                valueOf(property)(state.properties[property]?.level || 0) >=
+                valueOf(property)(state.properties?.[property]?.level) >=
                 threshold
             ),
           ])(upgradeConditionsOf(property)(propertyState.level)),
@@ -57,7 +57,7 @@ export const upgradesPossible = createSelector(
 export const filterBecameAffordable = createSelector(
   selectGameState,
   (state, { properties }) =>
-    properties.filter((property) => state.properties[property].becameAffordable)
+    properties.filter((property) => state.properties?.[property]?.becameAffordable || false)
 );
 
 export const unfulfiledUpgradeConditions = createSelector(
@@ -69,7 +69,7 @@ export const unfulfiledUpgradeConditions = createSelector(
         property,
         pickBy(
           (threshold: number, property: Property) =>
-            valueOf(property)(state.properties[property].level) < threshold
+            valueOf(property)(state.properties?.[property]?.level) < threshold
         )(upgradeConditionsOf(property)(propertyState.level)),
       ]),
       fromPairs,

@@ -9,7 +9,6 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [PropertyPanelComponent, PropertyRowComponent],
-      imports: [],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),
       ],

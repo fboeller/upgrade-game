@@ -10,6 +10,8 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from 'types/game-state.type';
 import { personalProperties, businessProperties } from 'types/property.type';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { PowerupPanelComponent } from 'components/powerup-panel/powerup-panel.component';
+import { PowerupRowComponent } from 'components/powerup-row/powerup-row.component';
 
 describe('GamePanelComponent', () => {
   let component: GamePanelComponent;
@@ -23,6 +25,8 @@ describe('GamePanelComponent', () => {
         PropertyPanelComponent,
         PropertyRowComponent,
         TimeControlPanelComponent,
+        PowerupPanelComponent,
+        PowerupRowComponent,
         WorkButtonComponent,
       ],
       imports: [NoopAnimationsModule],
@@ -42,6 +46,7 @@ describe('GamePanelComponent', () => {
     component.timeActive = true;
     component.becameAffordablePersonalProperties = personalProperties;
     component.becameAffordableBusinessProperties = businessProperties;
+    component.powerups = [];
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
