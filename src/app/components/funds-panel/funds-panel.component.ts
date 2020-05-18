@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FundsPanelComponent implements OnInit {
 
-  @Input() funds: number = 0;
+  @Input() funds = 0;
   @Input() fundsEffect: number = null;
 
   constructor() { }

@@ -38,7 +38,7 @@ export const deactivatePowerup = createAction(
   props<{ powerup: Powerup }>()
 );
 
-const _stateReducer = createReducer(
+const stateReducer0 = createReducer(
   initialState,
   on(resume, (state) => ({ ...state, timeActive: true })),
   on(pause, (state) => ({ ...state, timeActive: false })),
@@ -91,5 +91,5 @@ const _stateReducer = createReducer(
 );
 
 export function stateReducer(state, action) {
-  return _stateReducer(state, action);
+  return stateReducer0(state, action);
 }

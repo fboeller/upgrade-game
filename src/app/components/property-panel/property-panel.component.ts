@@ -3,10 +3,7 @@ import { Observable } from 'rxjs';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from 'actions/game.actions';
-import {
-  upgradesPossible,
-  unfulfiledUpgradeConditions,
-} from 'selectors/game.selectors';
+import { Selectors } from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
 import { PropertyState } from 'types/property-state.type';
 import { propertyTypes } from 'types/property-type.type';
@@ -50,9 +47,11 @@ export class PropertyPanelComponent implements OnInit {
         )
       )
     );
-    this.upgradesPossible$ = this.store.pipe(select(upgradesPossible));
+    this.upgradesPossible$ = this.store.pipe(
+      select(Selectors.upgradesPossible)
+    );
     this.unfulfiledUpgradeConditions$ = this.store.pipe(
-      select(unfulfiledUpgradeConditions)
+      select(Selectors.unfulfiledUpgradeConditions)
     );
   }
 
@@ -69,7 +68,8 @@ export class PropertyPanelComponent implements OnInit {
   unfulfiledUpgradeCondition(property: Property) {
     return this.unfulfiledUpgradeConditions$.pipe(
       map(
-        (unfulfiledUpgradeConditions) => unfulfiledUpgradeConditions?.[property] || false
+        (unfulfiledUpgradeConditions) =>
+          unfulfiledUpgradeConditions?.[property] || false
       )
     );
   }

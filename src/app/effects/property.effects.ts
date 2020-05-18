@@ -13,6 +13,23 @@ import { GameState } from 'types/game-state.type';
 export class PropertyEffects {
   constructor(private store: Store<AppState>) {}
 
+  propertyRevealing$ = createEffect(() =>
+    from(properties).pipe(
+      flatMap((property) =>
+        this.store.pipe(
+          select('gameState'),
+          filter(
+            (state) =>
+              this.sufficientFunds(state, property) ||
+              this.isUpgradeCondition(state, property)
+          ),
+          first(),
+          map(() => propertyRevealed({ property }))
+        )
+      )
+    )
+  );
+
   sufficientFunds(state: GameState, property: Property): boolean {
     return (
       state.funds >=
@@ -34,21 +51,4 @@ export class PropertyEffects {
       ),
     ])(state.properties);
   }
-
-  propertyRevealing$ = createEffect(() =>
-    from(properties).pipe(
-      flatMap((property) =>
-        this.store.pipe(
-          select('gameState'),
-          filter(
-            (state) =>
-              this.sufficientFunds(state, property) ||
-              this.isUpgradeCondition(state, property)
-          ),
-          first(),
-          map(() => propertyRevealed({ property }))
-        )
-      )
-    )
-  );
 }

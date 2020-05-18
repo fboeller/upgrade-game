@@ -3,10 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'actions/game.actions';
-import {
-  filterBecameAffordable,
-  selectGameState,
-} from 'selectors/game.selectors';
+import { Selectors, selectGameState } from 'selectors/game.selectors';
 import {
   Property,
   personalProperties,
@@ -34,10 +31,14 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
     this.becameAffordablePersonalProperties$ = this.store.pipe(
-      select(filterBecameAffordable, { properties: personalProperties })
+      select(Selectors.filterBecameAffordable, {
+        properties: personalProperties,
+      })
     );
     this.becameAffordableBusinessProperties$ = this.store.pipe(
-      select(filterBecameAffordable, { properties: businessProperties })
+      select(Selectors.filterBecameAffordable, {
+        properties: businessProperties,
+      })
     );
     this.timeActive$ = this.store.pipe(select('gameState', 'timeActive'));
     this.achievements$ = this.store.pipe(

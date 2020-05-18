@@ -3,7 +3,7 @@ export type Powerup = 'coffee';
 export const powerups: Powerup[] = ['coffee'];
 
 export interface PowerupType {
-  displayName: string,
+  displayName: string;
   actionText: string;
   duration: number;
   cost: number;

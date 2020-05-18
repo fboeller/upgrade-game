@@ -24,15 +24,13 @@ export class PropertyRowComponent implements OnChanges {
   @Input() upgradePossible: boolean;
   @Input() upgradeConditions: { [property: string]: number };
 
-  @Output('upgrade') upgradeOut: EventEmitter<any> = new EventEmitter();
-  @Output('visibleFundsEffect') visibleFundsEffect: EventEmitter<
-    number
-  > = new EventEmitter();
+  @Output() upgrade: EventEmitter<any> = new EventEmitter();
+  @Output() visibleFundsEffect: EventEmitter<number> = new EventEmitter();
 
   propertyTypes = propertyTypes;
 
-  upgradeConditionProperties: string[];
-  showUpgradeDetails: boolean = false;
+  upgradeConditionProperties: string[] = [];
+  showUpgradeDetails = false;
 
   constructor() {}
 
@@ -40,16 +38,10 @@ export class PropertyRowComponent implements OnChanges {
     this.upgradeConditionProperties = Object.keys(this.upgradeConditions);
   }
 
-  upgrade() {
-    this.upgradeOut.emit();
-  }
-
   onUpgradeButtonHover(isMouseOnButton: boolean) {
     this.showUpgradeDetails = isMouseOnButton;
     this.visibleFundsEffect.emit(
-      isMouseOnButton
-        ? upgradeCostOf(this.propertyName)(this.level) * -1
-        : null
+      isMouseOnButton ? upgradeCostOf(this.propertyName)(this.level) * -1 : null
     );
   }
 }

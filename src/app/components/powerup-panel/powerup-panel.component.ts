@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Powerup, powerupMap } from 'types/powerup.type';
+import { Powerup } from 'types/powerup.type';
 
 @Component({
   selector: 'app-powerup-panel',
@@ -13,10 +13,6 @@ export class PowerupPanelComponent implements OnInit {
   @Input() powerups: Powerup[];
 
   ngOnInit() {
-  }
-
-  buy() {
-
   }
 
 }
