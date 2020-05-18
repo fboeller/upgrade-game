@@ -1,9 +1,9 @@
-import { upgradesPossible } from './game.selectors';
+import { Selectors } from './game.selectors';
 
 describe('Selector upgradesPossible', () => {
   it('should return false for non-affordable properties', () => {
     expect(
-      upgradesPossible.projector({
+      Selectors.upgradesPossible.projector({
         funds: 0,
         properties: {
           salary: { level: 3 },
@@ -15,7 +15,7 @@ describe('Selector upgradesPossible', () => {
 
   it('should return a single possible upgrade', () => {
     expect(
-      upgradesPossible.projector({
+      Selectors.upgradesPossible.projector({
         funds: 5,
         properties: { salary: { level: 3 } },
       })
@@ -24,7 +24,7 @@ describe('Selector upgradesPossible', () => {
 
   it('should return multiple possible upgrades', () => {
     expect(
-      upgradesPossible.projector({
+      Selectors.upgradesPossible.projector({
         funds: 30,
         properties: {
           salary: { level: 3 },
@@ -36,7 +36,7 @@ describe('Selector upgradesPossible', () => {
 
   it('should return false for properties where an upgrade condition is not met', () => {
     expect(
-      upgradesPossible.projector({
+      Selectors.upgradesPossible.projector({
         funds: 100,
         properties: {
           salary: { level: 5 },
