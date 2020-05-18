@@ -2,14 +2,15 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from './types/game-state.type';
+import { GamePanelComponent } from 'components/game-panel/game-panel.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      declarations: [AppComponent, GamePanelComponent],
+      providers: [
+        provideMockStore({ initialState: { gameState: initialState } }),
       ],
-      providers: [provideMockStore({ initialState: { gameState: initialState } })],
     }).compileComponents();
   }));
 
