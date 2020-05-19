@@ -4,9 +4,7 @@ import { AppState, propertyRevealed } from 'actions/game.actions';
 import { createEffect } from '@ngrx/effects';
 import { from } from 'rxjs';
 import { flatMap, filter, first, map } from 'rxjs/operators';
-import { properties, Property } from 'types/property.type';
-import { some, flow, map as _map, keys } from 'lodash/fp';
-import { GameState } from 'types/game-state.type';
+import { properties } from 'types/property.type';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
 
 @Injectable()
@@ -20,8 +18,8 @@ export class PropertyEffects {
           select(selectGameState),
           filter(
             (state) =>
-              this.sufficientFunds(state, property) ||
-              this.isUpgradeCondition(state, property)
+              Selectors.sufficientFunds(state, { property }) ||
+              Selectors.isUpgradeCondition(state, { property })
           ),
           first(),
           map(() => propertyRevealed({ property }))
@@ -29,25 +27,4 @@ export class PropertyEffects {
       )
     )
   );
-
-  sufficientFunds(state: GameState, property: Property): boolean {
-    return state.funds >= Selectors.upgradeCost(state, { property });
-  }
-
-  isUpgradeCondition(state: GameState, property: Property): boolean {
-    return flow([
-      keys,
-      _map(
-        (dependentProperty) =>
-          Selectors.upgradeConditions(state, { property: dependentProperty })[
-            property
-          ]
-      ),
-      some(
-        (requiredLevel) =>
-          !!requiredLevel &&
-          requiredLevel > Selectors.level(state, { property })
-      ),
-    ])(state.properties);
-  }
 }

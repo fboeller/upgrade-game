@@ -9,6 +9,7 @@ import {
   fromPairs,
   keys,
   intersection,
+  some,
 } from 'lodash/fp';
 import { propertyTypes } from 'types/property-type.type';
 import { GameState } from 'types/game-state.type';
@@ -21,6 +22,19 @@ import {
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
 export const selectPowerups = (state: GameState) => state.powerups;
+export const selectFunds = (state: GameState) => state.funds;
+
+export const selectUpgradeConditions = (
+  state: GameState
+): { [property: string]: { [property: string]: number } } =>
+  flow([
+    keys,
+    map((property: Property) => [
+      property,
+      Selectors.upgradeConditions(state, { property }),
+    ]),
+    fromPairs,
+  ])(state.properties);
 
 export class Selectors {
   static readonly level = createSelector(
@@ -59,6 +73,27 @@ export class Selectors {
   static readonly powerup = createSelector(
     selectPowerups,
     (powerups, { powerup }) => powerups?.[powerup] || 0
+  );
+
+  static readonly sufficientFunds = createSelector(
+    selectFunds,
+    Selectors.upgradeCost,
+    (funds: number, upgradeCost: number) => funds >= upgradeCost
+  );
+
+  static readonly isUpgradeCondition = createSelector(
+    selectProperties,
+    Selectors.level,
+    selectUpgradeConditions,
+    (properties, level, upgradeConditions, { property }) =>
+      flow([
+        keys,
+        map(
+          (dependentProperty: Property) =>
+            upgradeConditions[dependentProperty][property]
+        ),
+        some((requiredLevel) => !!requiredLevel && requiredLevel > level),
+      ])(properties)
   );
 
   static readonly workDuration = createSelector(
