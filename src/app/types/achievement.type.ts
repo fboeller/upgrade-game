@@ -1,6 +1,6 @@
 import { GameState } from 'types/game-state.type';
 import { work } from 'actions/game.actions';
-import { propertyTypes, valueOf } from './property-type.type';
+import { Selectors } from 'selectors/game.selectors';
 
 export type Achievement =
   | 'firstIncome'
@@ -37,21 +37,21 @@ export const achievementMap: { [key: string]: AchievementType } = {
     displayName: 'Educated',
     icon: 'fa-university',
     stateCondition: (state: GameState) =>
-      valueOf('education')(state.properties?.education?.level) > 0,
+      Selectors.value(state, { property: 'education' }) > 0,
     actionCondition: () => false,
   },
   firstPromotion: {
     displayName: 'First Promotion',
     icon: 'fa-award',
     stateCondition: (state: GameState) =>
-      valueOf('salary')(state.properties?.salary?.level) > 1,
+      Selectors.value(state, { property: 'salary' }) > 1,
     actionCondition: () => false,
   },
   factoryOwner: {
     displayName: 'Factory Owner',
     icon: 'fa-industry',
     stateCondition: (state: GameState) =>
-      valueOf('businessIncome')(state.properties?.businessIncome?.level) > 0,
+      Selectors.value(state, { property: 'businessIncome' }) > 0,
     actionCondition: () => false,
   },
   workHorse: {

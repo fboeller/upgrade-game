@@ -2,20 +2,27 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from 'actions/game.actions';
 import { every, toPairs, flow, pickBy, map, fromPairs } from 'lodash/fp';
 import {
-  valueOf,
   upgradeCostOf,
   upgradeConditionsOf,
+  propertyTypes,
 } from 'types/property-type.type';
 import { GameState } from 'types/game-state.type';
 import { Property } from 'types/property.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
+export const selectProperties = (state: GameState) => state.properties;
 
 export class Selectors {
   static readonly value = createSelector(
-    selectGameState,
-    (state: GameState, { property }) =>
-      valueOf(property)(state.properties?.[property]?.level)
+    selectProperties,
+    (properties, { property }) =>
+      propertyTypes[property].valueOfLevel(properties?.[property]?.level || 0)
+  );
+
+  static readonly upgradeCost = createSelector(
+    selectProperties,
+    (properties, { property }) =>
+      upgradeCostOf(property)(properties?.[property]?.level)
   );
 
   static readonly powerup = createSelector(
@@ -26,9 +33,9 @@ export class Selectors {
   static readonly workDuration = createSelector(
     selectGameState,
     (state: GameState) => {
-      const workEfficiency = valueOf('workEfficiency')(
-        state.properties?.workEfficiency?.level || 0
-      );
+      const workEfficiency = Selectors.value(state, {
+        property: 'workEfficiency',
+      });
       const coffeeCount = state?.powerups?.coffee || 0;
       return workEfficiency / Math.pow(2, coffeeCount);
     }
@@ -46,9 +53,8 @@ export class Selectors {
               toPairs,
               every(
                 ([conditionProperty, threshold]) =>
-                  valueOf(conditionProperty)(
-                    state.properties?.[conditionProperty]?.level
-                  ) >= threshold
+                  Selectors.value(state, { property: conditionProperty }) >=
+                  threshold
               ),
             ])(upgradeConditionsOf(property)(propertyState.level)),
         ]),
@@ -73,9 +79,8 @@ export class Selectors {
           property,
           pickBy(
             (threshold: number, conditionProperty: Property) =>
-              valueOf(conditionProperty)(
-                state.properties?.[conditionProperty]?.level
-              ) < threshold
+              Selectors.value(state, { property: conditionProperty }) <
+              threshold
           )(upgradeConditionsOf(property)(propertyState.level)),
         ]),
         fromPairs,
