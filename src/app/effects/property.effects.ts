@@ -5,9 +5,9 @@ import { createEffect } from '@ngrx/effects';
 import { from } from 'rxjs';
 import { flatMap, filter, first, map } from 'rxjs/operators';
 import { properties, Property } from 'types/property.type';
-import { upgradeCostOf, upgradeConditionsOf } from 'types/property-type.type';
-import { some, flow, map as _map, toPairs } from 'lodash/fp';
+import { some, flow, map as _map, keys } from 'lodash/fp';
 import { GameState } from 'types/game-state.type';
+import { Selectors } from 'selectors/game.selectors';
 
 @Injectable()
 export class PropertyEffects {
@@ -31,23 +31,22 @@ export class PropertyEffects {
   );
 
   sufficientFunds(state: GameState, property: Property): boolean {
-    return (
-      state.funds >=
-      upgradeCostOf(property)(state.properties[property]?.level || 0)
-    );
+    return state.funds >= Selectors.upgradeCost(state, { property });
   }
 
   isUpgradeCondition(state: GameState, property: Property): boolean {
     return flow([
-      toPairs,
+      keys,
       _map(
-        ([dependentProperty, propertyState]) =>
-          upgradeConditionsOf(dependentProperty)(propertyState.level)[property]
+        (dependentProperty) =>
+          Selectors.upgradeConditions(state, { property: dependentProperty })[
+            property
+          ]
       ),
       some(
         (requiredLevel) =>
           !!requiredLevel &&
-          requiredLevel > (state.properties[property]?.level || 0)
+          requiredLevel > Selectors.level(state, { property })
       ),
     ])(state.properties);
   }
