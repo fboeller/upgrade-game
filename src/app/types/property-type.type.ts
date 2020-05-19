@@ -11,16 +11,8 @@ export interface PropertyType {
   upgradeConditionsFromLevel: (Level) => { [property: string]: number };
 }
 
-export const valueOf = (property: Property) => (level: number): number =>
-  propertyTypes[property].valueOfLevel(level || 0);
-
 export const upgradeCostOf = (property: Property) => (level: number): number =>
   propertyTypes[property].upgradeCostFromLevel(level || 0);
-
-export const upgradeConditionsOf = (property: Property) => (
-  level: number
-): { [property: string]: number } =>
-  propertyTypes[property].upgradeConditionsFromLevel(level || 0);
 
 export const propertyTypes: { [property: string]: PropertyType } = {
   salary: {
