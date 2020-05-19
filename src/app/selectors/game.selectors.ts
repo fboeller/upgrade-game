@@ -7,6 +7,7 @@ import { Property } from 'types/property.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
+export const selectPowerups = (state: GameState) => state.powerups;
 
 export class Selectors {
   static readonly level = createSelector(
@@ -31,8 +32,8 @@ export class Selectors {
   );
 
   static readonly powerup = createSelector(
-    selectGameState,
-    (state: GameState, { powerup }) => state.powerups?.[powerup] || 0
+    selectPowerups,
+    (powerups, { powerup }) => powerups?.[powerup] || 0
   );
 
   static readonly workDuration = createSelector(
@@ -41,7 +42,7 @@ export class Selectors {
       const workEfficiency = Selectors.value(state, {
         property: 'workEfficiency',
       });
-      const coffeeCount = state?.powerups?.coffee || 0;
+      const coffeeCount = Selectors.powerup(state, { powerup: 'coffee' });
       return workEfficiency / Math.pow(2, coffeeCount);
     }
   );

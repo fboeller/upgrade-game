@@ -77,14 +77,14 @@ const stateReducer0 = createReducer(
     ...state,
     powerups: {
       ...state.powerups,
-      [powerup]: (state.powerups?.[powerup] || 0) + 1,
+      [powerup]: Selectors.powerup(state, { powerup }) + 1,
     },
   })),
   on(deactivatePowerup, (state, { powerup }) => ({
     ...state,
     powerups: {
       ...state.powerups,
-      [powerup]: Math.max(0, state.powerups?.[powerup] - 1),
+      [powerup]: Math.max(0, Selectors.powerup(state, { powerup }) - 1),
     },
   }))
 );

@@ -18,7 +18,10 @@ export class IncomeEffects {
           select(selectGameState),
           select(Selectors.value, { property: 'workEfficiency' })
         ),
-        this.store.pipe(select(Selectors.powerup, { powerup: 'coffee' })),
+        this.store.pipe(
+          select(selectGameState),
+          select(Selectors.powerup, { powerup: 'coffee' })
+        ),
         (_, workEfficiency, coffeeCount) =>
           workEfficiency / Math.pow(2, coffeeCount)
       ),
