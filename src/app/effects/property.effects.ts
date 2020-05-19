@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store, select, createSelector } from '@ngrx/store';
 import { AppState, propertyRevealed } from 'actions/game.actions';
 import { createEffect } from '@ngrx/effects';
 import { from } from 'rxjs';
@@ -16,15 +16,18 @@ export class PropertyEffects {
       flatMap((property) =>
         this.store.pipe(
           select(selectGameState),
-          filter(
-            (state) =>
-              Selectors.sufficientFunds(state, { property }) ||
-              Selectors.isUpgradeCondition(state, { property })
-          ),
+          filter((state) => this.isRevealable(state, { property })),
           first(),
           map(() => propertyRevealed({ property }))
         )
       )
     )
+  );
+
+  isRevealable = createSelector(
+    Selectors.sufficientFunds,
+    Selectors.isUpgradeCondition,
+    (sufficientFunds, isUpgradeCondition) =>
+      sufficientFunds || isUpgradeCondition
   );
 }
