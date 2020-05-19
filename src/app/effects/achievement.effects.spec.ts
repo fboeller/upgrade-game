@@ -49,7 +49,7 @@ describe('AchievementEffects', () => {
     'should unlock multiple achievements if conditions are met at the same time',
     marbles((m) => {
       mockStore.setState({
-        gameState: { funds: 1, properties: { education: { level: 1 } } },
+        gameState: { funds: 1, properties: { education: 1 } },
       });
       m.expect(effects.stateAchievementUnlocking$).toBeObservable('(ab)', {
         a: achievementUnlocked({ achievement: 'firstIncome' }),

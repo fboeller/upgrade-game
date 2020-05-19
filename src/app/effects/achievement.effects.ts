@@ -5,6 +5,7 @@ import { map, flatMap, scan, filter, first } from 'rxjs/operators';
 import { createEffect, Actions } from '@ngrx/effects';
 import { achievementMap, achievements } from 'types/achievement.type';
 import { from } from 'rxjs';
+import { selectGameState } from 'selectors/game.selectors';
 
 @Injectable()
 export class AchievementEffects {
@@ -14,10 +15,8 @@ export class AchievementEffects {
     from(achievements).pipe(
       flatMap((achievement) =>
         this.store.pipe(
-          select('gameState'),
-          filter((gameState) =>
-            achievementMap[achievement].stateCondition(gameState)
-          ),
+          select(selectGameState),
+          filter((state) => achievementMap[achievement].stateCondition(state)),
           first(),
           map(() => achievementUnlocked({ achievement }))
         )

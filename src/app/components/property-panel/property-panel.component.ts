@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from 'actions/game.actions';
-import { Selectors } from 'selectors/game.selectors';
+import {
+  Selectors,
+  selectProperties,
+  selectGameState,
+} from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
-import { PropertyState } from 'types/property-state.type';
 import { propertyTypes } from 'types/property-type.type';
 import { map } from 'rxjs/operators';
-import { mapValues } from 'lodash/fp';
 
 @Component({
   selector: 'app-personal-panel',
@@ -30,7 +32,6 @@ export class PropertyPanelComponent implements OnInit {
   @Input() properties: Property[] = [];
   @Output() visibleFundsEffect: EventEmitter<number> = new EventEmitter();
 
-  levels$: Observable<{ [property: string]: number }>;
   upgradesPossible$: Observable<{ [property: string]: boolean }>;
   unfulfiledUpgradeConditions$: Observable<{
     [property: string]: { [property: string]: number };
@@ -39,14 +40,6 @@ export class PropertyPanelComponent implements OnInit {
   propertyTypes = propertyTypes;
 
   ngOnInit() {
-    this.levels$ = this.store.pipe(
-      select('gameState', 'properties'),
-      map((propertyStates) =>
-        mapValues((propertyState: PropertyState) => propertyState.level || 0)(
-          propertyStates
-        )
-      )
-    );
     this.upgradesPossible$ = this.store.pipe(
       select(Selectors.upgradesPossible)
     );
@@ -62,7 +55,10 @@ export class PropertyPanelComponent implements OnInit {
   }
 
   level(property: Property) {
-    return this.levels$.pipe(map((levels) => levels?.[property] || 0));
+    return this.store.pipe(
+      select(selectGameState),
+      map((state) => Selectors.level(state, { property }))
+    );
   }
 
   unfulfiledUpgradeCondition(property: Property) {

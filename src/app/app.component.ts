@@ -4,11 +4,7 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'actions/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
-import {
-  Property,
-  personalProperties,
-  businessProperties,
-} from 'types/property.type';
+import { Property } from 'types/property.type';
 import { powerups } from 'types/powerup.type';
 
 @Component({
@@ -22,23 +18,21 @@ export class AppComponent implements OnInit {
 
   funds$: Observable<number>;
   visibleFundsEffect: number;
-  becameAffordablePersonalProperties$: Observable<Property[]>;
-  becameAffordableBusinessProperties$: Observable<Property[]>;
+  availablePersonalProperties$: Observable<Property[]>;
+  availableBusinessProperties$: Observable<Property[]>;
   timeActive$: Observable<boolean>;
   achievements$: Observable<string[]>;
   powerups = powerups;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
-    this.becameAffordablePersonalProperties$ = this.store.pipe(
-      select(Selectors.filterBecameAffordable, {
-        properties: personalProperties,
-      })
+    this.availablePersonalProperties$ = this.store.pipe(
+      select(selectGameState),
+      select(Selectors.availablePersonalProperties)
     );
-    this.becameAffordableBusinessProperties$ = this.store.pipe(
-      select(Selectors.filterBecameAffordable, {
-        properties: businessProperties,
-      })
+    this.availableBusinessProperties$ = this.store.pipe(
+      select(selectGameState),
+      select(Selectors.availableBusinessProperties)
     );
     this.timeActive$ = this.store.pipe(select('gameState', 'timeActive'));
     this.achievements$ = this.store.pipe(

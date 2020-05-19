@@ -1,9 +1,22 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from 'actions/game.actions';
-import { every, toPairs, flow, pickBy, map, fromPairs, keys } from 'lodash/fp';
+import {
+  every,
+  toPairs,
+  flow,
+  pickBy,
+  map,
+  fromPairs,
+  keys,
+  intersection,
+} from 'lodash/fp';
 import { propertyTypes } from 'types/property-type.type';
 import { GameState } from 'types/game-state.type';
-import { Property } from 'types/property.type';
+import {
+  Property,
+  personalProperties,
+  businessProperties,
+} from 'types/property.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
@@ -12,7 +25,7 @@ export const selectPowerups = (state: GameState) => state.powerups;
 export class Selectors {
   static readonly level = createSelector(
     selectProperties,
-    (properties, { property }) => properties?.[property]?.level || 0
+    (properties, { property }) => properties?.[property] || 0
   );
 
   static readonly value = createSelector(
@@ -29,6 +42,18 @@ export class Selectors {
     Selectors.level,
     (level, { property }) =>
       propertyTypes[property].upgradeConditionsFromLevel(level)
+  );
+
+  static readonly availablePersonalProperties = createSelector(
+    selectProperties,
+    (properties) =>
+      intersection(keys(properties), personalProperties) as Property[]
+  );
+
+  static readonly availableBusinessProperties = createSelector(
+    selectProperties,
+    (properties) =>
+      intersection(keys(properties), businessProperties) as Property[]
   );
 
   static readonly powerup = createSelector(
@@ -66,14 +91,6 @@ export class Selectors {
         ]),
         fromPairs,
       ])(state.properties)
-  );
-
-  static readonly filterBecameAffordable = createSelector(
-    selectGameState,
-    (state, { properties }) =>
-      properties.filter(
-        (property) => state.properties?.[property]?.becameAffordable || false
-      )
   );
 
   static readonly unfulfiledUpgradeConditions = createSelector(

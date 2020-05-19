@@ -6,8 +6,8 @@ describe('Selector upgradesPossible', () => {
       Selectors.upgradesPossible.projector({
         funds: 0,
         properties: {
-          salary: { level: 3 },
-          education: { level: 2 },
+          salary: 3,
+          education: 2,
         },
       })
     ).toEqual({ salary: false, education: false });
@@ -17,7 +17,7 @@ describe('Selector upgradesPossible', () => {
     expect(
       Selectors.upgradesPossible.projector({
         funds: 5,
-        properties: { salary: { level: 3 } },
+        properties: { salary: 3 },
       })
     ).toEqual({ salary: true });
   });
@@ -27,8 +27,8 @@ describe('Selector upgradesPossible', () => {
       Selectors.upgradesPossible.projector({
         funds: 30,
         properties: {
-          salary: { level: 3 },
-          education: { level: 2 },
+          salary: 3,
+          education: 2,
         },
       })
     ).toEqual({ salary: true, education: true });
@@ -39,8 +39,8 @@ describe('Selector upgradesPossible', () => {
       Selectors.upgradesPossible.projector({
         funds: 100,
         properties: {
-          salary: { level: 5 },
-          education: { level: 0 },
+          salary: 5,
+          education: 0,
         },
       })
     ).toEqual({ salary: false, education: true });

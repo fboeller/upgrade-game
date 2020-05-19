@@ -53,20 +53,14 @@ const stateReducer0 = createReducer(
     funds: state.funds - Selectors.upgradeCost(state, { property }),
     properties: {
       ...state.properties,
-      [property]: {
-        ...state.properties?.[property],
-        level: (state.properties?.[property]?.level || 0) + 1,
-      },
+      [property]: Selectors.level(state, { property }) + 1,
     },
   })),
   on(propertyRevealed, (state, { property }) => ({
     ...state,
     properties: {
       ...state.properties,
-      [property]: {
-        ...state.properties?.[property],
-        becameAffordable: true,
-      },
+      [property]: 0,
     },
   })),
   on(achievementUnlocked, (state, { achievement }) => ({

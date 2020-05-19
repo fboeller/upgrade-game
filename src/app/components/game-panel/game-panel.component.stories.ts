@@ -37,8 +37,8 @@ export const full = () => ({
   props: {
     funds: 10,
     timeActive: true,
-    becameAffordablePersonalProperties: personalProperties,
-    becameAffordableBusinessProperties: businessProperties,
-    powerups: []
+    availablePersonalProperties: personalProperties,
+    availableBusinessProperties: businessProperties,
+    powerups: [],
   },
 });

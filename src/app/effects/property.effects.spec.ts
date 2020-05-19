@@ -32,7 +32,7 @@ describe('PropertyEffects', () => {
     'should reveal salary on first funds',
     marbles((m) => {
       mockStore.setState({
-        gameState: { funds: 1, properties: { salary: { level: 0 } } },
+        gameState: { funds: 1, properties: { salary: 0 } },
       });
       m.expect(effects.propertyRevealing$).toBeObservable('a', {
         a: propertyRevealed({ property: 'salary' }),
@@ -46,7 +46,7 @@ describe('PropertyEffects', () => {
       mockStore.setState({
         gameState: {
           funds: 1,
-          properties: { salary: { level: 5, becameAffordable: true }, education: { level: 0 } },
+          properties: { salary: 5 },
         },
       });
       m.expect(effects.propertyRevealing$).toBeObservable('a', {

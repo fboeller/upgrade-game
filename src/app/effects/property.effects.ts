@@ -7,7 +7,7 @@ import { flatMap, filter, first, map } from 'rxjs/operators';
 import { properties, Property } from 'types/property.type';
 import { some, flow, map as _map, keys } from 'lodash/fp';
 import { GameState } from 'types/game-state.type';
-import { Selectors } from 'selectors/game.selectors';
+import { Selectors, selectGameState } from 'selectors/game.selectors';
 
 @Injectable()
 export class PropertyEffects {
@@ -17,7 +17,7 @@ export class PropertyEffects {
     from(properties).pipe(
       flatMap((property) =>
         this.store.pipe(
-          select('gameState'),
+          select(selectGameState),
           filter(
             (state) =>
               this.sufficientFunds(state, property) ||

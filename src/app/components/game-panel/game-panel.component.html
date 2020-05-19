@@ -8,24 +8,24 @@
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-work-button>
   </div>
-  <div *ngIf="becameAffordablePersonalProperties.length > 0" class="section">
+  <div *ngIf="availablePersonalProperties.length > 0" class="section">
     <app-personal-panel
       title="Personal"
-      [properties]="becameAffordablePersonalProperties"
+      [properties]="availablePersonalProperties"
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-personal-panel>
   </div>
   <div class="section">
     <app-powerup-panel [powerups]="powerups"></app-powerup-panel>
   </div>
-  <div *ngIf="becameAffordableBusinessProperties.length > 0" class="section">
+  <div *ngIf="availableBusinessProperties.length > 0" class="section">
     <app-personal-panel
       title="Business"
-      [properties]="becameAffordableBusinessProperties"
+      [properties]="availableBusinessProperties"
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-personal-panel>
   </div>
-  <div *ngIf="becameAffordableBusinessProperties.length > 0" class="section">
+  <div *ngIf="availableBusinessProperties.length > 0" class="section">
     <app-time-control-panel [timeActive]="timeActive"></app-time-control-panel>
   </div>
 </div>

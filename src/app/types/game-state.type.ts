@@ -1,11 +1,10 @@
-import { PropertyState } from './property-state.type';
 import { Achievement } from './achievement.type';
 
 export interface GameState {
   timeActive: boolean;
   funds: number;
   workActive: boolean;
-  properties: { [property: string]: PropertyState };
+  properties: { [property: string]: number };
   achievements: Achievement[];
   powerups: { [powerup: string]: number };
 }

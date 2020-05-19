@@ -2,12 +2,8 @@
   <div class="col s10">
     <app-game-panel
       [funds]="funds$ | async"
-      [becameAffordablePersonalProperties]="
-        becameAffordablePersonalProperties$ | async
-      "
-      [becameAffordableBusinessProperties]="
-        becameAffordableBusinessProperties$ | async
-      "
+      [availablePersonalProperties]="availablePersonalProperties$ | async"
+      [availableBusinessProperties]="availableBusinessProperties$ | async"
       [timeActive]="timeActive$ | async"
       [powerups]="powerups"
     ></app-game-panel>

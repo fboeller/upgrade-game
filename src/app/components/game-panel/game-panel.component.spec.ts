@@ -44,8 +44,8 @@ describe('GamePanelComponent', () => {
   it('should create', () => {
     component.funds = 10;
     component.timeActive = true;
-    component.becameAffordablePersonalProperties = personalProperties;
-    component.becameAffordableBusinessProperties = businessProperties;
+    component.availablePersonalProperties = personalProperties;
+    component.availableBusinessProperties = businessProperties;
     component.powerups = [];
     fixture.detectChanges();
     expect(component).toBeTruthy();

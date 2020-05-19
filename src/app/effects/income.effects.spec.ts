@@ -32,7 +32,7 @@ describe('IncomeEffects', () => {
     marbles((m) => {
       actions$ = m.hot('a', { a: work() });
       mockStore.setState({
-        gameState: { properties: { workEfficiency: { level: 0 } } },
+        gameState: { properties: { workEfficiency: 0 } },
       });
       m.expect(effects.workIncome$).toBeObservable('1s b', {
         b: income({ property: 'salary' }),
@@ -45,7 +45,7 @@ describe('IncomeEffects', () => {
     marbles((m) => {
       actions$ = m.hot('a', { a: work() });
       mockStore.setState({
-        gameState: { properties: { workEfficiency: { level: 1 } } },
+        gameState: { properties: { workEfficiency: 1 } },
       });
       m.expect(effects.workIncome$).toBeObservable('800ms b', {
         b: income({ property: 'salary' }),
@@ -59,7 +59,7 @@ describe('IncomeEffects', () => {
       actions$ = m.hot('a', { a: work() });
       mockStore.setState({
         gameState: {
-          properties: { workEfficiency: { level: 0 } },
+          properties: { workEfficiency: 0 },
           powerups: { coffee: 1 },
         },
       });
@@ -75,7 +75,7 @@ describe('IncomeEffects', () => {
       actions$ = m.hot('a', { a: work() });
       mockStore.setState({
         gameState: {
-          properties: { workEfficiency: { level: 1 } },
+          properties: { workEfficiency: 1 },
           powerups: { coffee: 1 },
         },
       });
