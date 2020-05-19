@@ -37,8 +37,6 @@ export class PropertyPanelComponent implements OnInit {
     [property: string]: { [property: string]: number };
   }>;
 
-  propertyTypes = propertyTypes;
-
   ngOnInit() {
     this.upgradesPossible$ = this.store.pipe(
       select(Selectors.upgradesPossible)

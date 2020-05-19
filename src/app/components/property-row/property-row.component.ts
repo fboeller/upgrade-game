@@ -19,7 +19,6 @@ import { Property } from 'types/property.type';
 })
 export class PropertyRowComponent implements OnChanges {
   @Input() propertyName: Property;
-  @Input() propertyType: PropertyType;
   @Input() level: number;
   @Input() upgradePossible: boolean;
   @Input() upgradeConditions: { [property: string]: number };
@@ -29,12 +28,14 @@ export class PropertyRowComponent implements OnChanges {
 
   propertyTypes = propertyTypes;
 
+  propertyType: PropertyType;
   upgradeConditionProperties: string[] = [];
   showUpgradeDetails = false;
 
   constructor() {}
 
   ngOnChanges() {
+    this.propertyType = propertyTypes[this.propertyName];
     this.upgradeConditionProperties = Object.keys(this.upgradeConditions);
   }
 

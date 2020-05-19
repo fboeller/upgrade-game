@@ -4,15 +4,7 @@ import { set } from 'lodash/fp';
 export default { title: 'Property Row' };
 
 const baseProps = {
-  propertyName: 'myProperty',
-  propertyType: {
-    displayName: 'My Property',
-    upgradeText: 'Upgrade',
-    unit: '$',
-    valueOfLevel: (level) => level + 1,
-    upgradeCostFromLevel: (level) => level + 1,
-    upgradeConditionsFromLevel: (level) => ({}),
-  },
+  propertyName: 'salary',
   level: 1,
   upgradePossible: true,
   upgradeConditions: {},
