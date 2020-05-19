@@ -13,16 +13,19 @@ export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
 
 export class Selectors {
-  static readonly value = createSelector(
+  static readonly level = createSelector(
     selectProperties,
-    (properties, { property }) =>
-      propertyTypes[property].valueOfLevel(properties?.[property]?.level || 0)
+    (properties, { property }) => properties?.[property]?.level || 0
+  );
+
+  static readonly value = createSelector(
+    Selectors.level,
+    (level, { property }) => propertyTypes[property].valueOfLevel(level)
   );
 
   static readonly upgradeCost = createSelector(
-    selectProperties,
-    (properties, { property }) =>
-      upgradeCostOf(property)(properties?.[property]?.level)
+    Selectors.level,
+    (level, { property }) => propertyTypes[property].upgradeCostFromLevel(level)
   );
 
   static readonly powerup = createSelector(
