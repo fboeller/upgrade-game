@@ -1,12 +1,15 @@
 <div class="btn-container">
-  <a
+  <button
+    mat-raised-button
     (click)="work()"
     (mouseenter)="hoverActive$.next(true)"
     (mouseleave)="hoverActive$.next(false)"
-    class="waves-effect btn-large"
-    [class.disabled]="workActive$ | async"
-    ><i class="fas fa-briefcase left"></i>Work</a
+    [disabled]="workActive$ | async"
+    color="primary"
   >
+    <mat-icon>work</mat-icon>
+    Work
+  </button>
   <div class="progress">
     <div
       class="determinate"

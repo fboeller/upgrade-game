@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { TimeControlPanelComponent } from './components/time-control-panel/time-control-panel.component';
@@ -47,6 +49,8 @@ import { PowerupEffects } from 'effects/powerup.effects';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
