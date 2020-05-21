@@ -12,7 +12,7 @@ export class AchievementPanelComponent implements OnChanges {
 
   achievementMap = achievementMap;
 
-  unachieved: string[];
+  unachieved: string[] = [];
 
   constructor() {}
 

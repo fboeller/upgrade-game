@@ -3,11 +3,13 @@ import { PropertyRowComponent } from '../property-row/property-row.component';
 import { moduleMetadata } from '@storybook/angular';
 import { initialState } from 'types/game-state.type';
 import { provideMockStore } from '@ngrx/store/testing';
+import { MatButtonModule } from '@angular/material/button';
 
 export default {
   title: 'Property Panel',
   decorators: [
     moduleMetadata({
+      imports: [MatButtonModule],
       declarations: [PropertyPanelComponent, PropertyRowComponent],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),
