@@ -9,14 +9,17 @@
     >
   </div>
   <div class="col s3">
-    <a
+    <button
+      mat-raised-button
       (click)="upgrade.emit()"
       (mouseenter)="onUpgradeButtonHover(true)"
       (mouseleave)="onUpgradeButtonHover(false)"
-      class="upgrade-btn waves-effect btn"
-      [class.disabled]="!upgradePossible"
-      >{{ propertyType.upgradeText }}</a
+      class="upgrade-btn"
+      color="primary"
+      [disabled]="!upgradePossible"
     >
+      {{ propertyType.upgradeText }}
+    </button>
   </div>
   <div class="col s3">
     <div class="boxed-value cyan darken-1 white-text z-depth-1">
