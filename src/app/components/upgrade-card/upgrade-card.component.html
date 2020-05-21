@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title>{{ propertyTypes[propertyName].displayName }}</mat-card-title>
+  <mat-card-content>
+    <p>Level: {{ level }} &rarr; {{ level + 1 }}</p>
+    <p>
+      Value:
+      {{ propertyType.valueOfLevel(level) }}{{ propertyType.unit }} &rarr;
+      {{ propertyType.valueOfLevel(level + 1) }}{{ propertyType.unit }}
+    </p>
+    <p>
+      Cost:
+      {{ propertyType.upgradeCostFromLevel(level) }}$ &rarr;
+      {{ propertyType.upgradeCostFromLevel(level + 1) }}$
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary">
+      {{ propertyTypes[propertyName].upgradeText }}
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './app.component';
 import { TimeControlPanelComponent } from './components/time-control-panel/time-control-panel.component';
@@ -25,6 +26,7 @@ import { PropertyEffects } from 'effects/property.effects';
 import { PowerupPanelComponent } from './components/powerup-panel/powerup-panel.component';
 import { PowerupRowComponent } from './components/powerup-row/powerup-row.component';
 import { PowerupEffects } from 'effects/powerup.effects';
+import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { PowerupEffects } from 'effects/powerup.effects';
     GamePanelComponent,
     PowerupPanelComponent,
     PowerupRowComponent,
+    UpgradeCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { PowerupEffects } from 'effects/powerup.effects';
     MatProgressBarModule,
     MatListModule,
     MatSidenavModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
