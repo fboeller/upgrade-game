@@ -1,5 +1,11 @@
 <mat-list>
+  <div mat-subheader>Achieved</div>
   <mat-list-item *ngFor="let achievement of achievements">
+    <mat-icon matListIcon>{{ achievementMap[achievement].icon }}</mat-icon>
+    <h3 matLine>{{ achievementMap[achievement].displayName }}</h3>
+  </mat-list-item>
+  <div mat-subheader>Unachieved</div>
+  <mat-list-item disabled="true" *ngFor="let achievement of unachieved">
     <mat-icon matListIcon>{{ achievementMap[achievement].icon }}</mat-icon>
     <h3 matLine>{{ achievementMap[achievement].displayName }}</h3>
   </mat-list-item>
