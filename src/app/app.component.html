@@ -1,5 +1,14 @@
-<div class="row">
-  <div class="col s10">
+<mat-sidenav-container>
+  <mat-sidenav
+    position="end"
+    mode="side"
+    [opened]="(achievements$ | async).length !== 0"
+  >
+    <app-achievement-panel
+      [achievements]="achievements$ | async"
+    ></app-achievement-panel>
+  </mat-sidenav>
+  <mat-sidenav-content>
     <app-game-panel
       [funds]="funds$ | async"
       [availablePersonalProperties]="availablePersonalProperties$ | async"
@@ -7,10 +16,5 @@
       [timeActive]="timeActive$ | async"
       [powerups]="powerups"
     ></app-game-panel>
-  </div>
-  <div class="col s2">
-    <app-achievement-panel
-      [achievements]="achievements$ | async"
-    ></app-achievement-panel>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
