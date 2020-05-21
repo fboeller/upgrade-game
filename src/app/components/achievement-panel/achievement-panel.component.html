@@ -1,6 +1,6 @@
-<ul class="collection">
-  <li class="collection-item teal" [class.lighten-4]="i != 0" [class.white-text]="i == 0" *ngFor="let achievement of achievements; let i = index">
-    <i class="fa {{ achievementMap[achievement].icon }}" aria-hidden="true"></i>
-    <span>{{ achievementMap[achievement].displayName }}</span>
-  </li>
-</ul>
+<mat-list>
+  <mat-list-item *ngFor="let achievement of achievements">
+    <mat-icon matListIcon>{{ achievementMap[achievement].icon }}</mat-icon>
+    <h3 matLine>{{ achievementMap[achievement].displayName }}</h3>
+  </mat-list-item>
+</mat-list>

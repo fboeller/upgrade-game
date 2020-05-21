@@ -12,6 +12,12 @@ import { personalProperties, businessProperties } from 'types/property.type';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PowerupPanelComponent } from 'components/powerup-panel/powerup-panel.component';
 import { PowerupRowComponent } from 'components/powerup-row/powerup-row.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { of } from 'rxjs';
 
 describe('GamePanelComponent', () => {
   let component: GamePanelComponent;
@@ -29,9 +35,16 @@ describe('GamePanelComponent', () => {
         PowerupRowComponent,
         WorkButtonComponent,
       ],
-      imports: [NoopAnimationsModule],
+      imports: [
+        NoopAnimationsModule,
+        MatButtonModule,
+        MatProgressBarModule,
+        MatIconModule,
+        MatListModule,
+      ],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),
+        provideMockActions(() => of()),
       ],
     }).compileComponents();
   }));

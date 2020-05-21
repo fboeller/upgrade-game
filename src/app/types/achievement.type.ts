@@ -29,34 +29,34 @@ export interface AchievementType {
 export const achievementMap: { [key: string]: AchievementType } = {
   firstIncome: {
     displayName: 'First Income',
-    icon: 'fa-euro-sign',
+    icon: 'euro_symbol',
     stateCondition: (state: GameState) => state.funds > 0,
     actionCondition: () => false,
   },
   educated: {
     displayName: 'Educated',
-    icon: 'fa-university',
+    icon: 'school',
     stateCondition: (state: GameState) =>
       Selectors.value(state, { property: 'education' }) > 0,
     actionCondition: () => false,
   },
   firstPromotion: {
     displayName: 'First Promotion',
-    icon: 'fa-award',
+    icon: 'card_giftcard',
     stateCondition: (state: GameState) =>
       Selectors.value(state, { property: 'salary' }) > 1,
     actionCondition: () => false,
   },
   factoryOwner: {
     displayName: 'Factory Owner',
-    icon: 'fa-industry',
+    icon: 'business',
     stateCondition: (state: GameState) =>
       Selectors.value(state, { property: 'businessIncome' }) > 0,
     actionCondition: () => false,
   },
   workHorse: {
     displayName: 'Work Horse',
-    icon: 'fa-horse',
+    icon: 'work',
     stateCondition: () => false,
     actionCondition: (actionCounts: ActionCounts) =>
       actionCounts[work.type] >= 5,
