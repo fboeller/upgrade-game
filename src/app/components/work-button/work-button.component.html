@@ -11,12 +11,10 @@
     Work
   </button>
   <div class="progress">
-    <div
-      class="determinate"
-      [@startWork]="{
-        value: (workActive$ | async) ? 'workInProgress' : 'noWorkInProgress',
-        params: { duration: animationDuration$ | async }
-      }"
-    ></div>
+    <mat-progress-bar
+      *ngIf="(progress$ | async) !== 0"
+      mode="determinate"
+      [value]="progress$ | async"
+    ></mat-progress-bar>
   </div>
 </div>
