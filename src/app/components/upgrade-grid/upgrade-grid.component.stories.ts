@@ -21,6 +21,12 @@ export const withInitialState = () => ({
     upgrades: [
       { property: 'salary', toLevel: 1 },
       { property: 'workEfficiency', toLevel: 2 },
+      { property: 'salary', toLevel: 2 },
+      { property: 'workEfficiency', toLevel: 3 },
+      { property: 'businessIncome', toLevel: 1 },
+      { property: 'businessIncome', toLevel: 2 },
+      { property: 'workEfficiency', toLevel: 4 },
+      { property: 'salary', toLevel: 3 },
     ],
   },
 });
