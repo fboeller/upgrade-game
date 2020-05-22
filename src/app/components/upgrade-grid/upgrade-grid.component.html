@@ -1,0 +1,8 @@
+<mat-grid-list cols="6" rowHeight="300px">
+  <mat-grid-tile *ngFor="let upgrade of upgrades"
+    ><app-upgrade-card
+      [propertyName]="upgrade.property"
+      [level]="upgrade.toLevel"
+    ></app-upgrade-card
+  ></mat-grid-tile>
+</mat-grid-list>

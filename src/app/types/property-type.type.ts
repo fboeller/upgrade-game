@@ -29,7 +29,7 @@ export const propertyTypes: { [property: string]: PropertyType } = {
     displayName: 'Work Efficiency',
     upgradeText: 'Increase',
     unit: 'ms',
-    valueOfLevel: (level) => 1000 * Math.pow(0.8, level),
+    valueOfLevel: (level) => Math.round(1000 * Math.pow(0.8, level)),
     upgradeCostFromLevel: (level) => (level + 1) * 3,
     upgradeConditionsFromLevel: (level) => ({}),
   },

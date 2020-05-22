@@ -7,6 +7,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { TimeControlPanelComponent } from './components/time-control-panel/time-control-panel.component';
@@ -27,6 +28,7 @@ import { PowerupPanelComponent } from './components/powerup-panel/powerup-panel.
 import { PowerupRowComponent } from './components/powerup-row/powerup-row.component';
 import { PowerupEffects } from 'effects/powerup.effects';
 import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.component';
+import { UpgradeGridComponent } from './components/upgrade-grid/upgrade-grid.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.com
     PowerupPanelComponent,
     PowerupRowComponent,
     UpgradeCardComponent,
+    UpgradeGridComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.com
     MatListModule,
     MatSidenavModule,
     MatCardModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
