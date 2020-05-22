@@ -7,11 +7,7 @@
       {{ propertyType.valueOfLevel(level) }}{{ propertyType.unit }} &rarr;
       {{ propertyType.valueOfLevel(level + 1) }}{{ propertyType.unit }}
     </p>
-    <p>
-      Cost:
-      {{ propertyType.upgradeCostFromLevel(level) }}$ &rarr;
-      {{ propertyType.upgradeCostFromLevel(level + 1) }}$
-    </p>
+    <p>Cost: {{ propertyType.upgradeCostFromLevel(level) }}$</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary">
