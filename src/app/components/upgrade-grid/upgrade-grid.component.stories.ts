@@ -2,6 +2,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { UpgradeGridComponent } from 'components/upgrade-grid/upgrade-grid.component';
 import { UpgradeCardComponent } from 'components/upgrade-card/upgrade-card.component';
 
@@ -9,7 +10,12 @@ export default {
   title: 'Upgrade Grid',
   decorators: [
     moduleMetadata({
-      imports: [MatGridListModule, MatCardModule, MatButtonModule],
+      imports: [
+        MatGridListModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+      ],
       declarations: [UpgradeGridComponent, UpgradeCardComponent],
     }),
   ],
