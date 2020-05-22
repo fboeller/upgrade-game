@@ -10,11 +10,23 @@ import { initialState } from 'types/game-state.type';
 import { personalProperties, businessProperties } from 'types/property.type';
 import { PowerupPanelComponent } from 'components/powerup-panel/powerup-panel.component';
 import { PowerupRowComponent } from 'components/powerup-row/powerup-row.component';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { of } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 export default {
   title: 'Game Panel',
   decorators: [
     moduleMetadata({
+      imports: [
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatButtonModule,
+        MatProgressBarModule,
+      ],
       declarations: [
         GamePanelComponent,
         FundsPanelComponent,
@@ -27,6 +39,7 @@ export default {
       ],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),
+        provideMockActions(() => of()),
       ],
     }),
   ],

@@ -4,24 +4,28 @@ import { moduleMetadata } from '@storybook/angular';
 import { initialState } from 'types/game-state.type';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MatButtonModule } from '@angular/material/button';
+import { withKnobs, array, text } from '@storybook/addon-knobs';
+import { properties } from 'types/property.type';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Property Panel',
   decorators: [
     moduleMetadata({
-      imports: [MatButtonModule],
+      imports: [BrowserAnimationsModule, MatButtonModule],
       declarations: [PropertyPanelComponent, PropertyRowComponent],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),
       ],
     }),
+    withKnobs,
   ],
 };
 
-export const withInitialState = () => ({
+export const knobs = () => ({
   component: PropertyPanelComponent,
   props: {
-    title: 'Properties',
-    properties: ['education', 'salary', 'workEfficiency', 'businessIncome'],
+    title: text('title', 'Properties'),
+    properties: array('properties', properties),
   },
 });

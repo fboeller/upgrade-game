@@ -3,8 +3,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AchievementPanelComponent } from './achievement-panel.component';
 import { achievements } from 'types/achievement.type';
-import { take } from 'lodash/fp';
 import { moduleMetadata } from '@storybook/angular';
+import { withKnobs, array } from '@storybook/addon-knobs';
 
 export default {
   title: 'Achievement Panel',
@@ -12,33 +12,14 @@ export default {
     moduleMetadata({
       imports: [MatListModule, MatIconModule],
     }),
+    ,
+    withKnobs,
   ],
 };
 
-export const empty = () => ({
+export const knobs = () => ({
   component: AchievementPanelComponent,
   props: {
-    achievements: [],
-  },
-});
-
-export const withOneAchievement = () => ({
-  component: AchievementPanelComponent,
-  props: {
-    achievements: take(1)(achievements),
-  },
-});
-
-export const withTwoAchievements = () => ({
-  component: AchievementPanelComponent,
-  props: {
-    achievements: take(2)(achievements),
-  },
-});
-
-export const withAllAchievements = () => ({
-  component: AchievementPanelComponent,
-  props: {
-    achievements,
+    achievements: array('achievements', achievements),
   },
 });

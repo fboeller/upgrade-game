@@ -1,6 +1,7 @@
 import { moduleMetadata } from '@storybook/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TimeControlPanelComponent } from './time-control-panel.component';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 
 export default {
   title: 'Time Control Panel',
@@ -8,23 +9,15 @@ export default {
     moduleMetadata({
       declarations: [TimeControlPanelComponent],
       imports: [],
-      providers: [
-        provideMockStore({ initialState: { gameState: {} } }),
-      ],
+      providers: [provideMockStore({ initialState: { gameState: {} } })],
     }),
+    withKnobs,
   ],
 };
 
-export const timeActive = () => ({
+export const knobs = () => ({
   component: TimeControlPanelComponent,
   props: {
-    timeActive: true
-  }
-});
-
-export const timeInactive = () => ({
-  component: TimeControlPanelComponent,
-  props: {
-    timeActive: false
-  }
+    timeActive: boolean('timeActive', false),
+  },
 });
