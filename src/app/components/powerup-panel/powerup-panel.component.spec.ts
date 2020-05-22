@@ -2,8 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PowerupPanelComponent } from './powerup-panel.component';
 import { PowerupRowComponent } from 'components/powerup-row/powerup-row.component';
-import { provideMockStore } from '@ngrx/store/testing';
-import { initialState } from 'types/game-state.type';
+import { MockComponent } from 'ng-mocks';
 
 describe('PowerupPanelComponent', () => {
   let component: PowerupPanelComponent;
@@ -11,10 +10,7 @@ describe('PowerupPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PowerupPanelComponent, PowerupRowComponent],
-      providers: [
-        provideMockStore({ initialState: { gameState: initialState } }),
-      ],
+      declarations: [PowerupPanelComponent, MockComponent(PowerupRowComponent)],
     }).compileComponents();
   }));
 
