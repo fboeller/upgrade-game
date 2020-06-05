@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from 'actions/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
@@ -10,14 +9,6 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-personal-panel',
   templateUrl: './property-panel.component.html',
-  animations: [
-    trigger('appear', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 })),
-      ]),
-    ]),
-  ],
 })
 export class PropertyPanelComponent implements OnInit {
   constructor(private store: Store<AppState>) {}

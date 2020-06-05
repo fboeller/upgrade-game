@@ -1,33 +1,37 @@
-<div>
-  <div>{{ propertyType.displayName }}</div>
-  <div>
-    {{ propertyType.valueOfLevel(level) }}&nbsp;{{ propertyType.unit || ""
-    }}<span *ngIf="showUpgradeDetails"
-      >{{
-        propertyType.valueOfLevel(level + 1) - propertyType.valueOfLevel(level)
-      }}&nbsp;{{ propertyType.unit || "" }}</span
-    >
+<div class="h-10 w-full flex flex-nowrap">
+  <h2 class="w-1/5 relative">
+    <span class="absolute-middle">{{ propertyType.displayName }}</span>
+  </h2>
+  <div class="w-1/5 relative">
+    <span class="absolute-middle">
+      {{ propertyType.valueOfLevel(level) }}&nbsp;{{ propertyType.unit || "" }}
+      <span *ngIf="showUpgradeDetails" class="absolute ml-2">
+        &rarr;&nbsp;{{ propertyType.valueOfLevel(level + 1) }}&nbsp;{{
+          propertyType.unit || ""
+        }}
+      </span>
+    </span>
   </div>
-  <div>
+  <div class="w-1/5">
     <button
       (click)="upgrade.emit()"
       (mouseenter)="onUpgradeButtonHover(true)"
       (mouseleave)="onUpgradeButtonHover(false)"
-      class="bg-primary"
+      class="bg-primary rounded-lg px-4 py-2 text-white uppercase"
       [disabled]="!upgradePossible"
     >
       {{ propertyType.upgradeText }}
     </button>
   </div>
-  <div>
-    <div>
+  <div class="w-1/5 relative">
+    <span class="absolute-middle">
       {{
         propertyType.upgradeCostFromLevel(level) * -1
           | currency: "USD":"symbol":"1.0":"en-US"
       }}
-    </div>
+    </span>
   </div>
-  <div>
+  <div class="w-1/5">
     <div *ngFor="let conditionProperty of upgradeConditionProperties">
       {{ propertyTypes[conditionProperty].displayName }} &ge;
       {{ upgradeConditions[conditionProperty] }}

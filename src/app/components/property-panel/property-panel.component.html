@@ -1,5 +1,5 @@
-<div @appear *ngIf="properties.length > 0">
-  <h5>{{ title }}</h5>
+<h2 class="text-xl mb-2">{{ title }}</h2>
+<div *ngIf="properties.length > 0" class="grid grid-cols-1 gap-8">
   <app-property-row
     *ngFor="let property of properties"
     [propertyName]="property"
