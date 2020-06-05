@@ -3,8 +3,9 @@
     [funds]="funds"
     [fundsEffect]="visibleFundsEffect"
   ></app-funds-panel>
-  <div>
+  <div class="w-full text-center">
     <app-work-button
+      class="inline-block"
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-work-button>
   </div>
