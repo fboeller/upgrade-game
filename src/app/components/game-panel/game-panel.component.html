@@ -16,7 +16,11 @@
     [properties]="availablePersonalProperties"
     (visibleFundsEffect)="visibleFundsEffect = $event"
   ></app-personal-panel>
-  <app-powerup-panel class="w-full" [powerups]="powerups"></app-powerup-panel>
+  <app-powerup-panel
+    class="w-full"
+    *ngIf="powerups.length > 0"
+    [powerups]="powerups"
+  ></app-powerup-panel>
   <app-personal-panel
     class="w-full"
     *ngIf="availableBusinessProperties.length > 0"

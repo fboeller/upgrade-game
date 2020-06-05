@@ -1,4 +1,7 @@
-<div *ngIf="powerups.length > 0">
-  <h5>Powerups</h5>
-  <app-powerup-row [powerup]="powerup" *ngFor="let powerup of powerups"></app-powerup-row>
+<div>
+  <h5 class="text-xl">Powerups</h5>
+  <app-powerup-row
+    [powerup]="powerup"
+    *ngFor="let powerup of powerups"
+  ></app-powerup-row>
 </div>
