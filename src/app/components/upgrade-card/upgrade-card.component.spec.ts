@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpgradeCardComponent } from './upgrade-card.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { initialState } from 'types/game-state.type';
 
 describe('UpgradeCardComponent', () => {
   let component: UpgradeCardComponent;
@@ -9,6 +11,9 @@ describe('UpgradeCardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UpgradeCardComponent],
+      providers: [
+        provideMockStore({ initialState: { gameState: initialState } }),
+      ],
     }).compileComponents();
   }));
 
