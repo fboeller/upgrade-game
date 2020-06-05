@@ -10,6 +10,7 @@ import {
   keys,
   intersection,
   some,
+  filter,
 } from 'lodash/fp';
 import { propertyTypes } from 'types/property-type.type';
 import { GameState } from 'types/game-state.type';
@@ -18,6 +19,7 @@ import {
   personalProperties,
   businessProperties,
 } from 'types/property.type';
+import { Upgrade } from 'types/upgrade.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
@@ -125,6 +127,32 @@ export class Selectors {
             ])(Selectors.upgradeConditions(state, { property })),
         ]),
         fromPairs,
+      ])(state.properties)
+  );
+
+  static readonly possibleUpgrades = createSelector(
+    selectGameState,
+    (state: GameState): Upgrade[] =>
+      flow([
+        keys,
+        filter(
+          (property) =>
+            state.funds >= Selectors.upgradeCost(state, { property })
+        ),
+        filter((property) =>
+          flow([
+            toPairs,
+            every(
+              ([conditionProperty, threshold]) =>
+                Selectors.value(state, { property: conditionProperty }) >=
+                threshold
+            ),
+          ])(Selectors.upgradeConditions(state, { property }))
+        ),
+        map((property: string) => ({
+          property,
+          level: state.properties[property],
+        })),
       ])(state.properties)
   );
 

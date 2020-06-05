@@ -9,10 +9,7 @@
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-work-button>
   </div>
-  <app-upgrade-grid
-    class="w-full"
-    [upgrades]="[{ property: 'salary', level: 2 }]"
-  ></app-upgrade-grid>
+  <app-upgrade-grid class="w-full" [upgrades]="upgrades"></app-upgrade-grid>
   <app-personal-panel
     class="w-full"
     *ngIf="availablePersonalProperties.length > 0"

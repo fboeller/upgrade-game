@@ -6,6 +6,7 @@ import { AppState } from 'actions/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
 import { powerups } from 'types/powerup.type';
+import { Upgrade } from 'types/upgrade.type';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
 
   funds$: Observable<number>;
   visibleFundsEffect: number;
+  upgrades$: Observable<Upgrade[]>;
   availablePersonalProperties$: Observable<Property[]>;
   availableBusinessProperties$: Observable<Property[]>;
   timeActive$: Observable<boolean>;
@@ -25,6 +27,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
+    this.upgrades$ = this.store.pipe(select(Selectors.possibleUpgrades));
     this.availablePersonalProperties$ = this.store.pipe(
       select(selectGameState),
       select(Selectors.availablePersonalProperties)
