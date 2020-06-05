@@ -23,6 +23,7 @@ import { PowerupEffects } from 'effects/powerup.effects';
 import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.component';
 import { UpgradeGridComponent } from './components/upgrade-grid/upgrade-grid.component';
 import { AchievementListComponent } from './components/achievement-list/achievement-list.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AchievementListComponent } from './components/achievement-list/achievem
     UpgradeCardComponent,
     UpgradeGridComponent,
     AchievementListComponent,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,
