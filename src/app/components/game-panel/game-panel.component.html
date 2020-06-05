@@ -9,24 +9,24 @@
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-work-button>
   </div>
-  <div *ngIf="availablePersonalProperties.length > 0">
-    <app-personal-panel
-      title="Personal"
-      [properties]="availablePersonalProperties"
-      (visibleFundsEffect)="visibleFundsEffect = $event"
-    ></app-personal-panel>
-  </div>
-  <div>
-    <app-powerup-panel [powerups]="powerups"></app-powerup-panel>
-  </div>
-  <div *ngIf="availableBusinessProperties.length > 0">
-    <app-personal-panel
-      title="Business"
-      [properties]="availableBusinessProperties"
-      (visibleFundsEffect)="visibleFundsEffect = $event"
-    ></app-personal-panel>
-  </div>
-  <div *ngIf="availableBusinessProperties.length > 0">
-    <app-time-control-panel [timeActive]="timeActive"></app-time-control-panel>
-  </div>
+  <app-personal-panel
+    class="w-full"
+    *ngIf="availablePersonalProperties.length > 0"
+    title="Personal"
+    [properties]="availablePersonalProperties"
+    (visibleFundsEffect)="visibleFundsEffect = $event"
+  ></app-personal-panel>
+  <app-powerup-panel class="w-full" [powerups]="powerups"></app-powerup-panel>
+  <app-personal-panel
+    class="w-full"
+    *ngIf="availableBusinessProperties.length > 0"
+    title="Business"
+    [properties]="availableBusinessProperties"
+    (visibleFundsEffect)="visibleFundsEffect = $event"
+  ></app-personal-panel>
+  <app-time-control-panel
+    class="w-full"
+    *ngIf="availableBusinessProperties.length > 0"
+    [timeActive]="timeActive"
+  ></app-time-control-panel>
 </div>
