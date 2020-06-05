@@ -1,14 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Property } from 'types/property.type';
+import { Component, Input } from '@angular/core';
+import { Upgrade } from 'types/upgrade.type';
 
 @Component({
   selector: 'app-upgrade-grid',
   templateUrl: './upgrade-grid.component.html',
 })
-export class UpgradeGridComponent implements OnInit {
-  @Input() upgrades: { property: Property; toLevel: number }[];
+export class UpgradeGridComponent {
+  @Input() upgrades: Upgrade[];
 
   constructor() {}
-
-  ngOnInit() {}
 }

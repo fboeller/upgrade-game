@@ -1,20 +1,24 @@
 <div class="relative h-56 w-40 p-4 rounded-lg shadow-lg">
-  <h2 class="text-lg mb-2">{{ propertyTypes[propertyName].displayName }}</h2>
+  <h2 class="text-lg mb-2">
+    {{ propertyTypes[upgrade.property].displayName }}
+  </h2>
   <div class="grid grid-cols-2 gap-2 mb-2">
     <div>
       <label class="text-gray-600 text-sm">Level</label>
-      <p>{{ level }} &rarr; {{ level + 1 }}</p>
+      <p>{{ upgrade.level }} &rarr; {{ upgrade.level + 1 }}</p>
     </div>
     <div>
       <label class="text-gray-600 text-sm">Value</label>
       <p>
-        {{ propertyType.valueOfLevel(level) }}{{ propertyType.unit }} &rarr;
-        {{ propertyType.valueOfLevel(level + 1) }}{{ propertyType.unit }}
+        {{ propertyType.valueOfLevel(upgrade.level)
+        }}{{ propertyType.unit }} &rarr;
+        {{ propertyType.valueOfLevel(upgrade.level + 1)
+        }}{{ propertyType.unit }}
       </p>
     </div>
     <div>
       <label class="text-gray-600 text-sm">Cost</label>
-      <p>{{ propertyType.upgradeCostFromLevel(level) }}$</p>
+      <p>{{ propertyType.upgradeCostFromLevel(upgrade.level) }}$</p>
     </div>
   </div>
   <div class="absolute text-center bottom-0 mb-2">

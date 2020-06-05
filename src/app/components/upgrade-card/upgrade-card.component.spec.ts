@@ -18,8 +18,7 @@ describe('UpgradeCardComponent', () => {
   });
 
   it('should create', () => {
-    component.propertyName = 'salary';
-    component.level = 0;
+    component.upgrade = { property: 'salary', level: 0 };
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });

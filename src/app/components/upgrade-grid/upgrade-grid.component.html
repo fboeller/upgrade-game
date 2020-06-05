@@ -1,7 +1,6 @@
 <div class="grid grid-cols-6 gap-8 w-full m-4">
   <app-upgrade-card
     *ngFor="let upgrade of upgrades"
-    [propertyName]="upgrade.property"
-    [level]="upgrade.toLevel"
+    [upgrade]="upgrade"
   ></app-upgrade-card>
 </div>

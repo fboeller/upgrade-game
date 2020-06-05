@@ -1,22 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Property } from 'types/property.type';
+import { Component, Input } from '@angular/core';
 import { propertyTypes } from 'types/property-type.type';
+import { Upgrade } from 'types/upgrade.type';
 
 @Component({
   selector: 'app-upgrade-card',
   templateUrl: './upgrade-card.component.html',
 })
-export class UpgradeCardComponent implements OnInit {
-  @Input() propertyName: Property;
-  @Input() level: number;
+export class UpgradeCardComponent {
+  @Input() upgrade: Upgrade;
 
   propertyTypes = propertyTypes;
 
   constructor() {}
 
-  ngOnInit() {}
-
   get propertyType() {
-    return this.propertyTypes[this.propertyName];
+    return this.propertyTypes[this.upgrade.property];
   }
 }

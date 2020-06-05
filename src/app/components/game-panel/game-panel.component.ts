@@ -5,6 +5,7 @@ import {
   businessProperties,
 } from 'types/property.type';
 import { Powerup } from 'types/powerup.type';
+import { Upgrade } from 'types/upgrade.type';
 
 @Component({
   selector: 'app-game-panel',
@@ -15,6 +16,7 @@ export class GamePanelComponent implements OnInit {
   businessProperties = businessProperties;
 
   @Input() funds: number;
+  @Input() upgrades: Upgrade;
   @Input() availablePersonalProperties: Property[];
   @Input() availableBusinessProperties: Property[];
   @Input() timeActive: boolean;

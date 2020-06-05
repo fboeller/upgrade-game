@@ -21,8 +21,8 @@ describe('UpgradeGridComponent', () => {
 
   it('should create', () => {
     component.upgrades = [
-      { property: 'salary', toLevel: 1 },
-      { property: 'workEfficiency', toLevel: 2 },
+      { property: 'salary', level: 1 },
+      { property: 'workEfficiency', level: 2 },
     ];
     fixture.detectChanges();
     expect(component).toBeTruthy();
