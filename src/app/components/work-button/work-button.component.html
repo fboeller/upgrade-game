@@ -1,14 +1,18 @@
-<div>
+<div class="w-40 text-center">
   <button
+    class="h-20 w-full bg-primary rounded-lg shadow-lg text-white text-xl uppercase"
     (click)="work()"
     (mouseenter)="hoverActive$.next(true)"
     (mouseleave)="hoverActive$.next(false)"
     [disabled]="workActive$ | async"
   >
-    <i class="fas fa-briefcase"></i>
+    <i class="fas fa-briefcase mr-2"></i>
     Work
   </button>
-  <div class="w-full">
-    <div *ngIf="(progress$ | async) !== 0" class="bg-black h-2"></div>
+  <div class="mt-1 h-3 w-full">
+    <div
+      *ngIf="(progress$ | async) !== 0"
+      class="bg-black h-2 rounded-full"
+    ></div>
   </div>
 </div>
