@@ -1,7 +1,10 @@
-<div>
-  <div>
+<div class="relative h-40 w-full py-auto text-6xl">
+  <p
+    class="absolute w-full text-center"
+    style="top: 50%; transform: translateY(-50%);"
+  >
     {{ funds | currency: "USD":"symbol":"1.0":"en-US" }}
-  </div>
+  </p>
   <div
     *ngIf="fundsEffect"
     [class.red-text]="fundsEffect < 0"
