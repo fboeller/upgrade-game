@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-powerup-row',
   templateUrl: './powerup-row.component.html',
-  styleUrls: ['./powerup-row.component.styl'],
 })
 export class PowerupRowComponent implements OnInit {
   constructor(private store: Store<AppState>) {}

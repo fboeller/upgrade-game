@@ -5,7 +5,6 @@ import { keys, without, flow } from 'lodash/fp';
 @Component({
   selector: 'app-achievement-panel',
   templateUrl: './achievement-panel.component.html',
-  styleUrls: ['./achievement-panel.component.styl'],
 })
 export class AchievementPanelComponent implements OnChanges {
   @Input() achievements: string[];

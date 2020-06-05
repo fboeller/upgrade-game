@@ -9,7 +9,6 @@ import { Powerup } from 'types/powerup.type';
 @Component({
   selector: 'app-game-panel',
   templateUrl: './game-panel.component.html',
-  styleUrls: ['./game-panel.component.styl'],
 })
 export class GamePanelComponent implements OnInit {
   personalProperties = personalProperties;

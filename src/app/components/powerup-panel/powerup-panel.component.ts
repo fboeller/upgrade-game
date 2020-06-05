@@ -4,15 +4,11 @@ import { Powerup } from 'types/powerup.type';
 @Component({
   selector: 'app-powerup-panel',
   templateUrl: './powerup-panel.component.html',
-  styleUrls: ['./powerup-panel.component.styl']
 })
 export class PowerupPanelComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   @Input() powerups: Powerup[];
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

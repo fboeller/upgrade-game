@@ -4,9 +4,6 @@ import { WorkButtonComponent } from './work-button.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from 'types/game-state.type';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatIconModule } from '@angular/material/icon';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { of } from 'rxjs';
 
@@ -16,12 +13,7 @@ describe('WorkButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NoopAnimationsModule,
-        MatButtonModule,
-        MatProgressBarModule,
-        MatIconModule,
-      ],
+      imports: [NoopAnimationsModule],
       declarations: [WorkButtonComponent],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),

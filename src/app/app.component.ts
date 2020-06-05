@@ -10,7 +10,6 @@ import { powerups } from 'types/powerup.type';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.styl'],
   animations: [],
 })
 export class AppComponent implements OnInit {

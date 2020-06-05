@@ -13,20 +13,12 @@ import { PowerupRowComponent } from 'components/powerup-row/powerup-row.componen
 import { provideMockActions } from '@ngrx/effects/testing';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 export default {
   title: 'Game Panel',
   decorators: [
     moduleMetadata({
-      imports: [
-        BrowserAnimationsModule,
-        MatIconModule,
-        MatButtonModule,
-        MatProgressBarModule,
-      ],
+      imports: [BrowserAnimationsModule],
       declarations: [
         GamePanelComponent,
         FundsPanelComponent,

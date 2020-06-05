@@ -26,7 +26,6 @@ import { ofType, Actions } from '@ngrx/effects';
 @Component({
   selector: 'app-work-button',
   templateUrl: './work-button.component.html',
-  styleUrls: ['./work-button.component.styl'],
   animations: [
     trigger('startWork', [
       state(

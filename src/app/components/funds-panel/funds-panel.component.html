@@ -1,13 +1,12 @@
-<div class="funds-card row card-panel teal">
-  <div class="col s7 funds white-text">
-    {{ funds | currency:'USD':'symbol':'1.0':'en-US' }}
+<div>
+  <div>
+    {{ funds | currency: "USD":"symbol":"1.0":"en-US" }}
   </div>
   <div
     *ngIf="fundsEffect"
-    class="col s5 funds-effect text-accent-2"
     [class.red-text]="fundsEffect < 0"
     [class.green-text]="fundsEffect > 0"
   >
-    {{ fundsEffect | currency:'USD':'symbol':'1.0':'en-US' }}
+    {{ fundsEffect | currency: "USD":"symbol":"1.0":"en-US" }}
   </div>
 </div>

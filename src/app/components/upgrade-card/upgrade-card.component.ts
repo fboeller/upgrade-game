@@ -5,7 +5,6 @@ import { propertyTypes } from 'types/property-type.type';
 @Component({
   selector: 'app-upgrade-card',
   templateUrl: './upgrade-card.component.html',
-  styleUrls: ['./upgrade-card.component.styl'],
 })
 export class UpgradeCardComponent implements OnInit {
   @Input() propertyName: Property;

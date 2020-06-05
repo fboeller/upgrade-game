@@ -1,28 +1,15 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { AppState, upgrade } from 'actions/game.actions';
-import {
-  Selectors,
-  selectProperties,
-  selectGameState,
-} from 'selectors/game.selectors';
+import { Selectors, selectGameState } from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
-import { propertyTypes } from 'types/property-type.type';
 import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-personal-panel',
   templateUrl: './property-panel.component.html',
-  styleUrls: ['./property-panel.component.styl'],
   animations: [
     trigger('appear', [
       transition(':enter', [

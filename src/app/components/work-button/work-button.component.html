@@ -1,4 +1,4 @@
-<div class="btn-container">
+<div>
   <button
     (click)="work()"
     (mouseenter)="hoverActive$.next(true)"
@@ -8,7 +8,7 @@
     <i class="fas fa-briefcase"></i>
     Work
   </button>
-  <div class="progress w-full">
+  <div class="w-full">
     <div *ngIf="(progress$ | async) !== 0" class="bg-black h-2"></div>
   </div>
 </div>

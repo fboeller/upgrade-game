@@ -3,29 +3,29 @@
     [funds]="funds"
     [fundsEffect]="visibleFundsEffect"
   ></app-funds-panel>
-  <div class="section manual-labor-panel">
+  <div>
     <app-work-button
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-work-button>
   </div>
-  <div *ngIf="availablePersonalProperties.length > 0" class="section">
+  <div *ngIf="availablePersonalProperties.length > 0">
     <app-personal-panel
       title="Personal"
       [properties]="availablePersonalProperties"
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-personal-panel>
   </div>
-  <div class="section">
+  <div>
     <app-powerup-panel [powerups]="powerups"></app-powerup-panel>
   </div>
-  <div *ngIf="availableBusinessProperties.length > 0" class="section">
+  <div *ngIf="availableBusinessProperties.length > 0">
     <app-personal-panel
       title="Business"
       [properties]="availableBusinessProperties"
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-personal-panel>
   </div>
-  <div *ngIf="availableBusinessProperties.length > 0" class="section">
+  <div *ngIf="availableBusinessProperties.length > 0">
     <app-time-control-panel [timeActive]="timeActive"></app-time-control-panel>
   </div>
 </div>

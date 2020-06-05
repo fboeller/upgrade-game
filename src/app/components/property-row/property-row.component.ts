@@ -15,7 +15,6 @@ import { Property } from 'types/property.type';
 @Component({
   selector: 'app-property-row',
   templateUrl: './property-row.component.html',
-  styleUrls: ['./property-row.component.styl'],
 })
 export class PropertyRowComponent implements OnChanges {
   @Input() propertyName: Property;
