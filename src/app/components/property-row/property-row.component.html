@@ -17,7 +17,7 @@
       (click)="upgrade.emit()"
       (mouseenter)="onUpgradeButtonHover(true)"
       (mouseleave)="onUpgradeButtonHover(false)"
-      class="bg-primary rounded-lg px-4 py-2 text-white uppercase"
+      class="bg-primary rounded-lg px-4 py-2 text-white uppercase disabled:opacity-75"
       [disabled]="!upgradePossible"
     >
       {{ propertyType.upgradeText }}
