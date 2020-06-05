@@ -1,13 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { TimeControlPanelComponent } from './components/time-control-panel/time-control-panel.component';
@@ -58,13 +51,6 @@ import { UpgradeGridComponent } from './components/upgrade-grid/upgrade-grid.com
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
-    MatButtonModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatListModule,
-    MatSidenavModule,
-    MatCardModule,
-    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

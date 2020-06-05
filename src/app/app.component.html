@@ -1,20 +1,15 @@
-<mat-sidenav-container>
-  <mat-sidenav
-    position="end"
-    mode="side"
-    [opened]="(achievements$ | async).length !== 0"
-  >
-    <app-achievement-panel
-      [achievements]="achievements$ | async"
-    ></app-achievement-panel>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <app-game-panel
-      [funds]="funds$ | async"
-      [availablePersonalProperties]="availablePersonalProperties$ | async"
-      [availableBusinessProperties]="availableBusinessProperties$ | async"
-      [timeActive]="timeActive$ | async"
-      [powerups]="powerups"
-    ></app-game-panel>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div>
+  <app-game-panel
+    class="inline-block w-3/4"
+    [funds]="funds$ | async"
+    [availablePersonalProperties]="availablePersonalProperties$ | async"
+    [availableBusinessProperties]="availableBusinessProperties$ | async"
+    [timeActive]="timeActive$ | async"
+    [powerups]="powerups"
+  ></app-game-panel>
+  <app-achievement-panel
+    class="inline-block w-1/4"
+    *ngIf="(achievements$ | async).length !== 0 || true"
+    [achievements]="achievements$ | async"
+  ></app-achievement-panel>
+</div>

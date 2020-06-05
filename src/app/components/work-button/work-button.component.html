@@ -1,20 +1,14 @@
 <div class="btn-container">
   <button
-    mat-raised-button
     (click)="work()"
     (mouseenter)="hoverActive$.next(true)"
     (mouseleave)="hoverActive$.next(false)"
     [disabled]="workActive$ | async"
-    color="primary"
   >
-    <mat-icon>work</mat-icon>
+    <i class="fas fa-briefcase"></i>
     Work
   </button>
-  <div class="progress">
-    <mat-progress-bar
-      *ngIf="(progress$ | async) !== 0"
-      mode="determinate"
-      [value]="progress$ | async"
-    ></mat-progress-bar>
+  <div class="progress w-full">
+    <div *ngIf="(progress$ | async) !== 0" class="bg-black h-2"></div>
   </div>
 </div>

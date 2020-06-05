@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MockComponent } from 'ng-mocks';
 
 import { UpgradeGridComponent } from './upgrade-grid.component';
@@ -11,7 +10,6 @@ describe('UpgradeGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatGridListModule],
       declarations: [UpgradeGridComponent, MockComponent(UpgradeCardComponent)],
     }).compileComponents();
   }));
