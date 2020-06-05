@@ -1,6 +1,10 @@
-<div>
-  <h2>Achieved</h2>
-  <app-achievement-list [achievements]="achievements"></app-achievement-list>
-  <h2>Unachieved</h2>
-  <app-achievement-list [achievements]="unachieved"></app-achievement-list>
+<div class="grid grid-cols-1">
+  <div>
+    <h2 class="text-xl">Achieved</h2>
+    <app-achievement-list [achievements]="achievements"></app-achievement-list>
+  </div>
+  <div>
+    <h2 class="text-xl">Unachieved</h2>
+    <app-achievement-list [achievements]="unachieved"></app-achievement-list>
+  </div>
 </div>

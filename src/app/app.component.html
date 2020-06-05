@@ -1,6 +1,6 @@
-<div>
+<div class="flex flex-nowrap">
   <app-game-panel
-    class="inline-block w-3/4"
+    class="w-3/4"
     [funds]="funds$ | async"
     [availablePersonalProperties]="availablePersonalProperties$ | async"
     [availableBusinessProperties]="availableBusinessProperties$ | async"
@@ -8,7 +8,7 @@
     [powerups]="powerups"
   ></app-game-panel>
   <app-achievement-panel
-    class="inline-block w-1/4"
+    class="w-1/4"
     *ngIf="(achievements$ | async).length !== 0 || true"
     [achievements]="achievements$ | async"
   ></app-achievement-panel>
