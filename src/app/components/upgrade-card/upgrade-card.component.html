@@ -1,18 +1,24 @@
-<div>
-  <h2>{{ propertyTypes[propertyName].displayName }}</h2>
-  <div>
-    <label>Level</label>
-    <p>{{ level }} &rarr; {{ level + 1 }}</p>
-    <label>Value</label>
-    <p>
-      {{ propertyType.valueOfLevel(level) }}{{ propertyType.unit }} &rarr;
-      {{ propertyType.valueOfLevel(level + 1) }}{{ propertyType.unit }}
-    </p>
-    <label>Cost</label>
-    <p>{{ propertyType.upgradeCostFromLevel(level) }}$</p>
+<div class="relative h-56 w-40 p-4 rounded-lg shadow-lg">
+  <h2 class="text-lg mb-2">{{ propertyTypes[propertyName].displayName }}</h2>
+  <div class="grid grid-cols-2 gap-2 mb-2">
+    <div>
+      <label class="text-gray-600 text-sm">Level</label>
+      <p>{{ level }} &rarr; {{ level + 1 }}</p>
+    </div>
+    <div>
+      <label class="text-gray-600 text-sm">Value</label>
+      <p>
+        {{ propertyType.valueOfLevel(level) }}{{ propertyType.unit }} &rarr;
+        {{ propertyType.valueOfLevel(level + 1) }}{{ propertyType.unit }}
+      </p>
+    </div>
+    <div>
+      <label class="text-gray-600 text-sm">Cost</label>
+      <p>{{ propertyType.upgradeCostFromLevel(level) }}$</p>
+    </div>
   </div>
-  <div>
-    <button>
+  <div class="absolute text-center bottom-0 mb-2">
+    <button class="bg-primary rounded-lg px-4 py-2 text-white uppercase">
       <i class="fas fa-arrow-up"></i>
       Upgrade
     </button>
