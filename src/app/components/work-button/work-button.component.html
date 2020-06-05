@@ -9,5 +9,8 @@
     <i class="fas fa-briefcase mr-2"></i>
     Work
   </button>
-  <app-progress-bar [active]="workActive$ | async"></app-progress-bar>
+  <app-progress-bar
+    [active]="workActive$ | async"
+    [duration]="animationDuration$ | async"
+  ></app-progress-bar>
 </div>
