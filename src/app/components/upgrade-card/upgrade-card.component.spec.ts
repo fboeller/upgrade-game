@@ -1,7 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 import { UpgradeCardComponent } from './upgrade-card.component';
 
@@ -11,7 +8,6 @@ describe('UpgradeCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatCardModule, MatButtonModule, MatIconModule],
       declarations: [UpgradeCardComponent],
     }).compileComponents();
   }));

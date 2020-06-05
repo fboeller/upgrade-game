@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AchievementPanelComponent } from './achievement-panel.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from 'types/game-state.type';
+import { AchievementListComponent } from 'components/achievement-list/achievement-list.component';
 
 describe('AchievementPanelComponent', () => {
   let component: AchievementPanelComponent;
@@ -10,7 +11,7 @@ describe('AchievementPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AchievementPanelComponent],
+      declarations: [AchievementPanelComponent, AchievementListComponent],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),
       ],

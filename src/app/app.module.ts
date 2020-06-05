@@ -22,6 +22,7 @@ import { PowerupRowComponent } from './components/powerup-row/powerup-row.compon
 import { PowerupEffects } from 'effects/powerup.effects';
 import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.component';
 import { UpgradeGridComponent } from './components/upgrade-grid/upgrade-grid.component';
+import { AchievementListComponent } from './components/achievement-list/achievement-list.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UpgradeGridComponent } from './components/upgrade-grid/upgrade-grid.com
     PowerupRowComponent,
     UpgradeCardComponent,
     UpgradeGridComponent,
+    AchievementListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,20 +1,6 @@
 <div>
   <h2>Achieved</h2>
-  <ul>
-    <li class="relative h-10" *ngFor="let achievement of achievements">
-      <i class="fas fa-briefcase absolute-middle"></i>
-      <span class="absolute-middle ml-8">{{
-        achievementMap[achievement].displayName
-      }}</span>
-    </li>
-  </ul>
+  <app-achievement-list [achievements]="achievements"></app-achievement-list>
   <h2>Unachieved</h2>
-  <ul>
-    <li class="relative h-10" *ngFor="let achievement of unachieved">
-      <i class="fas fa-briefcase absolute-middle"></i>
-      <span class="absolute-middle ml-8">{{
-        achievementMap[achievement].displayName
-      }}</span>
-    </li>
-  </ul>
+  <app-achievement-list [achievements]="unachieved"></app-achievement-list>
 </div>

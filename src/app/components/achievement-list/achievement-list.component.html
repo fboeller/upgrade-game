@@ -1,0 +1,8 @@
+<ul>
+  <li class="relative h-10" *ngFor="let achievement of achievements">
+    <i class="fas fa-briefcase absolute-middle"></i>
+    <span class="absolute-middle ml-8">{{
+      achievementMap[achievement].displayName
+    }}</span>
+  </li>
+</ul>
