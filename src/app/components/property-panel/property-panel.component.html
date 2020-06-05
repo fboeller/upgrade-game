@@ -1,12 +1,14 @@
-<h2 class="text-xl mb-2">{{ title }}</h2>
-<div *ngIf="properties.length > 0" class="grid grid-cols-1 gap-8">
-  <app-property-row
-    *ngFor="let property of properties"
-    [propertyName]="property"
-    [level]="level(property) | async"
-    [upgradePossible]="upgradePossible(property) | async"
-    [upgradeConditions]="unfulfiledUpgradeCondition(property) | async"
-    (upgrade)="upgrade(property)"
-    (visibleFundsEffect)="visibleFundsEffect.emit($event)"
-  ></app-property-row>
+<div class="p-4">
+  <h2 class="text-xl mb-2">{{ title }}</h2>
+  <div *ngIf="properties.length > 0" class="grid grid-cols-1 gap-8">
+    <app-property-row
+      *ngFor="let property of properties"
+      [propertyName]="property"
+      [level]="level(property) | async"
+      [upgradePossible]="upgradePossible(property) | async"
+      [upgradeConditions]="unfulfiledUpgradeCondition(property) | async"
+      (upgrade)="upgrade(property)"
+      (visibleFundsEffect)="visibleFundsEffect.emit($event)"
+    ></app-property-row>
+  </div>
 </div>

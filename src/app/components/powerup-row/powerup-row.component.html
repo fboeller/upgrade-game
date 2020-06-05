@@ -1,8 +1,23 @@
-<div>
-  <div>{{ powerupMap[powerup].displayName }}</div>
-  <div>
-    <a (click)="buy()">{{ powerupMap[powerup].actionText }}</a>
+<div class="relative h-40 w-40 p-4 rounded-lg shadow-lg">
+  <h2 class="text-lg mb-2">{{ powerupMap[powerup].displayName }}</h2>
+  <div class="grid grid-cols-2 gap-2 mb-2">
+    <div>
+      <label class="text-gray-600 text-sm">Cost</label>
+      <p>{{ powerupMap[powerup].cost }}$</p>
+    </div>
+    <div>
+      <label class="text-gray-600 text-sm">Duration</label>
+      <p>{{ powerupMap[powerup].duration }}ms</p>
+    </div>
   </div>
-  <div>{{ powerupMap[powerup].cost }}$</div>
-  <div>{{ powerupMap[powerup].duration }}ms</div>
+  <div
+    class="absolute left-0 bottom-0 mb-2 flex flex-nowrap justify-end w-full"
+  >
+    <button
+      class="bg-primary rounded-lg px-4 py-2 text-white uppercase mr-2"
+      (click)="buy()"
+    >
+      {{ powerupMap[powerup].actionText }}
+    </button>
+  </div>
 </div>
