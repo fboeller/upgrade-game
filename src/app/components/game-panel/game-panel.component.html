@@ -1,4 +1,4 @@
-<div>
+<div class="relative">
   <app-funds-panel
     [funds]="funds"
     [fundsEffect]="visibleFundsEffect"
@@ -38,4 +38,8 @@
     *ngIf="availableBusinessProperties.length > 0"
     [timeActive]="timeActive"
   ></app-time-control-panel>
+  <app-active-boosts-list
+    class="absolute bottom-0 right-0 m-4"
+    [activeBoosts]="activeBoosts"
+  ></app-active-boosts-list>
 </div>

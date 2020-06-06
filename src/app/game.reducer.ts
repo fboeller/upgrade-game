@@ -55,7 +55,7 @@ const stateReducer0 = createReducer(
     ...state,
     powerups: {
       ...state.powerups,
-      [powerup]: Math.max(0, PowerupSelectors.powerup(state, { powerup }) - 1),
+      [powerup]: PowerupSelectors.powerup(state, { powerup }) - 1 || undefined,
     },
   }))
 );

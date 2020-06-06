@@ -24,6 +24,7 @@ import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.com
 import { UpgradeGridComponent } from './components/upgrade-grid/upgrade-grid.component';
 import { AchievementListComponent } from './components/achievement-list/achievement-list.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { ActiveBoostsListComponent } from './components/active-boosts-list/active-boosts-list.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     UpgradeGridComponent,
     AchievementListComponent,
     ProgressBarComponent,
+    ActiveBoostsListComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { Selectors, selectGameState } from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
 import { powerups } from 'types/powerup.type';
 import { Upgrade } from 'types/upgrade.type';
+import { selectPowerups } from 'selectors/powerup.selectors';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
   availableBusinessProperties$: Observable<Property[]>;
   timeActive$: Observable<boolean>;
   achievements$: Observable<string[]>;
+  activeBoosts$: Observable<{ [powerup: string]: number }>;
   powerups = powerups;
 
   ngOnInit() {
@@ -40,6 +42,10 @@ export class AppComponent implements OnInit {
     this.achievements$ = this.store.pipe(
       select(selectGameState),
       map((state) => state.achievements)
+    );
+    this.activeBoosts$ = this.store.pipe(
+      select(selectGameState),
+      select(selectPowerups)
     );
   }
 }

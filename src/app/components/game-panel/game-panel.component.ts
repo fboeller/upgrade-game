@@ -20,6 +20,7 @@ export class GamePanelComponent implements OnInit {
   @Input() availablePersonalProperties: Property[];
   @Input() availableBusinessProperties: Property[];
   @Input() timeActive: boolean;
+  @Input() activeBoosts: { [powerup: string]: number };
   @Input() powerups: Powerup[];
 
   visibleFundsEffect: number;
