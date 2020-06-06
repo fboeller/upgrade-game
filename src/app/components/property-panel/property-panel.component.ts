@@ -7,7 +7,7 @@ import { Property } from 'types/property.type';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-personal-panel',
+  selector: 'app-property-panel',
   templateUrl: './property-panel.component.html',
 })
 export class PropertyPanelComponent implements OnInit {

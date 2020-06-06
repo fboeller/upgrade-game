@@ -19,20 +19,20 @@
     *ngIf="upgrades.length > 0"
     [upgrades]="upgrades"
   ></app-upgrade-grid>
-  <app-personal-panel
+  <app-property-panel
     class="w-full"
     *ngIf="availablePersonalProperties.length > 0"
     title="Personal"
     [properties]="availablePersonalProperties"
     (visibleFundsEffect)="visibleFundsEffect = $event"
-  ></app-personal-panel>
-  <app-personal-panel
+  ></app-property-panel>
+  <app-property-panel
     class="w-full"
     *ngIf="availableBusinessProperties.length > 0"
     title="Business"
     [properties]="availableBusinessProperties"
     (visibleFundsEffect)="visibleFundsEffect = $event"
-  ></app-personal-panel>
+  ></app-property-panel>
   <app-time-control-panel
     class="w-full"
     *ngIf="availableBusinessProperties.length > 0"
