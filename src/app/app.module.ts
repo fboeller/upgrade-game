@@ -9,7 +9,7 @@ import { PropertyPanelComponent } from './components/property-panel/property-pan
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { stateReducer } from './actions/game.actions';
+import { stateReducer } from './game.actions';
 import { AchievementEffects } from './effects/achievement.effects';
 import { IncomeEffects } from './effects/income.effects';
 import { PropertyRowComponent } from './components/property-row/property-row.component';

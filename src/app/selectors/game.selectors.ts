@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { AppState } from 'actions/game.actions';
+import { AppState } from 'src/app/game.actions';
 import {
   every,
   toPairs,

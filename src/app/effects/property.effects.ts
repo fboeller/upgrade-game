@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select, createSelector } from '@ngrx/store';
-import { AppState, propertyRevealed } from 'actions/game.actions';
+import { AppState, propertyRevealed } from 'src/app/game.actions';
 import { createEffect } from '@ngrx/effects';
 import { from } from 'rxjs';
 import { flatMap, filter, first, map } from 'rxjs/operators';

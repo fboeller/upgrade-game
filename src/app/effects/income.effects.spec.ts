@@ -5,7 +5,7 @@ import { marbles } from 'rxjs-marbles/jasmine';
 import { initialState } from 'types/game-state.type';
 import { Actions } from '@ngrx/effects';
 import { IncomeEffects } from './income.effects';
-import { work, income } from 'actions/game.actions';
+import { work, income } from 'src/app/game.actions';
 
 describe('IncomeEffects', () => {
   let effects: IncomeEffects;

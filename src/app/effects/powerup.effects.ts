@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { activatePowerup, deactivatePowerup } from 'actions/game.actions';
+import { activatePowerup, deactivatePowerup } from 'src/app/game.actions';
 import { map, delay, flatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { createEffect, Actions, ofType } from '@ngrx/effects';

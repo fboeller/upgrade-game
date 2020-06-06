@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { AppState } from 'actions/game.actions';
+import { AppState } from 'src/app/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
 import { powerups } from 'types/powerup.type';

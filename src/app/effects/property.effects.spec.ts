@@ -3,7 +3,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { TestBed, async } from '@angular/core/testing';
 import { marbles } from 'rxjs-marbles/jasmine';
 import { initialState } from 'types/game-state.type';
-import { propertyRevealed } from 'actions/game.actions';
+import { propertyRevealed } from 'src/app/game.actions';
 
 describe('PropertyEffects', () => {
   let effects: PropertyEffects;

@@ -1,5 +1,5 @@
 import { GameState } from 'types/game-state.type';
-import { work } from 'actions/game.actions';
+import { work } from 'src/app/game.actions';
 import { Selectors } from 'selectors/game.selectors';
 
 export type Achievement =

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select, Action } from '@ngrx/store';
-import { AppState, achievementUnlocked } from 'actions/game.actions';
+import { AppState, achievementUnlocked } from 'src/app/game.actions';
 import { map, flatMap, scan, filter, first } from 'rxjs/operators';
 import { createEffect, Actions } from '@ngrx/effects';
 import { achievementMap, achievements } from 'types/achievement.type';

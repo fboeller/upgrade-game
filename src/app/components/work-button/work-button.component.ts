@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { AppState, work } from 'actions/game.actions';
+import { AppState, work } from 'src/app/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
 
 @Component({

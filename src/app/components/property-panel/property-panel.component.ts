@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState, upgrade } from 'actions/game.actions';
+import { AppState, upgrade } from 'src/app/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
 import { map } from 'rxjs/operators';

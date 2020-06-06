@@ -3,7 +3,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { marbles } from 'rxjs-marbles/jasmine';
-import { achievementUnlocked, work } from 'actions/game.actions';
+import { achievementUnlocked, work } from 'src/app/game.actions';
 import { initialState } from 'types/game-state.type';
 import { Actions } from '@ngrx/effects';
 
