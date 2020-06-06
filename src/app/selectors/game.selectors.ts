@@ -20,6 +20,7 @@ import {
   businessProperties,
 } from 'types/property.type';
 import { Upgrade } from 'types/upgrade.type';
+import { powerupMap } from 'types/powerup.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
@@ -105,7 +106,10 @@ export class Selectors {
         property: 'workEfficiency',
       });
       const coffeeCount = Selectors.powerup(state, { powerup: 'coffee' });
-      return workEfficiency / Math.pow(2, coffeeCount);
+      return powerupMap.coffee.effect.workEfficiency(
+        workEfficiency,
+        coffeeCount
+      );
     }
   );
 

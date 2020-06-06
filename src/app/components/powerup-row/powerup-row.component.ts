@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { powerupMap, Powerup } from 'types/powerup.type';
 import { AppState, activatePowerup } from 'actions/game.actions';
 import { Store } from '@ngrx/store';
+import { propertyTypes } from 'types/property-type.type';
 
 @Component({
   selector: 'app-powerup-row',
@@ -12,7 +13,9 @@ export class PowerupRowComponent implements OnInit {
 
   @Input() powerup: Powerup;
 
+  objectKeys = Object.keys;
   powerupMap = powerupMap;
+  propertyTypes = propertyTypes;
 
   ngOnInit() {}
 
