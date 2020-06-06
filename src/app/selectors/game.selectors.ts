@@ -11,6 +11,7 @@ import {
   intersection,
   some,
   filter,
+  reduce,
 } from 'lodash/fp';
 import { propertyTypes } from 'types/property-type.type';
 import { GameState } from 'types/game-state.type';
@@ -20,7 +21,7 @@ import {
   businessProperties,
 } from 'types/property.type';
 import { Upgrade } from 'types/upgrade.type';
-import { powerupMap } from 'types/powerup.type';
+import { powerupMap, Powerup } from 'types/powerup.type';
 
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
@@ -99,17 +100,12 @@ export class Selectors {
       ])(properties)
   );
 
-  static readonly boostedWorkEfficiency = createSelector(
+  static readonly boostedValue = createSelector(
     selectGameState,
-    (state: GameState) => {
-      const workEfficiency = Selectors.value(state, {
-        property: 'workEfficiency',
-      });
-      const coffeeCount = Selectors.powerup(state, { powerup: 'coffee' });
-      return powerupMap.coffee.effect.workEfficiency(
-        workEfficiency,
-        coffeeCount
-      );
+    (state: GameState, { property }) => {
+      const value = Selectors.value(state, { property });
+      const boost = Selectors.boosts(state, { property });
+      return boost(value);
     }
   );
 
@@ -176,4 +172,21 @@ export class Selectors {
         fromPairs,
       ])(state.properties)
   );
+
+  static readonly boost = (state: GameState, { powerup, property }) => {
+    const count = Selectors.powerup(state, { powerup });
+    return powerupMap[powerup].effect[property](count) || ((value) => value);
+  };
+
+  static readonly boosts = (state: GameState, { property }) => {
+    return flow([
+      selectPowerups,
+      keys,
+      map((powerup) => Selectors.boost(state, { powerup, property })),
+      reduce(
+        (acc, f: (value: number) => number) => (value) => f(acc(value)),
+        (value: number) => value
+      ),
+    ])(state);
+  };
 }

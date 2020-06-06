@@ -7,7 +7,7 @@ export interface PowerupType {
   actionText: string;
   duration: number;
   cost: number;
-  effect: { [property: string]: (value: number, count: number) => number };
+  effect: { [property: string]: (count: number) => (value: number) => number };
 }
 
 export const powerupMap: { [key: string]: PowerupType } = {
@@ -17,7 +17,7 @@ export const powerupMap: { [key: string]: PowerupType } = {
     duration: 5000,
     cost: 5,
     effect: {
-      workEfficiency: (value, count) => value / Math.pow(2, count),
+      workEfficiency: (count) => (value) => value / Math.pow(2, count),
     },
   },
 };

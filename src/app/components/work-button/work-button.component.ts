@@ -22,7 +22,7 @@ export class WorkButtonComponent implements OnInit {
 
   ngOnInit() {
     this.animationDuration$ = this.store.pipe(
-      select(Selectors.boostedWorkEfficiency)
+      select(Selectors.boostedValue, { property: 'workEfficiency' })
     );
     this.workActive$ = this.store.pipe(select('gameState', 'workActive'));
     const workEffect$ = this.store.pipe(
