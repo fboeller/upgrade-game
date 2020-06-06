@@ -11,7 +11,6 @@ import {
   intersection,
   some,
   filter,
-  reduce,
 } from 'lodash/fp';
 import { propertyTypes } from 'types/property-type.type';
 import { GameState } from 'types/game-state.type';
@@ -21,11 +20,10 @@ import {
   businessProperties,
 } from 'types/property.type';
 import { Upgrade } from 'types/upgrade.type';
-import { powerupMap, Powerup } from 'types/powerup.type';
+import { PowerupSelectors } from './powerup.selectors';
 
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
-export const selectPowerups = (state: GameState) => state.powerups;
 export const selectFunds = (state: GameState) => state.funds;
 
 export const selectUpgradeConditions = (
@@ -74,11 +72,6 @@ export class Selectors {
       intersection(keys(properties), businessProperties) as Property[]
   );
 
-  static readonly powerup = createSelector(
-    selectPowerups,
-    (powerups, { powerup }) => powerups?.[powerup] || 0
-  );
-
   static readonly sufficientFunds = createSelector(
     selectFunds,
     Selectors.upgradeCost,
@@ -104,7 +97,7 @@ export class Selectors {
     selectGameState,
     (state: GameState, { property }) => {
       const value = Selectors.value(state, { property });
-      const boost = Selectors.boosts(state, { property });
+      const boost = PowerupSelectors.boosts(state, { property });
       return boost(value);
     }
   );
@@ -172,21 +165,4 @@ export class Selectors {
         fromPairs,
       ])(state.properties)
   );
-
-  static readonly boost = (state: GameState, { powerup, property }) => {
-    const count = Selectors.powerup(state, { powerup });
-    return powerupMap[powerup].effect[property](count) || ((value) => value);
-  };
-
-  static readonly boosts = (state: GameState, { property }) => {
-    return flow([
-      selectPowerups,
-      keys,
-      map((powerup) => Selectors.boost(state, { powerup, property })),
-      reduce(
-        (acc, f: (value: number) => number) => (value) => f(acc(value)),
-        (value: number) => value
-      ),
-    ])(state);
-  };
 }

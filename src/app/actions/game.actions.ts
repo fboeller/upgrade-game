@@ -5,6 +5,7 @@ import { GameState, initialState } from 'types/game-state.type';
 import { Achievement } from 'types/achievement.type';
 import { Powerup } from 'types/powerup.type';
 import { Selectors } from 'selectors/game.selectors';
+import { PowerupSelectors } from 'selectors/powerup.selectors';
 
 export interface AppState {
   gameState: GameState;
@@ -71,14 +72,14 @@ const stateReducer0 = createReducer(
     ...state,
     powerups: {
       ...state.powerups,
-      [powerup]: Selectors.powerup(state, { powerup }) + 1,
+      [powerup]: PowerupSelectors.powerup(state, { powerup }) + 1,
     },
   })),
   on(deactivatePowerup, (state, { powerup }) => ({
     ...state,
     powerups: {
       ...state.powerups,
-      [powerup]: Math.max(0, Selectors.powerup(state, { powerup }) - 1),
+      [powerup]: Math.max(0, PowerupSelectors.powerup(state, { powerup }) - 1),
     },
   }))
 );
