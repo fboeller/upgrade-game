@@ -8,6 +8,7 @@ import { WorkButtonComponent } from 'components/work-button/work-button.componen
 import { personalProperties, businessProperties } from 'types/property.type';
 import { BoostPanelComponent } from 'components/boost-panel/boost-panel.component';
 import { MockComponent } from 'ng-mocks';
+import { ActiveBoostsListComponent } from 'components/active-boosts-list/active-boosts-list.component';
 
 describe('GamePanelComponent', () => {
   let component: GamePanelComponent;
@@ -22,6 +23,7 @@ describe('GamePanelComponent', () => {
         MockComponent(PropertyPanelComponent),
         MockComponent(TimeControlPanelComponent),
         MockComponent(BoostPanelComponent),
+        MockComponent(ActiveBoostsListComponent),
       ],
     }).compileComponents();
   }));
@@ -33,9 +35,11 @@ describe('GamePanelComponent', () => {
 
   it('should create', () => {
     component.funds = 10;
+    component.upgrades = [];
     component.timeActive = true;
     component.availablePersonalProperties = personalProperties;
     component.availableBusinessProperties = businessProperties;
+    component.activeBoosts = {};
     component.boosts = [];
     fixture.detectChanges();
     expect(component).toBeTruthy();

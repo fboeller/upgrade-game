@@ -4,6 +4,8 @@ import { WorkButtonComponent } from './work-button.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from 'types/game-state.type';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MockComponent } from 'ng-mocks';
+import { ProgressBarComponent } from 'components/progress-bar/progress-bar.component';
 
 describe('WorkButtonComponent', () => {
   let component: WorkButtonComponent;
@@ -12,7 +14,7 @@ describe('WorkButtonComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [WorkButtonComponent],
+      declarations: [WorkButtonComponent, MockComponent(ProgressBarComponent)],
       providers: [
         provideMockStore({ initialState: { gameState: initialState } }),
       ],
