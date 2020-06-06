@@ -99,7 +99,7 @@ export class Selectors {
       ])(properties)
   );
 
-  static readonly workDuration = createSelector(
+  static readonly boostedWorkEfficiency = createSelector(
     selectGameState,
     (state: GameState) => {
       const workEfficiency = Selectors.value(state, {

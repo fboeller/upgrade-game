@@ -14,7 +14,7 @@ export class IncomeEffects {
     this.actions$.pipe(
       ofType(work),
       withLatestFrom(
-        this.store.pipe(select(Selectors.workDuration)),
+        this.store.pipe(select(Selectors.boostedWorkEfficiency)),
         (_, workDuration) => workDuration
       ),
       flatMap((workDuration) => of({}).pipe(delay(workDuration))),

@@ -1,24 +1,16 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable, Subject, interval } from 'rxjs';
-import {
-  withLatestFrom,
-  flatMap,
-  take,
-  endWith,
-  map,
-  share,
-} from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { withLatestFrom } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState, work } from 'actions/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
-import { ofType, Actions } from '@ngrx/effects';
 
 @Component({
   selector: 'app-work-button',
   templateUrl: './work-button.component.html',
 })
 export class WorkButtonComponent implements OnInit {
-  constructor(private store: Store<AppState>, private actions$: Actions) {}
+  constructor(private store: Store<AppState>) {}
 
   @Output() visibleFundsEffect: EventEmitter<number> = new EventEmitter();
 
@@ -29,7 +21,9 @@ export class WorkButtonComponent implements OnInit {
   hoverActive$: Subject<boolean> = new Subject();
 
   ngOnInit() {
-    this.animationDuration$ = this.store.pipe(select(Selectors.workDuration));
+    this.animationDuration$ = this.store.pipe(
+      select(Selectors.boostedWorkEfficiency)
+    );
     this.workActive$ = this.store.pipe(select('gameState', 'workActive'));
     const workEffect$ = this.store.pipe(
       select(selectGameState),
