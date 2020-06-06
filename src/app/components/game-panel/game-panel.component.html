@@ -9,11 +9,11 @@
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-work-button>
   </div>
-  <app-powerup-panel
+  <app-boost-panel
     class="w-full"
-    *ngIf="powerups.length > 0"
-    [powerups]="powerups"
-  ></app-powerup-panel>
+    *ngIf="boosts.length > 0"
+    [boosts]="boosts"
+  ></app-boost-panel>
   <app-upgrade-grid
     class="w-full"
     *ngIf="upgrades.length > 0"

@@ -54,13 +54,13 @@ describe('IncomeEffects', () => {
   );
 
   it(
-    'should produce income 500ms if the coffee powerup is active',
+    'should produce income 500ms if the coffee boost is active',
     marbles((m) => {
       actions$ = m.hot('a', { a: work() });
       mockStore.setState({
         gameState: {
           properties: { workEfficiency: 0 },
-          powerups: { coffee: 1 },
+          boosts: { coffee: 1 },
         },
       });
       m.expect(effects.workIncome$).toBeObservable('500ms b', {
@@ -70,13 +70,13 @@ describe('IncomeEffects', () => {
   );
 
   it(
-    'should produce income in 400ms if the coffee powerup is active and the work efficiency is at level 1',
+    'should produce income in 400ms if the coffee boost is active and the work efficiency is at level 1',
     marbles((m) => {
       actions$ = m.hot('a', { a: work() });
       mockStore.setState({
         gameState: {
           properties: { workEfficiency: 1 },
-          powerups: { coffee: 1 },
+          boosts: { coffee: 1 },
         },
       });
       m.expect(effects.workIncome$).toBeObservable('400ms b', {

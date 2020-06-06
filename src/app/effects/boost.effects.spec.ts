@@ -1,19 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { marbles } from 'rxjs-marbles/jasmine';
-import { activatePowerup, deactivatePowerup } from 'src/app/game.actions';
+import { activateBoost, deactivateBoost } from 'src/app/game.actions';
 import { Actions } from '@ngrx/effects';
-import { PowerupEffects } from './powerup.effects';
+import { BoostEffects } from './boost.effects';
 
-describe('PowerupEffects', () => {
-  let effects: PowerupEffects;
+describe('BoostEffects', () => {
+  let effects: BoostEffects;
   let actions$: Actions;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        PowerupEffects,
+        BoostEffects,
         provideMockStore(),
         provideMockActions(() => actions$),
       ],
@@ -21,14 +21,14 @@ describe('PowerupEffects', () => {
   }));
 
   it(
-    'should deactivate the powerup again after the duration',
+    'should deactivate the boost again after the duration',
     marbles((m) => {
       actions$ = m.hot('a 2000ms a', {
-        a: activatePowerup({ powerup: 'coffee' }),
+        a: activateBoost({ boost: 'coffee' }),
       });
-      effects = TestBed.inject(PowerupEffects);
+      effects = TestBed.inject(BoostEffects);
       m.expect(effects.deactivation$).toBeObservable('5000ms b 2000ms b', {
-        b: deactivatePowerup({ powerup: 'coffee' }),
+        b: deactivateBoost({ boost: 'coffee' }),
       });
     })
   );

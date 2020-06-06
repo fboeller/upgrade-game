@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Property } from 'types/property.type';
 import { GameState } from 'types/game-state.type';
 import { Achievement } from 'types/achievement.type';
-import { Powerup } from 'types/powerup.type';
+import { Boost } from 'types/boost.type';
 
 export interface AppState {
   gameState: GameState;
@@ -27,11 +27,11 @@ export const achievementUnlocked = createAction(
   '[Achievement] Unlocked',
   props<{ achievement: Achievement }>()
 );
-export const activatePowerup = createAction(
-  '[Powerup] Activated',
-  props<{ powerup: Powerup }>()
+export const activateBoost = createAction(
+  '[Boost] Activated',
+  props<{ boost: Boost }>()
 );
-export const deactivatePowerup = createAction(
-  '[Powerup] Deactivated',
-  props<{ powerup: Powerup }>()
+export const deactivateBoost = createAction(
+  '[Boost] Deactivated',
+  props<{ boost: Boost }>()
 );

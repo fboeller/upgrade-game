@@ -6,7 +6,7 @@ export interface GameState {
   workActive: boolean;
   properties: { [property: string]: number };
   achievements: Achievement[];
-  powerups: { [powerup: string]: number };
+  boosts: { [boost: string]: number };
 }
 
 export const initialState: GameState = {
@@ -15,5 +15,5 @@ export const initialState: GameState = {
   workActive: false,
   properties: {},
   achievements: [],
-  powerups: {},
+  boosts: {},
 };

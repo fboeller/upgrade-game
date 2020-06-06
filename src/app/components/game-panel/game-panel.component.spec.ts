@@ -6,7 +6,7 @@ import { PropertyPanelComponent } from 'components/property-panel/property-panel
 import { TimeControlPanelComponent } from 'components/time-control-panel/time-control-panel.component';
 import { WorkButtonComponent } from 'components/work-button/work-button.component';
 import { personalProperties, businessProperties } from 'types/property.type';
-import { PowerupPanelComponent } from 'components/powerup-panel/powerup-panel.component';
+import { BoostPanelComponent } from 'components/boost-panel/boost-panel.component';
 import { MockComponent } from 'ng-mocks';
 
 describe('GamePanelComponent', () => {
@@ -21,7 +21,7 @@ describe('GamePanelComponent', () => {
         MockComponent(WorkButtonComponent),
         MockComponent(PropertyPanelComponent),
         MockComponent(TimeControlPanelComponent),
-        MockComponent(PowerupPanelComponent),
+        MockComponent(BoostPanelComponent),
       ],
     }).compileComponents();
   }));
@@ -36,7 +36,7 @@ describe('GamePanelComponent', () => {
     component.timeActive = true;
     component.availablePersonalProperties = personalProperties;
     component.availableBusinessProperties = businessProperties;
-    component.powerups = [];
+    component.boosts = [];
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });

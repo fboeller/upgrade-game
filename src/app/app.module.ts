@@ -17,9 +17,9 @@ import { AchievementPanelComponent } from './components/achievement-panel/achiev
 import { FundsPanelComponent } from './components/funds-panel/funds-panel.component';
 import { GamePanelComponent } from './components/game-panel/game-panel.component';
 import { PropertyEffects } from 'effects/property.effects';
-import { PowerupPanelComponent } from './components/powerup-panel/powerup-panel.component';
-import { PowerupRowComponent } from './components/powerup-row/powerup-row.component';
-import { PowerupEffects } from 'effects/powerup.effects';
+import { BoostPanelComponent } from './components/boost-panel/boost-panel.component';
+import { BoostCardComponent } from './components/boost-card/boost-card.component';
+import { BoostEffects } from 'effects/boost.effects';
 import { UpgradeCardComponent } from './components/upgrade-card/upgrade-card.component';
 import { UpgradeGridComponent } from './components/upgrade-grid/upgrade-grid.component';
 import { AchievementListComponent } from './components/achievement-list/achievement-list.component';
@@ -36,8 +36,8 @@ import { ActiveBoostsListComponent } from './components/active-boosts-list/activ
     AchievementPanelComponent,
     FundsPanelComponent,
     GamePanelComponent,
-    PowerupPanelComponent,
-    PowerupRowComponent,
+    BoostPanelComponent,
+    BoostCardComponent,
     UpgradeCardComponent,
     UpgradeGridComponent,
     AchievementListComponent,
@@ -52,7 +52,7 @@ import { ActiveBoostsListComponent } from './components/active-boosts-list/activ
       IncomeEffects,
       AchievementEffects,
       PropertyEffects,
-      PowerupEffects,
+      BoostEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

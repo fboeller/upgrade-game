@@ -8,8 +8,8 @@ import { moduleMetadata } from '@storybook/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from 'types/game-state.type';
 import { personalProperties, businessProperties } from 'types/property.type';
-import { PowerupPanelComponent } from 'components/powerup-panel/powerup-panel.component';
-import { PowerupRowComponent } from 'components/powerup-row/powerup-row.component';
+import { BoostPanelComponent } from 'components/boost-panel/boost-panel.component';
+import { BoostCardComponent } from 'components/boost-card/boost-card.component';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,8 +25,8 @@ export default {
         PropertyPanelComponent,
         PropertyRowComponent,
         TimeControlPanelComponent,
-        PowerupPanelComponent,
-        PowerupRowComponent,
+        BoostPanelComponent,
+        BoostCardComponent,
         WorkButtonComponent,
       ],
       providers: [
@@ -44,6 +44,6 @@ export const full = () => ({
     timeActive: true,
     availablePersonalProperties: personalProperties,
     availableBusinessProperties: businessProperties,
-    powerups: [],
+    boosts: [],
   },
 });

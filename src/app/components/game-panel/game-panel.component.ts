@@ -4,7 +4,7 @@ import {
   personalProperties,
   businessProperties,
 } from 'types/property.type';
-import { Powerup } from 'types/powerup.type';
+import { Boost } from 'types/boost.type';
 import { Upgrade } from 'types/upgrade.type';
 
 @Component({
@@ -20,8 +20,8 @@ export class GamePanelComponent implements OnInit {
   @Input() availablePersonalProperties: Property[];
   @Input() availableBusinessProperties: Property[];
   @Input() timeActive: boolean;
-  @Input() activeBoosts: { [powerup: string]: number };
-  @Input() powerups: Powerup[];
+  @Input() activeBoosts: { [boost: string]: number };
+  @Input() boosts: Boost[];
 
   visibleFundsEffect: number;
 

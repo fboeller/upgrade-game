@@ -1,0 +1,9 @@
+<div class="p-4">
+  <h5 class="text-xl mb-2">Boosts</h5>
+  <div class="grid grid-cols-6 gap-4">
+    <app-boost-card
+      [boost]="boost"
+      *ngFor="let boost of boosts"
+    ></app-boost-card>
+  </div>
+</div>

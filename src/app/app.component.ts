@@ -5,9 +5,9 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/game.actions';
 import { Selectors, selectGameState } from 'selectors/game.selectors';
 import { Property } from 'types/property.type';
-import { powerups } from 'types/powerup.type';
+import { boosts } from 'types/boost.type';
 import { Upgrade } from 'types/upgrade.type';
-import { selectPowerups } from 'selectors/powerup.selectors';
+import { selectBoosts } from 'selectors/boost.selectors';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
   availableBusinessProperties$: Observable<Property[]>;
   timeActive$: Observable<boolean>;
   achievements$: Observable<string[]>;
-  activeBoosts$: Observable<{ [powerup: string]: number }>;
-  powerups = powerups;
+  activeBoosts$: Observable<{ [boost: string]: number }>;
+  boosts = boosts;
 
   ngOnInit() {
     this.funds$ = this.store.pipe(select('gameState', 'funds'));
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
     );
     this.activeBoosts$ = this.store.pipe(
       select(selectGameState),
-      select(selectPowerups)
+      select(selectBoosts)
     );
   }
 }

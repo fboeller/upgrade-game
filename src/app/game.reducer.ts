@@ -8,11 +8,11 @@ import {
   upgrade,
   propertyRevealed,
   achievementUnlocked,
-  activatePowerup,
-  deactivatePowerup,
+  activateBoost,
+  deactivateBoost,
 } from './game.actions';
 import { Selectors } from 'selectors/game.selectors';
-import { PowerupSelectors } from 'selectors/powerup.selectors';
+import { BoostSelectors } from 'selectors/boost.selectors';
 import { concat } from 'lodash/fp';
 
 const stateReducer0 = createReducer(
@@ -44,18 +44,18 @@ const stateReducer0 = createReducer(
     ...state,
     achievements: concat(achievement, state.achievements),
   })),
-  on(activatePowerup, (state, { powerup }) => ({
+  on(activateBoost, (state, { boost }) => ({
     ...state,
-    powerups: {
-      ...state.powerups,
-      [powerup]: PowerupSelectors.powerup(state, { powerup }) + 1,
+    boosts: {
+      ...state.boosts,
+      [boost]: BoostSelectors.count(state, { boost }) + 1,
     },
   })),
-  on(deactivatePowerup, (state, { powerup }) => ({
+  on(deactivateBoost, (state, { boost }) => ({
     ...state,
-    powerups: {
-      ...state.powerups,
-      [powerup]: PowerupSelectors.powerup(state, { powerup }) - 1 || undefined,
+    boosts: {
+      ...state.boosts,
+      [boost]: BoostSelectors.count(state, { boost }) - 1 || undefined,
     },
   }))
 );

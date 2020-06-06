@@ -4,10 +4,8 @@
     class="h-20 w-20 bg-primary rounded-full shadow-lg text-center text-white text-xl"
   >
     <span style="line-height: 5rem;"
-      >{{ activeBoosts[boost] }}x<i
-        class="fa fa-coffee"
-        [ngClass]="powerupMap[boost].icon"
-      ></i
-    ></span>
+      >{{ activeBoosts[boost] }}x
+      <i class="fa fa-coffee" [ngClass]="boostMap[boost].icon"></i>
+    </span>
   </div>
 </div>

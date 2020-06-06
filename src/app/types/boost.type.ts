@@ -1,8 +1,8 @@
-export type Powerup = 'coffee';
+export type Boost = 'coffee';
 
-export const powerups: Powerup[] = ['coffee'];
+export const boosts: Boost[] = ['coffee'];
 
-export interface PowerupType {
+export interface BoostType {
   displayName: string;
   actionText: string;
   icon: string;
@@ -11,7 +11,7 @@ export interface PowerupType {
   effect: { [property: string]: (count: number) => (value: number) => number };
 }
 
-export const powerupMap: { [key: string]: PowerupType } = {
+export const boostMap: { [key: string]: BoostType } = {
   coffee: {
     displayName: 'Coffee',
     actionText: 'Buy',

@@ -20,7 +20,7 @@ import {
   businessProperties,
 } from 'types/property.type';
 import { Upgrade } from 'types/upgrade.type';
-import { PowerupSelectors } from './powerup.selectors';
+import { BoostSelectors } from './boost.selectors';
 
 export const selectGameState = (state: AppState) => state.gameState;
 export const selectProperties = (state: GameState) => state.properties;
@@ -97,7 +97,7 @@ export class Selectors {
     selectGameState,
     (state: GameState, { property }) => {
       const value = Selectors.value(state, { property });
-      const boost = PowerupSelectors.boosts(state, { property });
+      const boost = BoostSelectors.boosts(state, { property });
       return boost(value);
     }
   );

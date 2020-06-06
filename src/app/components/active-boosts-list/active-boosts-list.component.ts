@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Powerup, powerupMap } from 'types/powerup.type';
+import { Boost, boostMap } from 'types/boost.type';
 import { keys, flow, filter } from 'lodash/fp';
 
 @Component({
@@ -8,17 +8,17 @@ import { keys, flow, filter } from 'lodash/fp';
   styleUrls: ['./active-boosts-list.component.styl'],
 })
 export class ActiveBoostsListComponent implements OnChanges {
-  @Input() activeBoosts: { [powerup: string]: number };
+  @Input() activeBoosts: { [boost: string]: number };
 
-  boostKeys: Powerup[];
-  powerupMap = powerupMap;
+  boostKeys: Boost[];
+  boostMap = boostMap;
 
   constructor() {}
 
   ngOnChanges() {
     this.boostKeys = flow([
       keys,
-      filter((boost: Powerup) => this.activeBoosts[boost] > 0),
-    ])(this.activeBoosts) as Powerup[];
+      filter((boost: Boost) => this.activeBoosts[boost] > 0),
+    ])(this.activeBoosts) as Boost[];
   }
 }

@@ -1,21 +1,19 @@
 <div class="relative h-64 w-40 p-4 rounded-lg shadow-lg">
-  <h2 class="text-lg mb-2">{{ powerupMap[powerup].displayName }}</h2>
+  <h2 class="text-lg mb-2">{{ boostMap[boost].displayName }}</h2>
   <div class="grid grid-cols-2 gap-2 mb-2">
     <div>
       <label class="text-gray-600 text-sm">Cost</label>
-      <p>{{ powerupMap[powerup].cost }}$</p>
+      <p>{{ boostMap[boost].cost }}$</p>
     </div>
     <div>
       <label class="text-gray-600 text-sm">Duration</label>
-      <p>{{ powerupMap[powerup].duration }}ms</p>
+      <p>{{ boostMap[boost].duration }}ms</p>
     </div>
   </div>
   <div>
     <label class="text-gray-600 text-sm">Effect</label>
     <ul>
-      <li
-        *ngFor="let affectedProperty of objectKeys(powerupMap[powerup].effect)"
-      >
+      <li *ngFor="let affectedProperty of objectKeys(boostMap[boost].effect)">
         {{ propertyTypes[affectedProperty].displayName }}
       </li>
     </ul>
@@ -27,7 +25,7 @@
       class="bg-primary rounded-lg px-4 py-2 text-white uppercase mr-2 disabled:opacity-75"
       (click)="buy()"
     >
-      {{ powerupMap[powerup].actionText }}
+      {{ boostMap[boost].actionText }}
     </button>
   </div>
 </div>
