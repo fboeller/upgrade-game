@@ -1,6 +1,9 @@
-<div class="grid grid-cols-6 gap-8 w-full m-4">
-  <app-upgrade-card
-    *ngFor="let upgrade of upgrades"
-    [upgrade]="upgrade"
-  ></app-upgrade-card>
+<div class="p-4">
+  <h2 class="text-xl mb-2">Upgrades</h2>
+  <div class="grid grid-cols-6 gap-8 w-full">
+    <app-upgrade-card
+      *ngFor="let upgrade of upgrades"
+      [upgrade]="upgrade"
+    ></app-upgrade-card>
+  </div>
 </div>

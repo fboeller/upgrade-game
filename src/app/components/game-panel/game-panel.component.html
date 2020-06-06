@@ -9,7 +9,16 @@
       (visibleFundsEffect)="visibleFundsEffect = $event"
     ></app-work-button>
   </div>
-  <app-upgrade-grid class="w-full" [upgrades]="upgrades"></app-upgrade-grid>
+  <app-powerup-panel
+    class="w-full"
+    *ngIf="powerups.length > 0"
+    [powerups]="powerups"
+  ></app-powerup-panel>
+  <app-upgrade-grid
+    class="w-full"
+    *ngIf="upgrades.length > 0"
+    [upgrades]="upgrades"
+  ></app-upgrade-grid>
   <app-personal-panel
     class="w-full"
     *ngIf="availablePersonalProperties.length > 0"
@@ -17,11 +26,6 @@
     [properties]="availablePersonalProperties"
     (visibleFundsEffect)="visibleFundsEffect = $event"
   ></app-personal-panel>
-  <app-powerup-panel
-    class="w-full"
-    *ngIf="powerups.length > 0"
-    [powerups]="powerups"
-  ></app-powerup-panel>
   <app-personal-panel
     class="w-full"
     *ngIf="availableBusinessProperties.length > 0"
