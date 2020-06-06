@@ -3,7 +3,10 @@
     class="relative h-10 hover:bg-gray-200 cursor-pointer"
     *ngFor="let achievement of achievements"
   >
-    <i class="fas fa-briefcase absolute-middle ml-2"></i>
+    <i
+      class="fas absolute-middle ml-2"
+      [ngClass]="achievementMap[achievement].icon"
+    ></i>
     <span class="absolute-middle ml-8">{{
       achievementMap[achievement].displayName
     }}</span>
